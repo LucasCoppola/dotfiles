@@ -1,22 +1,8 @@
-
 [
-	{
-		"key": "shift+oem_plus",
-		"command": "workbench.action.terminal.selectToPreviousCommand",
-		"when": "terminalFocus && terminalHasBeenCreated || terminalFocus && terminalProcessSupported"
-	},
 	{
 		"key": "ctrl+shift+up",
 		"command": "-workbench.action.terminal.selectToPreviousCommand",
 		"when": "terminalFocus && terminalHasBeenCreated || terminalFocus && terminalProcessSupported"
-	},
-	{
-		"key": "ctrl+shift+up",
-		"command": "editor.emmet.action.balanceOut"
-	},
-	{
-		"key": "ctrl+shift+down",
-		"command": "editor.emmet.action.balanceIn"
 	},
 	{
 		"key": "ctrl+shift+s",
@@ -37,6 +23,20 @@
 		"command": "-extension.vim_ctrl+j",
 		"when": "editorTextFocus && vim.active && vim.use<C-j> && !inDebugRepl"
 	},
+	{
+		"key": "ctrl+shift+r",
+		"command": "workbench.action.openRecent"
+	},
+	{
+		"key": "ctrl+r",
+		"command": "-workbench.action.openRecent"
+	},
+	{
+		"key": "ctrl+n",
+		"command": "-workbench.action.files.newUntitledFile"
+	},
+
+	// File Explorer
 	{
 		"command": "workbench.action.toggleSidebarVisibility",
 		"key": "ctrl+e"
@@ -76,35 +76,17 @@
 		"key": "d",
 		"when": "filesExplorerFocus && !inputFocus"
 	},
+
+	// Swap ctrl+d and ctrl+h to enable multicursor using ctrl+d
 	{
 		"command": "editor.action.addSelectionToNextFindMatch",
 		"key": "ctrl+d",
 		"when": "editorFocus"
 	},
 	{
-		"key": "ctrl+t",
-		"command": "workbench.action.terminal.new",
-		"when": "terminalProcessSupported || terminal.visible && terminalFocus"
-	},
-	{
-		"key": "ctrl+shift+`",
-		"command": "-workbench.action.terminal.new",
-		"when": "terminalProcessSupported || terminalWebExtensionContributedProfile"
-	},
-	{
-		"key": "ctrl+shift+v",
-		"command": "workbench.view.extension.learn-vim-container"
-	},
-
-	{
 		"key": "ctrl+h",
 		"command": "extension.vim_ctrl+h",
 		"when": "editorTextFocus && vim.active && vim.use<C-d> && !inDebugRepl"
-	},
-	{
-		"key": "ctrl+u",
-		"command": "extension.vim_ctrl+u",
-		"when": "editorTextFocus && vim.active && vim.use<C-u> && !inDebugRepl"
 	},
 	{
 		"key": "ctrl+h",
@@ -117,20 +99,21 @@
 		"when": "editorTextFocus && vim.active && vim.use<C-d> && !inDebugRepl"
 	},
 	{
-		"key": "ctrl+shift+a",
-		"command": "workbench.view.extension.aws-explorer"
+		"key": "ctrl+u",
+		"command": "extension.vim_ctrl+u",
+		"when": "editorTextFocus && vim.active && vim.use<C-u> && !inDebugRepl"
+	},
+
+	// Terminal
+	{
+		"key": "ctrl+t",
+		"command": "workbench.action.terminal.new",
+		"when": "terminalProcessSupported || terminal.visible && terminalFocus"
 	},
 	{
-		"key": "ctrl+shift+r",
-		"command": "workbench.action.openRecent"
-	},
-	{
-		"key": "ctrl+r",
-		"command": "-workbench.action.openRecent"
-	},
-	{
-		"key": "ctrl+n",
-		"command": "-workbench.action.files.newUntitledFile"
+		"key": "ctrl+shift+`",
+		"command": "-workbench.action.terminal.new",
+		"when": "terminalProcessSupported || terminalWebExtensionContributedProfile"
 	},
 	{
 		"key": "alt+j",
@@ -178,11 +161,14 @@
 		"when": "terminalFocus && terminalHasBeenCreated && !terminalEditorFocus || terminalFocus && terminalProcessSupported && !terminalEditorFocus"
 	},
 
+	// Idk
 	{
 		"key": "ctrl+d",
 		"command": "pallette",
 		"when": "terminalFocus && terminalHasBeenCreated && !terminalEditorFocus || terminalFocus && terminalProcessSupported && !terminalEditorFocus"
 	},
+
+	// Navigate next and previous in quick open
 	{
 		"key": "ctrl+n",
 		"command": "workbench.action.quickOpenNavigateNext",
@@ -204,19 +190,18 @@
 		"command": "-workbench.action.quickOpen"
 	},
 	{
-		"key": "ctrl+down",
-		"command": "spotify.volumeDown"
+		"key": "ctrl+b",
+		"command": "-workbench.action.toggleSidebarVisibility"
+	},
+
+	{
+		"key": "ctrl+y",
+		"command": "editor.action.inlineSuggest.commit",
+		"when": "inlineSuggestionHasIndentationLessThanTabSize && inlineSuggestionVisible && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible"
 	},
 	{
-		"key": "ctrl+up",
-		"command": "spotify.volumeUp"
-	},
-	{
-		"key": "ctrl+right",
-		"command": "spotify.next"
-	},
-	{
-		"key": "ctrl+left",
-		"command": "spotify.previous"
+		"key": "tab",
+		"command": "-editor.action.inlineSuggest.commit",
+		"when": "inlineSuggestionHasIndentationLessThanTabSize && inlineSuggestionVisible && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible"
 	}
 ]

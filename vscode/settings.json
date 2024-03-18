@@ -1,4 +1,3 @@
-
 {
 	"editor.accessibilitySupport": "off",
 	"security.workspace.trust.untrustedFiles": "open",
@@ -16,38 +15,29 @@
 	"html.format.enable": false,
 	"html.format.preserveNewLines": false,
 	"html.format.maxPreserveNewLines": 2,
-	"emmet.preferences": {
-		"[json]": {
-			"editor.formatOnSave": false
-		}
-	},
 	"prettier.useTabs": true,
 	"git.confirmSync": false,
 	"git.enableSmartCommit": true,
 	"terminal.integrated.defaultProfile.windows": "Git Bash",
-	"errorLens.enabled": true, 
+	"errorLens.enabled": true,
 	"errorLens.enabledDiagnosticLevels": ["warning", "info", "error"],
 	"errorLens.excludeBySource": ["ts(1005)"],
 	"javascript.updateImportsOnFileMove.enabled": "always",
 	"workbench.iconTheme": "symbols",
-	"json.schemas": [],
 	"typescript.updateImportsOnFileMove.enabled": "always",
 	"prettier.useEditorConfig": false,
-	"workbench.settings.applyToAllProfiles": [],
 	"workbench.tree.indent": 15,
 	"workbench.tree.renderIndentGuides": "always",
 	"workbench.colorCustomizations": {
 		"tree.indentGuidesStroke": "#05ef3c"
 	},
 	"workbench.sideBar.location": "right",
-	"breadcrumbs.enabled": false,
 	"workbench.editor.closeOnFileDelete": true,
 	"[prisma]": {
 		"editor.defaultFormatter": "Prisma.prisma"
 	},
 	"diffEditor.ignoreTrimWhitespace": false,
 	"prettier.printWidth": 120,
-	"terminal.integrated.env.windows": {},
 	"editor.minimap.enabled": false,
 	"symbols.hidesExplorerArrows": false,
 	"explorer.decorations.colors": false,
@@ -70,8 +60,7 @@
 	"window.menuBarVisibility": "hidden",
 	"editor.fontWeight": "400",
 	"editor.codeActionsOnSave": {
-		"source.fixAll.eslint": "explicit",
-		"source.organizeImports": "always"
+		"source.fixAll.eslint": "explicit"
 	},
 	"tailwindCSS.experimental.configFile": null,
 	"notebook.showCellStatusBar": "hidden",
@@ -80,22 +69,27 @@
 	"vim.smartRelativeLine": true,
 	"vim.useSystemClipboard": true,
 	"vim.hlsearch": true,
+	"editor.suggest.insertMode": "replace",
 	"vim.normalModeKeyBindingsNonRecursive": [
 		{
-			"before": ["<c-]>"],
+			"before": ["]", "d"],
 			"commands": ["editor.action.marker.next"]
 		},
 		{
-			"before": ["<c-[>"],
+			"before": ["[", "d"],
 			"commands": ["editor.action.marker.prev"]
 		},
 		{
 			"before": ["K"],
-			"commands": [{ "command": "editor.action.showDefinitionPreviewHover" }]
+			"commands": ["editor.action.showDefinitionPreviewHover"]
 		},
 		{
-			"before": ["<c-a>"],
+			"before": ["<C-a>"],
 			"after": ["g", "g", "V", "G"]
+		},
+		{
+			"before": ["<leader>", "n", "o"],
+			"commands": [":nohl"]
 		},
 		{
 			"before": ["<leader>", "h"],
@@ -109,10 +103,10 @@
 			"before": ["<leader>", "f"],
 			"commands": ["workbench.action.quickOpen"]
 		},
-
 		{
-			"before": ["<leader>", "k"],
-			"commands": ["spotify.playPause"]
+			"before": [":"],
+			"commands": ["workbench.action.showCommands"],
+			"silent": true
 		}
 	],
 	"vim.leader": "<space>",
@@ -132,10 +126,11 @@
 	},
 	"terminal.integrated.gpuAcceleration": "on",
 	"workbench.activityBar.location": "hidden",
-	"spotify.showLyricsButton": false,
-	"spotify.showSignOutButton": false,
-	"spotify.showMuteUnmuteVolumeButton": false,
-	"spotify.showPreviousButton": false,
-	"spotify.showNextButton": false,
-	"spotify.showPlayPauseButton": false
+	"breadcrumbs.enabled": false,
+	"codeium.enableCodeLens": false,
+	"codeium.enableConfig": {
+		"*": true,
+		"prisma": true
+	},
+	"codeium.enableExplainProblem": false
 }
