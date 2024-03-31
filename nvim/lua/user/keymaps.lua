@@ -20,6 +20,12 @@ nnoremap("<C-k>", [[<Cmd>wincmd k<CR>]])
 nnoremap("<C-l>", [[<Cmd>wincmd l<CR>]])
 nnoremap("<C-h>", [[<Cmd>wincmd h<CR>]])
 
+-- Resize with arrows
+nnoremap("<C-Up>", ":resize -2<CR>", { desc = "Resize up" })
+nnoremap("<C-Down>", ":resize +2<CR>", { desc = "Resize down" })
+nnoremap("<C-Left>", ":vertical resize -2<CR>", { desc = "Resize left" })
+nnoremap("<C-Right>", ":vertical resize +2<CR>", { desc = "Resize right" })
+
 -- Swap between last two buffers
 nnoremap("<leader>'", "<C-^>", { desc = "Switch to last buffer" })
 
@@ -33,7 +39,7 @@ nnoremap("<leader>q", "<cmd>q<cr>", { silent = false, desc = "Quit Buffer" })
 nnoremap("<leader>z", "<cmd>wq<cr>", { silent = false, desc = "Save and Quit" })
 
 -- Toggle File Tree
-nnoremap("<leader>e", ":NvimTreeToggle<cr>", { desc = "Toggle File Tree" })
+nnoremap("<leader>e", ":NvimTreeFindFileToggle<cr>", { desc = "Toggle File Tree" })
 
 -- Select all
 nnoremap("<C-a>", "ggVG")
