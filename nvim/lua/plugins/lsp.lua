@@ -118,6 +118,7 @@ return {
 			-- Congifure LSP linting, formatting, diagnostics, and code actions
 			null_ls.setup({
 				border = "rounded",
+				timeout = 10000,
 				sources = {
 					-- diagnostics and code actions
 					require("none-ls.diagnostics.eslint_d"),
