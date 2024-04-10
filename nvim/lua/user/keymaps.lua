@@ -15,10 +15,37 @@ local M = {}
 nnoremap("<space>", "<nop>")
 
 -- Window navigation
-nnoremap("<C-j>", [[<Cmd>wincmd j<CR>]])
-nnoremap("<C-k>", [[<Cmd>wincmd k<CR>]])
-nnoremap("<C-l>", [[<Cmd>wincmd l<CR>]])
-nnoremap("<C-h>", [[<Cmd>wincmd h<CR>]])
+nnoremap("<C-j>", function()
+	if vim.fn.exists(":NvimTmuxNavigateDown") ~= 0 then
+		vim.cmd.NvimTmuxNavigateDown()
+	else
+		vim.cmd.wincmd("j")
+	end
+end)
+
+nnoremap("<C-k>", function()
+	if vim.fn.exists(":NvimTmuxNavigateUp") ~= 0 then
+		vim.cmd.NvimTmuxNavigateUp()
+	else
+		vim.cmd.wincmd("k")
+	end
+end)
+
+nnoremap("<C-l>", function()
+	if vim.fn.exists(":NvimTmuxNavigateRight") ~= 0 then
+		vim.cmd.NvimTmuxNavigateRight()
+	else
+		vim.cmd.wincmd("l")
+	end
+end)
+
+nnoremap("<C-h>", function()
+	if vim.fn.exists(":NvimTmuxNavigateLeft") ~= 0 then
+		vim.cmd.NvimTmuxNavigateLeft()
+	else
+		vim.cmd.wincmd("h")
+	end
+end)
 
 -- Resize with arrows
 nnoremap("<C-Up>", ":resize -2<CR>", { desc = "Resize up" })
@@ -316,8 +343,8 @@ nnoremap("zR", require("ufo").openAllFolds)
 nnoremap("zM", require("ufo").closeAllFolds)
 
 -- Insert --
--- Map jj to <esc>
-inoremap("jj", "<esc>")
+-- Map jk to <esc>
+inoremap("jk", "<esc>")
 
 -- Visual --
 -- Disable Space bar since it'll be used as the leader key
@@ -348,7 +375,7 @@ end)
 -- Terminal --
 -- Enter normal mode while in a terminal
 tnoremap("<esc>", [[<C-\><C-n>]])
-tnoremap("jj", [[<C-\><C-n>]])
+tnoremap("jk", [[<C-\><C-n>]])
 
 -- Window navigation from terminal
 tnoremap("<C-h>", [[<Cmd>wincmd h<CR>]])
