@@ -343,8 +343,8 @@ nnoremap("zR", require("ufo").openAllFolds)
 nnoremap("zM", require("ufo").closeAllFolds)
 
 -- Insert --
--- Map jk to <esc>
 inoremap("jk", "<esc>")
+inoremap("kj", "<esc>")
 
 -- Visual --
 -- Disable Space bar since it'll be used as the leader key
@@ -376,6 +376,7 @@ end)
 -- Enter normal mode while in a terminal
 tnoremap("<esc>", [[<C-\><C-n>]])
 tnoremap("jk", [[<C-\><C-n>]])
+tnoremap("kj", [[<C-\><C-n>]])
 
 -- Window navigation from terminal
 tnoremap("<C-h>", [[<Cmd>wincmd h<CR>]])
