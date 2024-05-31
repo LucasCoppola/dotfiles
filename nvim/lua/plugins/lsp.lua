@@ -89,7 +89,7 @@ return {
 					vim.lsp.buf.format({
 						filter = function(format_client)
 							-- Use Prettier to format TS/JS if it's available
-							return format_client.name ~= "tsserver" or not null_ls.is_registered("prettier")
+							return format_client.name ~= "tsserver" or not null_ls.is_registered("prettierd")
 						end,
 					})
 				end, { desc = "LSP: Format current buffer with LSP" })
@@ -125,7 +125,7 @@ return {
 					require("none-ls.code_actions.eslint_d"),
 
 					-- formatting
-					null_ls.builtins.formatting.prettier,
+					null_ls.builtins.formatting.prettierd,
 					null_ls.builtins.formatting.stylua,
 				},
 			})

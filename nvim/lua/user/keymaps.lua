@@ -50,8 +50,10 @@ end)
 -- Resize with arrows
 nnoremap("<C-Up>", ":resize -2<CR>", { desc = "Resize up" })
 nnoremap("<C-Down>", ":resize +2<CR>", { desc = "Resize down" })
-nnoremap("<C-Left>", ":vertical resize -2<CR>", { desc = "Resize left" })
-nnoremap("<C-Right>", ":vertical resize +2<CR>", { desc = "Resize right" })
+nnoremap("<C-Left>", ":vertical resize +2<CR>", { desc = "Resize left" })
+nnoremap("<C-Right>", ":vertical resize -2<CR>", { desc = "Resize right" })
+
+nnoremap("<leader>l", "oconsole.log()<Left>")
 
 -- Swap between last two buffers
 nnoremap("<leader>'", "<C-^>", { desc = "Switch to last buffer" })
@@ -95,7 +97,7 @@ nnoremap("#", "#zz")
 
 -- Press 'S' for quick find/replace for the word under the cursor
 nnoremap("S", function()
-	local cmd = ":%s/<C-r><C-w>/<C-r><C-w>/gI<Left><Left><Left>"
+	local cmd = ":%s/<C-r><C-w>/<C-r><C-w>/gcI<Left><Left><Left><Left>"
 	local keys = vim.api.nvim_replace_termcodes(cmd, true, false, true)
 	vim.api.nvim_feedkeys(keys, "n", false)
 end)
@@ -115,7 +117,7 @@ nnoremap("L", "$", { desc = "Jump to end of a line" })
 nnoremap("H", "^", { desc = "Jump to start of a line" })
 
 -- Turn off highlighted results
-nnoremap("<leader>no", "<cmd>nohl<cr>", { desc = "Turn off highlighted results" })
+nnoremap("<Esc>", "<cmd>nohl<cr>", { desc = "Turn off highlighted results" })
 
 -- Diagnostics
 
@@ -162,7 +164,7 @@ nnoremap("<leader>d", function()
 end)
 
 -- Place all dignostics into a qflist
-nnoremap("<leader>ld", vim.diagnostic.setqflist, { desc = "Quickfix [L]ist [D]iagnostics" })
+-- nnoremap("<leader>ld", vim.diagnostic.setqflist, { desc = "Quickfix [L]ist [D]iagnostics" })
 
 -- Navigate to next qflist item
 nnoremap("<leader>cn", ":cnext<cr>zz", { desc = "Navigate to next qflist item" })
@@ -257,7 +259,7 @@ end, { desc = "Search [G]it [F]iles" })
 
 -- Telescope keybinds --
 nnoremap("<leader>?", require("telescope.builtin").oldfiles, { desc = "[?] Find recently opened files" })
-nnoremap("<leader>sb", require("telescope.builtin").buffers, { desc = "[S]earch Open [B]uffers" })
+nnoremap("<leader><leader>", require("telescope.builtin").buffers, { desc = "[S]earch Open Buffers" })
 nnoremap("<leader>f", function()
 	require("telescope.builtin").find_files({ hidden = true })
 end, { desc = "[F]iles" })
@@ -269,6 +271,11 @@ nnoremap("<leader>sc", function()
 		previewer = false,
 	}))
 end, { desc = "[S]earch [C]ommands" })
+
+-- Shortcut for searching your Neovim configuration files
+nnoremap("<leader>sn", function()
+	require("telescope.builtin").find_files({ cwd = vim.fn.stdpath("config") })
+end, { desc = "[S]earch [N]eovim files" })
 
 nnoremap("<leader>/", function()
 	require("telescope.builtin").current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
