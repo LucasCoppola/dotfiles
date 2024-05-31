@@ -75,9 +75,15 @@ nnoremap("<C-a>", "ggVG")
 
 -- Toggle AI
 nnoremap("<leader>i", function()
-	vim.cmd("CodeiumToggle")
-	local ai_status = vim.g.codeium_enabled and "enabled" or "disabled"
-	vim.notify("AI " .. ai_status, vim.log.levels.INFO, { title = "Codeium" })
+	if vim.g.codeium_enabled then
+		-- AI is already enabled, so toggle (disable) it
+		vim.cmd("CodeiumToggle")
+		vim.notify("AI disabled", vim.log.levels.INFO, { title = "Codeium" })
+	else
+		-- AI is not enabled, so enable it
+		vim.cmd("CodeiumToggle")
+		vim.notify("AI enabled", vim.log.levels.INFO, { title = "Codeium" })
+	end
 end, { desc = "Toggle AI" })
 
 -- Center buffer while navigating
