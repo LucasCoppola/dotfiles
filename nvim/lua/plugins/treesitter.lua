@@ -25,6 +25,7 @@ return {
 					"typescript",
 					"vim",
 					"go",
+					"sql",
 					-- "yaml", This is currently borked see: https://github.com/ikatyang/tree-sitter-yaml/issues/53
 				},
 				sync_install = false,
