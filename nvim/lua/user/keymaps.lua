@@ -233,7 +233,7 @@ nnoremap("3", function()
 	harpoon_ui.nav_file(3)
 end, { desc = "Harpoon 3" })
 
-nnoremap("<leader>4", function()
+nnoremap("4", function()
 	harpoon_ui.nav_file(4)
 end, { desc = "Harpoon 4" })
 
