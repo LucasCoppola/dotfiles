@@ -221,15 +221,15 @@ nnoremap("<leader>hc", function()
 end, { desc = "[H]arpoon [C]lear" })
 
 -- Quickly jump to harpooned files
-nnoremap("1", function()
+nnoremap("<leader>1", function()
 	harpoon_ui.nav_file(1)
 end, { desc = "Harpoon 1" })
 
-nnoremap("2", function()
+nnoremap("<leader>2", function()
 	harpoon_ui.nav_file(2)
 end, { desc = "Harpoon 2" })
 
-nnoremap("3", function()
+nnoremap("<leader>3", function()
 	harpoon_ui.nav_file(3)
 end, { desc = "Harpoon 3" })
 
@@ -237,6 +237,13 @@ nnoremap("<leader>4", function()
 	harpoon_ui.nav_file(4)
 end, { desc = "Harpoon 4" })
 
+<<<<<<< HEAD
+=======
+nnoremap("<leader>5", function()
+	harpoon_ui.nav_file(5)
+end, { desc = "Harpoon 5" })
+
+>>>>>>> a3ee5a6323061e25fd27b81c526446399ca3beca
 -- Git keymaps --
 nnoremap("gb", ":Gitsigns toggle_current_line_blame<cr>")
 nnoremap("<leader>gf", function()
