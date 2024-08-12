@@ -129,37 +129,37 @@ nnoremap("<Esc>", "<cmd>nohl<cr>", { desc = "Turn off highlighted results" })
 
 -- Goto next diagnostic of any severity
 nnoremap("]d", function()
-	vim.diagnostic.goto_next({})
+	vim.diagnostic.jump({ count = 1, float = true })
 	vim.api.nvim_feedkeys("zz", "n", false)
 end)
 
 -- Goto previous diagnostic of any severity
 nnoremap("[d", function()
-	vim.diagnostic.goto_prev({})
+	vim.diagnostic.jump({ count = -1, float = true })
 	vim.api.nvim_feedkeys("zz", "n", false)
 end)
 
 -- Goto next error diagnostic
 nnoremap("]e", function()
-	vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR })
+	vim.diagnostic.jump({ count = 1, float = true, severity = vim.diagnostic.severity.ERROR })
 	vim.api.nvim_feedkeys("zz", "n", false)
 end)
 
 -- Goto previous error diagnostic
 nnoremap("[e", function()
-	vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR })
+	vim.diagnostic.jump({ count = -1, float = true, severity = vim.diagnostic.severity.ERROR })
 	vim.api.nvim_feedkeys("zz", "n", false)
 end)
 
 -- Goto next warning diagnostic
 nnoremap("]w", function()
-	vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.WARN })
+	vim.diagnostic.jump({ count = 1, float = true, severity = vim.diagnostic.severity.WARN })
 	vim.api.nvim_feedkeys("zz", "n", false)
 end)
 
 -- Goto previous warning diagnostic
 nnoremap("[w", function()
-	vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.WARN })
+	vim.diagnostic.jump({ count = -1, float = true, severity = vim.diagnostic.severity.WARN })
 	vim.api.nvim_feedkeys("zz", "n", false)
 end)
 
@@ -221,23 +221,23 @@ nnoremap("<leader>hc", function()
 end, { desc = "[H]arpoon [C]lear" })
 
 -- Quickly jump to harpooned files
-nnoremap("1", function()
+nnoremap("<leader>1", function()
 	harpoon_ui.nav_file(1)
 end, { desc = "Harpoon 1" })
 
-nnoremap("2", function()
+nnoremap("<leader>2", function()
 	harpoon_ui.nav_file(2)
 end, { desc = "Harpoon 2" })
 
-nnoremap("3", function()
+nnoremap("<leader>3", function()
 	harpoon_ui.nav_file(3)
 end, { desc = "Harpoon 3" })
 
-nnoremap("4", function()
+nnoremap("<leader>4", function()
 	harpoon_ui.nav_file(4)
 end, { desc = "Harpoon 4" })
 
-nnoremap("5", function()
+nnoremap("<leader>5", function()
 	harpoon_ui.nav_file(5)
 end, { desc = "Harpoon 5" })
 
