@@ -163,6 +163,15 @@ nnoremap("[w", function()
 	vim.api.nvim_feedkeys("zz", "n", false)
 end)
 
+-- Todo comment
+nnoremap("]t", function()
+	require("todo-comments").jump_next()
+end, { desc = "Next todo comment" })
+
+nnoremap("[t", function()
+	require("todo-comments").jump_prev()
+end, { desc = "Previous todo comment" })
+
 nnoremap("<leader>d", function()
 	vim.diagnostic.open_float({
 		border = "rounded",
