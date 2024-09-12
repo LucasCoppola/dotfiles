@@ -35,11 +35,6 @@ return {
 				},
 			})
 
-			-- Configure mason to auto install servers
-			require("mason-lspconfig").setup({
-				ensure_installed = { "lua_ls", "tsserver" },
-			})
-
 			-- LSP servers to install (see list here: https://github.com/williamboman/mason-lspconfig.nvim#available-lsp-servers )
 			local servers = {
 				bashls = {},
@@ -59,7 +54,7 @@ return {
 				prismals = {},
 				sqlls = {},
 				tailwindcss = {},
-				tsserver = {
+				ts_ls = {
 					settings = {
 						experimental = {
 							enableProjectDiagnostics = true,
@@ -90,19 +85,10 @@ return {
 					vim.lsp.buf.format({
 						filter = function(format_client)
 							-- Use Prettier to format TS/JS if it's available
-							return format_client.name ~= "tsserver" or not null_ls.is_registered("prettierd")
+							return format_client.name ~= "ts_ls" or not null_ls.is_registered("prettierd")
 						end,
 					})
 				end, { desc = "LSP: Format current buffer with LSP" })
-
-				-- if client.server_capabilities.codeLensProvider then
-				-- 	vim.api.nvim_create_autocmd({ "BufEnter", "InsertLeave", "CursorHold" }, {
-				-- 		buffer = buffer_number,
-				-- 		callback = vim.lsp.codelens.refresh,
-				-- 		desc = "LSP: Refresh code lens",
-				-- 		group = vim.api.nvim_create_augroup("codelens", { clear = true }),
-				-- 	})
-				-- end
 			end
 
 			-- Iterate over our servers and set them up
