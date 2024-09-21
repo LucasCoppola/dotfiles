@@ -30,7 +30,7 @@ alias sz='source ~/.zshrc'
 alias gitcommit='bat ~/gitcommit.txt'
 
 alias n='nvim'
-alias d='cd ~/.config/nvim && nvim .'
+alias d='cd ~/.config/dotfiles/nvim && nvim .'
 
 alias python=python3.10
 
