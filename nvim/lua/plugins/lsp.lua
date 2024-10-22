@@ -50,8 +50,6 @@ return {
 						},
 					},
 				},
-				marksman = {},
-				prismals = {},
 				sqlls = {},
 				tailwindcss = {},
 				ts_ls = {
@@ -63,6 +61,7 @@ return {
 				},
 				gopls = {},
 				yamlls = {},
+				marksman = {},
 			}
 
 			-- Default handlers for LSP

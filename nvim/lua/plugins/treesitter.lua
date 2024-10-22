@@ -20,7 +20,6 @@ return {
 					"json",
 					"lua",
 					"markdown",
-					"prisma",
 					"tsx",
 					"typescript",
 					"vim",

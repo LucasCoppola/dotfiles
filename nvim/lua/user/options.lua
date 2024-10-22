@@ -14,12 +14,11 @@ vim.opt.shiftwidth = 2
 -- Enable smart indenting (see https://stackoverflow.com/questions/1204149/smart-wrap-in-vim)
 vim.opt.breakindent = true
 
+vim.opt.linebreak = true
+
 -- Enable incremental searching
 vim.opt.incsearch = true
 vim.opt.hlsearch = true
-
--- Disable text wrap
-vim.opt.wrap = false
 
 -- Set leader key to space
 vim.g.mapleader = " "
