@@ -11,10 +11,12 @@ vim.opt.expandtab = true
 vim.opt.smartindent = true
 vim.opt.shiftwidth = 2
 
+-- Disable wrap and linebreak which are enabled on md and txt
+vim.opt.wrap = false
+vim.opt.linebreak = false
+
 -- Enable smart indenting (see https://stackoverflow.com/questions/1204149/smart-wrap-in-vim)
 vim.opt.breakindent = true
-
-vim.opt.linebreak = true
 
 -- Enable incremental searching
 vim.opt.incsearch = true
