@@ -36,7 +36,7 @@ gaps:
 
   # Gap between windows and the screen edge.
   outer_gap:
-    top: "28px"
+    top: "27px"
     right: "-2px"
     bottom: "-2px"
     left: "-2px"
@@ -65,7 +65,7 @@ window_effects:
   # Visual effects to apply to non-focused windows.
   other_windows:
     border:
-      enabled: true
+      enabled: false
       color: "#a1a1a1"
     hide_title_bar:
       enabled: false
@@ -92,7 +92,7 @@ window_behavior:
     fullscreen:
       # Maximize the window if possible. If the window doesn't have a
       # maximize button, then it'll be fullscreen'ed normally instead.
-      maximized: false
+      maximized: true
 
       # Whether to show fullscreen windows as always on top.
       shown_on_top: false
