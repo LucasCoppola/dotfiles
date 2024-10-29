@@ -47,7 +47,7 @@ window_effects:
     # Highlight the window with a colored border.
     # ** Exclusive to Windows 11 due to API limitations.
     border:
-      enabled: true
+      enabled: false
       color: "#8dbcff"
 
     # Remove the title bar from the window's frame. Note that this can
@@ -92,7 +92,7 @@ window_behavior:
     fullscreen:
       # Maximize the window if possible. If the window doesn't have a
       # maximize button, then it'll be fullscreen'ed normally instead.
-      maximized: true
+      maximized: false
 
       # Whether to show fullscreen windows as always on top.
       shown_on_top: false
