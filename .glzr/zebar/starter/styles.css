@@ -2,7 +2,7 @@
  * Import the Nerdfonts icon font.
  * Ref https://www.nerdfonts.com/cheat-sheet for a cheatsheet of available Nerdfonts icons.
  */
-@import 'https://www.nerdfonts.com/assets/css/webfont.css';
+@import "https://www.nerdfonts.com/assets/css/webfont.css";
 
 i {
   color: rgb(115 130 175 / 95%);
@@ -11,7 +11,7 @@ i {
 
 body {
   color: rgb(255 255 255 / 90%);
-  font-family: 'GeistMono Nerd Font Mono', ui-monospace, monospace;
+  font-family: "GeistMono Nerd Font Mono", ui-monospace, monospace;
   font-size: 12px;
   overflow: hidden;
 }
@@ -32,7 +32,7 @@ body,
   grid-template-columns: 1fr 1fr 1fr;
   align-items: center;
   height: 100%;
-  padding: 4px 1.5vw;
+  padding: 2px 1.5vw;
 }
 
 .left,
