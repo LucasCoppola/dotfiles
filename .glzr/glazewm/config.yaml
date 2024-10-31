@@ -25,7 +25,7 @@ general:
     # Trigger for cursor jump:
     # - 'monitor_focus': Jump when focus changes between monitors.
     # - 'window_focus': Jump when focus changes between windows.
-    trigger: "monitor_focus"
+    trigger: "window_focus"
 
 gaps:
   # Whether to scale the gaps with the DPI of the monitor.
@@ -92,7 +92,7 @@ window_behavior:
     fullscreen:
       # Maximize the window if possible. If the window doesn't have a
       # maximize button, then it'll be fullscreen'ed normally instead.
-      maximized: true
+      maximized: false
 
       # Whether to show fullscreen windows as always on top.
       shown_on_top: false
@@ -114,15 +114,15 @@ workspaces:
 window_rules:
   - commands: ["move --workspace 1"]
     match:
-      - window_process: { regex: "wt" }
+      - window_process: { regex: ".*Terminal.*|.*Hyper.*" }
 
   - commands: ["move --workspace 2"]
     match:
-      - window_process: { regex: "chrome" }
+      - window_process: { regex: ".*chrome.*|.*brave.*|.*Arc.*" }
 
   - commands: ["move --workspace 3"]
     match:
-      - window_process: { regex: "spotify" }
+      - window_process: { regex: ".*Spotify.*" }
 
   - commands: ["ignore"]
     match:
