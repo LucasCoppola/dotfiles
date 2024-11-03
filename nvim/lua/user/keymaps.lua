@@ -7,6 +7,7 @@ local harpoon_ui = require("harpoon.ui")
 local harpoon_mark = require("harpoon.mark")
 local illuminate = require("illuminate")
 local utils = require("user.utils")
+local supermaven = require("supermaven-nvim.api")
 
 local M = {}
 
@@ -75,14 +76,12 @@ nnoremap("<C-a>", "ggVG")
 
 -- Toggle AI
 nnoremap("<leader>i", function()
-	if vim.g.codeium_enabled then
-		-- AI is already enabled, so toggle (disable) it
-		vim.cmd("CodeiumToggle")
-		vim.notify("AI disabled", vim.log.levels.INFO, { title = "Codeium" })
+	if supermaven.is_running() then
+		supermaven.stop()
+		vim.notify("AI disabled", vim.log.levels.INFO, { title = "Supermaven" })
 	else
-		-- AI is not enabled, so enable it
-		vim.cmd("CodeiumToggle")
-		vim.notify("AI enabled", vim.log.levels.INFO, { title = "Codeium" })
+		supermaven.start()
+		vim.notify("AI enabled", vim.log.levels.INFO, { title = "Supermaven" })
 	end
 end, { desc = "Toggle AI" })
 
