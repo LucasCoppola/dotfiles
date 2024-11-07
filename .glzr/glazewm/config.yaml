@@ -118,7 +118,7 @@ window_rules:
 
   - commands: ["move --workspace 2"]
     match:
-      - window_process: { regex: ".*chrome.*|.*brave.*|.*Arc.*" }
+      - window_process: { regex: ".*Zen Browser.*" }
 
   - commands: ["move --workspace 3"]
     match:
