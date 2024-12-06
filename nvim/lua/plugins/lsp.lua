@@ -63,7 +63,6 @@ return {
 				cssls = {},
 				eslint = {
 					autostart = false,
-					cmd = { "vscode-eslint-language-server", "--stdio", "--max-old-space-size=12288" },
 					settings = {
 						format = false,
 					},
@@ -88,8 +87,6 @@ return {
 					},
 				},
 				marksman = {},
-				nil_ls = {},
-				pyright = {},
 				sqlls = {},
 				tailwindcss = {},
 				ts_ls = {
