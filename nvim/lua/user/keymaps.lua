@@ -54,7 +54,7 @@ nnoremap("<C-Down>", ":resize +2<CR>", { desc = "Resize down" })
 nnoremap("<C-Left>", ":vertical resize +2<CR>", { desc = "Resize left" })
 nnoremap("<C-Right>", ":vertical resize -2<CR>", { desc = "Resize right" })
 
-nnoremap("<leader>l", "oconsole.log()<Left>")
+nnoremap("<leader>cl", "oconsole.log()<Left>")
 
 -- Swap between last two buffers
 nnoremap("<leader>'", "<C-^>", { desc = "Switch to last buffer" })
@@ -162,15 +162,6 @@ nnoremap("[w", function()
 	vim.api.nvim_feedkeys("zz", "n", false)
 end)
 
--- Todo comment
-nnoremap("]t", function()
-	require("todo-comments").jump_next()
-end, { desc = "Next todo comment" })
-
-nnoremap("[t", function()
-	require("todo-comments").jump_prev()
-end, { desc = "Previous todo comment" })
-
 nnoremap("<leader>d", function()
 	vim.diagnostic.open_float({
 		border = "rounded",
@@ -178,7 +169,7 @@ nnoremap("<leader>d", function()
 end)
 
 -- Place all dignostics into a qflist
--- nnoremap("<leader>ld", vim.diagnostic.setqflist, { desc = "Quickfix [L]ist [D]iagnostics" })
+nnoremap("<leader>ld", vim.diagnostic.setqflist, { desc = "Quickfix [L]ist [D]iagnostics" })
 
 -- Navigate to next qflist item
 nnoremap("<leader>cn", ":cnext<cr>zz", { desc = "Navigate to next qflist item" })
