@@ -30,6 +30,10 @@ return {
 						"drizzle",
 					},
 					hidden = true,
+					no_ignore = true,
+				},
+				extensions = {
+					fzf = {},
 				},
 			})
 

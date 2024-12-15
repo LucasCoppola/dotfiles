@@ -6,6 +6,7 @@ return {
 		config = function()
 			require("tsc").setup({
 				auto_open_qflist = true,
+				run_as_monorepo = true,
 			})
 		end,
 	},
