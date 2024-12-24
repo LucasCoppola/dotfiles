@@ -31,7 +31,7 @@ body,
   grid-template-columns: 1fr 1fr 1fr;
   align-items: center;
   height: 100%;
-  padding: 2px 1.5vw;
+  padding: 3px 0.2vw;
 }
 
 .left,
