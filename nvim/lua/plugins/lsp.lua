@@ -61,6 +61,16 @@ return {
 				bashls = {},
 				biome = {},
 				cssls = {},
+				clangd = {
+					autostart = true,
+					cmd = { "clangd" },
+					filetypes = { "c", "h" },
+					root_dir = require("lspconfig").util.root_pattern(
+						"compile_commands.json",
+						"compile_flags.txt",
+						".git"
+					),
+				},
 				eslint = {
 					autostart = false,
 					settings = {
