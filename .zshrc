@@ -26,6 +26,7 @@ alias gs='git status'
 alias c='clear'
 alias zsh='n ~/.zshrc'
 alias sz='source ~/.zshrc'
+alias win='cd /mnt/c/Users/lukic'
 
 alias gitcommit='bat ~/gitcommit.txt'
 
