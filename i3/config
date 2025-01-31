@@ -15,18 +15,25 @@ set $mod Mod1
 # is used in the bar {} block below.
 font pango:Geist 12
 
-exec_always --no-startup-id $HOME/.config/polybar/launch.sh
-exec_always feh --bg-fill $HOME/Downloads/andrew-neel-jtsW--Z6bFw-unsplash.jpg
+# Remove title bar for all windows
+for_window [class=".*"] border pixel 0
+
+exec_always --no-startup-id $HOME/polybar-collection/launch.sh
+exec_always feh --bg-fill $HOME/Downloads/backiee-227826-landscape.jpg 
 exec --no-startup-id $HOME/monitor-display.sh
 exec --no-startup-id picom
 
 exec --no-startup-id "xinput set-prop 13 'libinput Tapping Enabled' 1"
 exec --no-startup-id "xinput set-prop 13 'libinput Natural Scrolling Enabled' 1"
 exec --no-startup-id "xinput set-prop 13 'libinput Scroll Method Enabled' 1, 1, 0"
+
 exec --no-startup-id "setxkbmap -option caps:escape"
+
 exec --no-startup-id "xrandr --output eDP-1 --dpi 120"
-exec --no-startup-id "xrandr --output HDMI-1 --dpi 96"
 exec --no-startup-id "xrandr --output eDP-1 --mode 1600x900"
+exec --no-startup-id "xrandr --output eDP-1 --scale 0.8x0.8"
+
+exec --no-startup-id "xrandr --output HDMI-1 --dpi 96"
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
@@ -52,14 +59,13 @@ bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
 
+bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl set +10%
+bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 10%-
+
 # type-4 style-5
 bindsym $mod+space exec --no-startup-id ~/.config/rofi/launchers/type-4/launcher.sh
 # type-3 style-3
-bindsym $mod+p exec --no-startup-id ~/.config/rofi/powermenu/type-3/powermenu.sh
-
-# Gaps
-# gaps outer 10
-# gaps inner 20
+bindsym $mod+p exec --no-startup-id ~/.config/rofi/powermenu/type-2/powermenu.sh
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -68,7 +74,7 @@ floating_modifier $mod
 bindsym $mod+Return exec ghostty
 
 # kill focused window
-bindsym $mod+Shift+q kill
+bindsym $mod+q kill
 
 # start dmenu (a program launcher)
 bindsym $mod+d exec --no-startup-id dmenu_run
@@ -198,6 +204,9 @@ mode "resize" {
 }
 
 bindsym $mod+r mode "resize"
+
+client.focused #4c7899 #285577 #ffffff #285577 #285577
+default_border pixel 2
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
