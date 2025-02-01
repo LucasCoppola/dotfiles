@@ -17,22 +17,24 @@ font pango:Geist 12
 
 # Remove title bar for all windows
 for_window [class=".*"] border pixel 0
+assign [class="ghostty"] workspace 1
+assign [class="Navigator|zen"] workspace 2
+assign [class="Spotify"] workspace 3
+
+exec --no-startup-id ghostty
+exec --no-startup-id flatpak run app.zen_browser.zen 
+# exec --no-startup-id flatpak run com.spotify.Client 
 
 exec_always --no-startup-id $HOME/polybar-collection/launch.sh
 exec_always feh --bg-fill $HOME/Downloads/backiee-227826-landscape.jpg 
 exec --no-startup-id $HOME/monitor-display.sh
 exec --no-startup-id picom
 
-exec --no-startup-id "xinput set-prop 13 'libinput Tapping Enabled' 1"
-exec --no-startup-id "xinput set-prop 13 'libinput Natural Scrolling Enabled' 1"
-exec --no-startup-id "xinput set-prop 13 'libinput Scroll Method Enabled' 1, 1, 0"
+exec --no-startup-id "xinput set-prop 15 'libinput Tapping Enabled' 1"
+exec --no-startup-id "xinput set-prop 15 'libinput Natural Scrolling Enabled' 1"
+exec --no-startup-id "xinput set-prop 15 'libinput Scroll Method Enabled' 1, 1, 0"
 
 exec --no-startup-id "setxkbmap -option caps:escape"
-
-exec --no-startup-id "xrandr --output eDP-1 --dpi 120"
-exec --no-startup-id "xrandr --output eDP-1 --scale 0.8x0.8"
-
-exec --no-startup-id "xrandr --output HDMI-1 --dpi 96"
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
@@ -203,9 +205,6 @@ mode "resize" {
 }
 
 bindsym $mod+r mode "resize"
-
-client.focused #4c7899 #285577 #ffffff #285577 #285577
-default_border pixel 2
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
