@@ -3,6 +3,7 @@
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
+export QT_QPA_PLATFORMTHEME="qt5ct"
 
 ZSH_THEME='robbyrussell'
 # ZSH_THEME='random'
@@ -65,3 +66,8 @@ alias cd='z'
 export GOROOT=/usr/local/go-1.22.3
 export GOPATH=$HOME/go
 export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
+
+# Usage: dpi <number>
+function dpi() {
+    sed -i -E "s/^Xft.dpi:.*/Xft.dpi:$1/" ~/.Xresources && xrdb ~/.Xresources && i3-msg restart
+}
