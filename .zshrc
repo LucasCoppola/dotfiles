@@ -67,7 +67,18 @@ export GOROOT=/usr/local/go-1.22.3
 export GOPATH=$HOME/go
 export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
 
-# Usage: dpi <number>
+# dpi <dpi-number>
 function dpi() {
-    sed -i -E "s/^Xft.dpi:.*/Xft.dpi:$1/" ~/.Xresources && xrdb ~/.Xresources && i3-msg restart
+    sed -i -E "s/^Xft.dpi:.*/Xft.dpi:${1}/" ~/.Xresources
+    xrdb ~/.Xresources
+
+    polybar_config="$HOME/polybar-collection/themes/chnvok/config.ini"  
+
+    # Replace dpi-x and dpi-y lines with the new values
+    sed -i -E "s/^(dpi-x = ).*/\1${1}/" "$polybar_config"
+    sed -i -E "s/^(dpi-y = ).*/\1${1}/" "$polybar_config"
+
+    i3-msg restart
+
+    echo "DPI set to: ${1}"
 }

@@ -16,8 +16,7 @@ set $mod Mod1
 font pango:Geist 12
 
 # Remove title bar for all windows
-for_window [class=".*"] border pixel 0
-assign [class="ghostty"] workspace 1
+for_window [class=".*"] border pixel 0 assign [class="ghostty"] workspace 1
 assign [class="Navigator|zen"] workspace 2
 assign [class="Spotify"] workspace 3
 
@@ -25,14 +24,18 @@ exec --no-startup-id ghostty
 exec --no-startup-id flatpak run app.zen_browser.zen 
 # exec --no-startup-id flatpak run com.spotify.Client 
 
-exec_always --no-startup-id $HOME/polybar-collection/launch.sh
+exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 exec_always feh --bg-fill $HOME/Downloads/backiee-227826-landscape.jpg 
+
+exec --no-startup-id source ~/.fehbg
 exec --no-startup-id $HOME/monitor-display.sh
 exec --no-startup-id picom
+exec --no-startup-id dunst
+exec --no-startup-id caffeine
 
-exec --no-startup-id "xinput set-prop 15 'libinput Tapping Enabled' 1"
-exec --no-startup-id "xinput set-prop 15 'libinput Natural Scrolling Enabled' 1"
-exec --no-startup-id "xinput set-prop 15 'libinput Scroll Method Enabled' 1, 1, 0"
+exec --no-startup-id "xinput set-prop 13 'libinput Tapping Enabled' 1"
+exec --no-startup-id "xinput set-prop 13 'libinput Natural Scrolling Enabled' 1"
+exec --no-startup-id "xinput set-prop 13 'libinput Scroll Method Enabled' 1, 1, 0"
 
 exec --no-startup-id "setxkbmap -option caps:escape"
 
@@ -60,16 +63,19 @@ bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
 
-bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl set +5%
-bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 5%-
+bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl set +2%
+bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 2%-
 
 # type-4 style-5
 bindsym $mod+space exec --no-startup-id ~/.config/rofi/launchers/type-4/launcher.sh
-# type-3 style-3
+# type-2 style-7
 bindsym $mod+p exec --no-startup-id ~/.config/rofi/powermenu/type-2/powermenu.sh
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
+
+# start a terminal
+bindsym $mod+s exec systemctl suspend
 
 # start a terminal
 bindsym $mod+Return exec ghostty
@@ -119,7 +125,7 @@ bindsym $mod+v split v
 bindsym $mod+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
-bindsym $mod+s layout stacking
+# bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 
