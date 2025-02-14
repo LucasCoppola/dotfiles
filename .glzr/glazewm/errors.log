@@ -1,0 +1,46 @@
+[2m2024-10-26T23:16:23.294874Z[0m [31mERROR[0m [2mglazewm[0m[2m:[0m window_rules[0].commands: unrecognized subcommand
+ at line 115 column 15
+[2m2024-10-26T23:16:28.059858Z[0m [31mERROR[0m [2mglazewm[0m[2m:[0m window_rules[0].commands: unrecognized subcommand
+ at line 115 column 15
+[2m2024-10-26T23:16:45.151707Z[0m [31mERROR[0m [2mglazewm[0m[2m:[0m window_rules[0].commands: unrecognized subcommand
+ at line 115 column 15
+[2m2024-10-26T23:17:36.378621Z[0m [31mERROR[0m [2mglazewm[0m[2m:[0m Another instance of the application is already running.
+[2m2024-10-26T23:37:13.372746Z[0m [31mERROR[0m [2mglazewm[0m[2m:[0m found unknown escape character at line 168 column 35, while parsing a quoted scalar at line 168 column 14
+[2m2024-10-26T23:38:30.287124Z[0m [31mERROR[0m [2mglazewm[0m[2m:[0m keybindings[0]: missing field `commands` at line 168 column 5
+[2m2024-10-26T23:38:40.346404Z[0m [31mERROR[0m [2mglazewm[0m[2m:[0m keybindings[0].commands: invalid type: string "exec 'C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Google Chrome.lnk'", expected a sequence at line 168 column 15
+[2m2024-10-26T23:55:51.130592Z[0m [31mERROR[0m [2mglazewm::common::commands::shell_exec[0m[2m:[0m [3merr_message[0m[2m=[0m"Failed to execute '\"C:\\\\ProgramData\\\\Microsoft\\\\Windows\\\\start menu\\\\Programs\\\\Google Chrome.lnk\"'.\n\nError: Command doesn't have an ending `\"`: '\"C:\\\\ProgramData\\\\Microsoft\\\\Windows\\\\start menu\\\\Programs\\\\Google Chrome.lnk\"'."
+[2m2024-10-26T23:56:07.253748Z[0m [31mERROR[0m [2mglazewm::common::commands::shell_exec[0m[2m:[0m [3merr_message[0m[2m=[0m"Failed to execute '\"C:\\Users\\lukic\\OneDrive\\Escritorio\\Spotify.lnk\"'.\n\nError: Command doesn't have an ending `\"`: '\"C:\\Users\\lukic\\OneDrive\\Escritorio\\Spotify.lnk\"'."
+[2m2024-10-26T23:58:08.226447Z[0m [31mERROR[0m [2mglazewm::common::commands::shell_exec[0m[2m:[0m [3merr_message[0m[2m=[0m"Failed to execute '\"C:\\\\ProgramData\\\\Microsoft\\\\Windows\\\\Start Menu\\\\Programs\\\\Google Chrome.lnk\"'.\n\nError: Command doesn't have an ending `\"`: '\"C:\\\\ProgramData\\\\Microsoft\\\\Windows\\\\Start Menu\\\\Programs\\\\Google Chrome.lnk\"'."
+[2m2024-10-26T23:58:15.135463Z[0m [31mERROR[0m [2mglazewm::common::commands::shell_exec[0m[2m:[0m [3merr_message[0m[2m=[0m"Failed to execute '\"C:\\\\Users\\\\lukic\\\\OneDrive\\\\Escritorio\\\\Spotify.lnk\"'.\n\nError: Command doesn't have an ending `\"`: '\"C:\\\\Users\\\\lukic\\\\OneDrive\\\\Escritorio\\\\Spotify.lnk\"'."
+[2m2024-10-27T00:01:13.730538Z[0m [31mERROR[0m [2mglazewm::common::commands::shell_exec[0m[2m:[0m [3merr_message[0m[2m=[0m"Failed to execute '\"C:\\\\Users\\\\lukic\\\\Downloads\\\\ChromeSetup.exe\"'.\n\nError: Command doesn't have an ending `\"`: '\"C:\\\\Users\\\\lukic\\\\Downloads\\\\ChromeSetup.exe\"'."
+[2m2024-10-27T00:01:26.363578Z[0m [31mERROR[0m [2mglazewm::common::commands::shell_exec[0m[2m:[0m [3merr_message[0m[2m=[0m"Failed to execute '\"C:\\\\Users\\\\lukic\\\\Downloads\\\\SpotifySetup (4).exe\"'.\n\nError: Command doesn't have an ending `\"`: '\"C:\\\\Users\\\\lukic\\\\Downloads\\\\SpotifySetup (4).exe\"'."
+[2m2024-10-27T00:02:35.354395Z[0m [31mERROR[0m [2mglazewm::common::commands::shell_exec[0m[2m:[0m [3merr_message[0m[2m=[0m"Failed to execute '\\\"C:\\\\Users\\\\lukic\\\\Downloads\\\\ChromeSetup.exe\\\"'.\n\nError: Program path is not valid for command '\\\"C:\\\\Users\\\\lukic\\\\Downloads\\\\ChromeSetup.exe\\\"'."
+[2m2024-10-27T00:02:38.872255Z[0m [31mERROR[0m [2mglazewm::common::commands::shell_exec[0m[2m:[0m [3merr_message[0m[2m=[0m"Failed to execute '\\\"C:\\\\Users\\\\lukic\\\\Downloads\\\\SpotifySetup (4).exe\\\"'.\n\nError: Program path is not valid for command '\\\"C:\\\\Users\\\\lukic\\\\Downloads\\\\SpotifySetup (4).exe\\\"'."
+[2m2024-10-27T00:13:28.780194Z[0m [31mERROR[0m [2mglazewm::common::commands::shell_exec[0m[2m:[0m [3merr_message[0m[2m=[0m"Failed to execute 'start chrome'.\n\nError: El usuario ha cancelado la operación. (0x800704C7)"
+[2m2024-10-27T00:13:31.821430Z[0m [31mERROR[0m [2mglazewm::common::commands::shell_exec[0m[2m:[0m [3merr_message[0m[2m=[0m"Failed to execute '\"C:\\\\Users\\\\lukic\\\\Downloads\\\\SpotifySetup (4).exe\"'.\n\nError: Command doesn't have an ending `\"`: '\"C:\\\\Users\\\\lukic\\\\Downloads\\\\SpotifySetup (4).exe\"'."
+[2m2024-10-27T00:17:28.443067Z[0m [31mERROR[0m [2mglazewm::common::commands::shell_exec[0m[2m:[0m [3merr_message[0m[2m=[0m"Failed to execute '\"/c/Program Files/Google/Chrome/Application/chrome.exe\"'.\n\nError: Command doesn't have an ending `\"`: '\"/c/Program Files/Google/Chrome/Application/chrome.exe\"'."
+[2m2024-10-27T00:17:37.438944Z[0m [31mERROR[0m [2mglazewm::common::commands::shell_exec[0m[2m:[0m [3merr_message[0m[2m=[0m"Failed to execute '\"C:\\\\Users\\\\lukic\\\\Downloads\\\\SpotifySetup (4).exe\"'.\n\nError: Command doesn't have an ending `\"`: '\"C:\\\\Users\\\\lukic\\\\Downloads\\\\SpotifySetup (4).exe\"'."
+[2m2024-10-27T00:20:32.817572Z[0m [31mERROR[0m [2mglazewm::common::commands::shell_exec[0m[2m:[0m [3merr_message[0m[2m=[0m"Failed to execute '\"/c/Program Files/Google/Chrome/Application/chrome.exe\"'.\n\nError: Command doesn't have an ending `\"`: '\"/c/Program Files/Google/Chrome/Application/chrome.exe\"'."
+[2m2024-10-27T00:24:04.902718Z[0m [31mERROR[0m [2mglazewm::common::commands::shell_exec[0m[2m:[0m [3merr_message[0m[2m=[0m"Failed to execute '\"%PROGRAMFILES%/Google/Chrome/Application/chrome.exe\"'.\n\nError: Command doesn't have an ending `\"`: '\"%PROGRAMFILES%/Google/Chrome/Application/chrome.exe\"'."
+[2m2024-10-29T21:17:00.390134Z[0m [31mERROR[0m [2mglazewm[0m[2m:[0m did not find expected key at line 147 column 7, while parsing a block mapping at line 146 column 5
+[2m2024-10-31T23:29:39.426432Z[0m [31mERROR[0m [2mglazewm[0m[2m:[0m general.cursor_jump.trigger: unknown variant `windows_focus`, expected `monitor_focus` or `window_focus` at line 30 column 14
+[2m2024-10-31T23:38:17.980163Z[0m [31mERROR[0m [2mglazewm[0m[2m:[0m window_rules[0].commands: unrecognized subcommand
+ at line 117 column 15
+[2m2024-10-31T23:38:37.286493Z[0m [31mERROR[0m [2mglazewm[0m[2m:[0m window_rules[0].commands: unrecognized subcommand
+ at line 117 column 15
+[2m2024-12-24T19:38:47.574112Z[0m [31mERROR[0m [2mglazewm[0m[2m:[0m Another instance of the application is already running.
+[2m2024-12-24T19:50:36.989912Z[0m [31mERROR[0m [2mglazewm[0m[2m:[0m found unknown escape character at line 45 column 13, while parsing a quoted scalar at line 45 column 9
+[2m2024-12-30T12:53:35.636151Z[0m [31mERROR[0m [2mglazewm[0m[2m:[0m Another instance of the application is already running.
+[2m2024-12-30T12:53:44.915411Z[0m [31mERROR[0m [2mglazewm[0m[2m:[0m Another instance of the application is already running.
+[2m2025-01-07T15:36:29.229048Z[0m [31mERROR[0m [2mglazewm[0m[2m:[0m channel closed
+[2m2025-01-11T14:47:13.083299Z[0m [31mERROR[0m [2mglazewm[0m[2m:[0m channel closed
+[2m2025-01-11T14:47:26.484755Z[0m [31mERROR[0m [2mglazewm[0m[2m:[0m channel closed
+[2m2025-01-11T14:47:27.957761Z[0m [31mERROR[0m [2mglazewm[0m[2m:[0m channel closed
+[2m2025-01-14T21:50:23.987568Z[0m [31mERROR[0m [2mglazewm[0m[2m:[0m channel closed
+[2m2025-01-14T21:50:28.327120Z[0m [31mERROR[0m [2mglazewm[0m[2m:[0m channel closed
+[2m2025-01-14T21:50:31.628714Z[0m [31mERROR[0m [2mglazewm[0m[2m:[0m channel closed
+[2m2025-01-18T00:08:07.644300Z[0m [31mERROR[0m [2mglazewm[0m[2m:[0m Another instance of the application is already running.
+[2m2025-01-27T03:53:43.186801Z[0m [31mERROR[0m [2mglazewm[0m[2m:[0m Another instance of the application is already running.
+[2m2025-01-29T00:45:16.564370Z[0m [31mERROR[0m [2mglazewm[0m[2m:[0m channel closed
+[2m2025-01-29T00:45:18.720001Z[0m [31mERROR[0m [2mglazewm[0m[2m:[0m channel closed
+[2m2025-01-29T00:45:21.891999Z[0m [31mERROR[0m [2mglazewm[0m[2m:[0m channel closed
