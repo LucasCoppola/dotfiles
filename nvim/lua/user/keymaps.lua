@@ -243,11 +243,18 @@ nnoremap("<leader>g", "<cmd>Git<cr>", { silent = false, desc = "Save File" })
 -- Telescope keybinds --
 nnoremap("<leader>?", require("telescope.builtin").oldfiles, { desc = "[?] Find recently opened files" })
 nnoremap("<leader><leader>", require("telescope.builtin").buffers, { desc = "[S]earch Open Buffers" })
-nnoremap("<leader>f", function()
-	require("telescope.builtin").find_files({ hidden = true })
-end, { desc = "[F]iles" })
 nnoremap("<leader>sh", require("telescope.builtin").help_tags, { desc = "[S]earch [H]elp" })
 nnoremap("<leader>sg", require("telescope.builtin").live_grep, { desc = "[S]earch by [G]rep" })
+
+nnoremap("<leader>f", function()
+	require("telescope.builtin").find_files({ hidden = true, no_ignore = true })
+end, { desc = "[F]iles" })
+
+nnoremap("<leader>sf", function()
+	require("telescope.builtin").lsp_dynamic_workspace_symbols({
+		symbols = { "function", "method" },
+	})
+end, { desc = "[S]earch [F]unctions" })
 
 nnoremap("<leader>sc", function()
 	require("telescope.builtin").commands(require("telescope.themes").get_dropdown({
@@ -298,11 +305,11 @@ M.map_lsp_keybinds = function(buffer_number)
 		{ desc = "LSP: [B]uffer [S]ymbols", buffer = buffer_number }
 	)
 
-	-- nnoremap(
-	-- 	"<leader>ps",
-	-- 	require("telescope.builtin").lsp_workspace_symbols,
-	-- 	{ desc = "LSP: [P]roject [S]ymbols", buffer = buffer_number }
-	-- )
+	nnoremap(
+		"<leader>ps",
+		require("telescope.builtin").lsp_workspace_symbols,
+		{ desc = "LSP: [P]roject [S]ymbols", buffer = buffer_number }
+	)
 
 	-- See `:help K` for why this keymap
 	nnoremap("K", vim.lsp.buf.hover, { desc = "LSP: Hover Documentation", buffer = buffer_number })
