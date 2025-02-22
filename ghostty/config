@@ -1,6 +1,7 @@
 theme = MaterialOcean
-foreground = #f1f1f1
+foreground = #f5f5f5
 font-family = Geist Mono
+font-feature = -liga
 
 # Appearance
 gtk-titlebar = false
