@@ -1,3 +1,5 @@
+vim.opt.textwidth = 120
+
 -- Enable relative line numbers
 vim.opt.nu = true
 vim.opt.rnu = true
@@ -15,13 +17,12 @@ vim.opt.shiftwidth = 2
 vim.opt.wrap = false
 vim.opt.linebreak = false
 
--- Enable wrap and linebreak for Markdown files
 vim.api.nvim_create_autocmd("FileType", {
-  pattern = "markdown",
-  callback = function()
-    vim.opt_local.wrap = true
-    vim.opt_local.linebreak = true
-  end,
+	pattern = "markdown,text",
+	callback = function()
+		vim.opt_local.wrap = true
+		vim.opt_local.linebreak = true
+	end,
 })
 
 -- Enable smart indenting (see https://stackoverflow.com/questions/1204149/smart-wrap-in-vim)
