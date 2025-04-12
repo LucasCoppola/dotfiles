@@ -24,12 +24,14 @@ bindkey -v  # Add this line to enable Vim-like key bindings
 bindkey -s ^f "tmux-sessionizer\n"
 
 alias gs='git status'
+alias gl='git log --oneline'
 alias c='clear'
 alias zsh='n ~/.zshrc'
 alias szsh='source ~/.zshrc'
 alias win='cd /mnt/c/Users/lukic'
 
 alias gitcommit='bat ~/gitcommit.txt'
+alias zen="cd ~/.var/app/app.zen_browser.zen/.zen/'97oegn4r.Default (release)'/chrome"
 
 alias y='yazi'
 alias n='nvim'

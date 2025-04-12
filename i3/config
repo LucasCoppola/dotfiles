@@ -16,17 +16,19 @@ assign [class="Spotify"] workspace 3
 
 exec --no-startup-id ghostty
 exec --no-startup-id flatpak run app.zen_browser.zen 
+exec --no-startup-id ulauncher
 
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
-exec_always feh --bg-fill $HOME/Downloads/backiee-227826-landscape.jpg 
+exec_always feh --bg-fill $HOME/Downloads/Wallpapers/jake-weirick-EsvpmQ4zp5Y-unsplash.jpg
 
 exec --no-startup-id source ~/.fehbg
 exec --no-startup-id $HOME/monitor-display.sh
 exec --no-startup-id picom
 exec --no-startup-id dunst
 
-exec --no-startup-id xset -dpms
 exec --no-startup-id xset s off
+exec --no-startup-id xset -dpms
+exec --no-startup-id xset s noblank
 
 exec --no-startup-id "setxkbmap -option caps:escape"
 
@@ -62,8 +64,6 @@ bindsym XF86AudioPrev exec playerctl previous
 bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl set +2%
 bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 2%-
 
-# type-4 style-5
-bindsym $mod+space exec --no-startup-id ~/.config/rofi/launchers/type-4/launcher.sh
 # type-2 style-7
 bindsym $mod+p exec --no-startup-id ~/.config/rofi/powermenu/type-2/powermenu.sh
 
