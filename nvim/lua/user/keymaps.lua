@@ -256,11 +256,7 @@ nnoremap("<leader>sf", function()
 	})
 end, { desc = "[S]earch [F]unctions" })
 
-nnoremap("<leader>sc", function()
-	require("telescope.builtin").commands(require("telescope.themes").get_dropdown({
-		previewer = false,
-	}))
-end, { desc = "[S]earch [C]ommands" })
+nnoremap("<leader>sc", require("telescope.builtin").colorscheme, { desc = "[S]earch [C]olorschemes" })
 
 -- Shortcut for searching your Neovim configuration files
 nnoremap("<leader>sn", function()

@@ -32,6 +32,11 @@ return {
 					hidden = true,
 					no_ignore = true,
 				},
+				pickers = {
+					colorscheme = {
+						enable_preview = true,
+					},
+				},
 				extensions = {
 					fzf = {},
 				},
