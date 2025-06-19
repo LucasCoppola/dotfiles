@@ -179,9 +179,9 @@ return {
 				lsp_format = "fallback",
 			},
 			formatters_by_ft = {
-				javascript = { "biome" },
-				typescript = { "biome" },
-				typescriptreact = { "biome" },
+				javascript = { "prettierd" },
+				typescript = { "prettierd" },
+				typescriptreact = { "prettierd" },
 				lua = { "stylua" },
 			},
 		},

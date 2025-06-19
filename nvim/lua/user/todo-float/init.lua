@@ -63,7 +63,7 @@ M.toggle = M.float
 
 function M.setup()
 	vim.api.nvim_create_user_command("TodoFloat", M.float, { desc = "Open todo.md in a floating window" })
-	vim.keymap.set("n", "<leader>t", M.float, { desc = "Todo Float" })
+	vim.keymap.set("n", "<leader>td", M.float, { desc = "Todo Float" })
 end
 
 return M
