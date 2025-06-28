@@ -22,7 +22,7 @@ create_session() {
 }
 
 # Open a file explorer to select a directory
-selected_dir=$(find ~/code ~/work ~/dotfiles -mindepth 1 -maxdepth 2 -type d | fzf)
+selected_dir=$(find ~/code  ~/dotfiles -mindepth 1 -maxdepth 2 -type d | fzf)
 
 if [ -n "$selected_dir" ]; then
     if [ -n "$TMUX" ]; then
