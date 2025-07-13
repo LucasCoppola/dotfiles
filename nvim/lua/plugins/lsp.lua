@@ -59,6 +59,7 @@ return {
 			local servers = {
 				-- LSP Servers
 				bashls = {},
+				gopls = {},
 				biome = {},
 				cssls = {},
 				clangd = {

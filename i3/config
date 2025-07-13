@@ -27,6 +27,7 @@ exec --no-startup-id picom
 exec --no-startup-id dunst
 
 exec --no-startup-id ~/.config/i3/fix-startup.sh
+exec --no-startup-id xset r rate 250 30
 
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
