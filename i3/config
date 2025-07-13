@@ -13,9 +13,9 @@ for_window [class=".*"] border pixel 0
 assign [class="ghostty"] workspace 1
 assign [class="Navigator|zen"] workspace 2
 assign [class="Spotify"] workspace 3
+assign [class="Cursor"] workspace 4
 
 exec --no-startup-id ghostty
-exec --no-startup-id flatpak run app.zen_browser.zen 
 exec --no-startup-id ulauncher
 
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
@@ -71,8 +71,8 @@ floating_modifier $mod
 bindsym $mod+s exec systemctl suspend
 bindsym $mod+Return exec ghostty
 
-bindsym Mod4+2 exec flatpak run app.zen_browser.zen 
-bindsym Mod4+3 exec flatpak run com.spotify.Client 
+bindsym Mod4+b exec flatpak run app.zen_browser.zen 
+bindsym Mod4+s exec flatpak run com.spotify.Client 
 
 # kill focused window
 bindsym $mod+q kill
