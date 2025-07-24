@@ -59,8 +59,12 @@ return {
 			local servers = {
 				-- LSP Servers
 				bashls = {},
-				biome = {},
 				cssls = {},
+				gopls = {
+					root_dir = require("lspconfig").util.root_pattern("go.mod", ".git"),
+					on_attach = on_attach,
+					capabilities = capabilities,
+				},
 				clangd = {
 					autostart = true,
 					cmd = { "clangd" },
