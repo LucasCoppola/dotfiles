@@ -9,6 +9,13 @@ local illuminate = require("illuminate")
 local supermaven = require("supermaven-nvim.api")
 
 local M = {}
+-- Add this after your colorscheme is loaded
+vim.api.nvim_set_hl(0, "RenderMarkdownH1Bg", { fg = "#82b1ff", bg = "NONE", bold = false })
+vim.api.nvim_set_hl(0, "RenderMarkdownH2Bg", { fg = "#c792ea", bg = "NONE", bold = false })
+vim.api.nvim_set_hl(0, "RenderMarkdownH3Bg", { fg = "#ffcb6b", bg = "NONE", bold = false })
+vim.api.nvim_set_hl(0, "RenderMarkdownH4Bg", { fg = "#f78c6c", bg = "NONE", bold = false })
+vim.api.nvim_set_hl(0, "RenderMarkdownH5Bg", { fg = "#c3e88d", bg = "NONE", bold = false })
+vim.api.nvim_set_hl(0, "RenderMarkdownH6Bg", { fg = "#ff5370", bg = "NONE", bold = false })
 
 -- Normal --
 -- Disable Space bar since it'll be used as the leader key
