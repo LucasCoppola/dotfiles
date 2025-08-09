@@ -62,6 +62,9 @@ nnoremap("<C-Right>", ":vertical resize -2<CR>", { desc = "Resize right" })
 
 nnoremap("<leader>cl", "oconsole.log()<Left>")
 
+-- Toggle TSContext
+nnoremap("<leader>ct", ":TSContext toggle<cr>", { desc = "TS[C]ontext [T]oggle" })
+
 -- Swap between last two buffers
 nnoremap("<leader>'", "<C-^>", { desc = "Switch to last buffer" })
 
