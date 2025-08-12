@@ -25,20 +25,22 @@ local function ensure_todo_ready()
 		end
 	end
 
-	-- Create buffer and set content directly
+	-- Create buffer and set everything only on first creation
 	todo_buf = vim.api.nvim_create_buf(false, false)
 	vim.api.nvim_buf_set_name(todo_buf, todo_path)
 	vim.api.nvim_buf_set_lines(todo_buf, 0, -1, false, todo_content)
-	-- Set buffer options
 	vim.api.nvim_set_option_value("filetype", "markdown", { buf = todo_buf })
+
 	return todo_buf
 end
 
 local function open_todo_float()
 	local buf = ensure_todo_ready()
+
 	-- Calculate window dimensions
 	local width = math.floor(vim.o.columns * 0.7)
 	local height = math.floor(vim.o.lines * 0.7)
+
 	-- Create floating window
 	vim.api.nvim_open_win(buf, true, {
 		relative = "editor",
