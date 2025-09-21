@@ -28,12 +28,9 @@ alias gl='git log --oneline'
 alias c='clear'
 alias zsh='n ~/.zshrc'
 alias szsh='source ~/.zshrc'
-alias win='cd /mnt/c/Users/lukic'
 
-alias gitcommit='bat ~/gitcommit.txt'
 alias zen="cd ~/.var/app/app.zen_browser.zen/.zen/'97oegn4r.Default (release)'/chrome"
 
-alias y='yazi'
 alias n='nvim'
 alias d='cd dotfiles/nvim && nvim .'
 
@@ -47,13 +44,6 @@ export NVM_DIR="$HOME/.nvm"
 
 # Turso
 export PATH="/home/lucas/.turso:$PATH"
-
-# bun completions
-[ -s "/home/lucas/.bun/_bun" ] && source "/home/lucas/.bun/_bun"
-
-# bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
 
 # Bat or batcat
 export BAT_THEME=TwoDark
@@ -70,20 +60,8 @@ export GOROOT=/usr/local/go-1.22.3
 export GOPATH=$HOME/go
 export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
 
-# dpi <dpi-number>
-function dpi() {
-    sed -i -E "s/^Xft.dpi:.*/Xft.dpi:${1}/" ~/.Xresources
-    xrdb ~/.Xresources
-
-    polybar_config="$HOME/.config/polybar/chnvok/config.ini"  
-
-    # Replace dpi-x and dpi-y lines with the new values
-    sed -i -E "s/^(dpi-x = ).*/\1${1}/" "$polybar_config"
-    sed -i -E "s/^(dpi-y = ).*/\1${1}/" "$polybar_config"
-
-    i3-msg restart
-
-    echo "DPI set to: ${1}"
+function batdiff() {
+    git diff --name-only --relative --diff-filter=d -z | xargs -0 bat --diff
 }
 
 # Cursor alias
