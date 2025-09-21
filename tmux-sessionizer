@@ -8,10 +8,8 @@ create_session() {
     if tmux has-session -t "$session_name" 2>/dev/null; then
         tmux switch-client -t "$session_name"
     else
-        # Create a new session with the first window running Neovim, but keep shell open after exit
         tmux new-session -d -s "$session_name" -c "$session_path" "nvim ."
         
-        # Create a second window with Zsh
         tmux new-window -t "$session_name" -c "$session_path"
         
         # Select the first window (Neovim)
@@ -21,7 +19,12 @@ create_session() {
     fi
 }
 
-selected_dir=$(find ~/code  ~/dotfiles -mindepth 1 -maxdepth 2 -type d | fzf)
+selected_dir=$({
+    find ~/code -mindepth 1 -maxdepth 1 -type d -not -name "boot.dev"
+    
+    # find ~/code/boot.dev -mindepth 2 -maxdepth 3 -type d 2>/dev/null | \
+    # grep -E "(pokedex|web-server|go-basics|fundamentals|learn-|rss-|memory-)" || true
+} | sort | fzf)
 
 if [ -n "$selected_dir" ]; then
     if [ -n "$TMUX" ]; then
