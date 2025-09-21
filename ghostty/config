@@ -1,0 +1,17 @@
+theme = Material Ocean
+foreground = #f5f5f5
+font-family = Geist Mono
+font-feature = -liga
+
+# Appearance
+gtk-titlebar = false
+gtk-single-instance = true
+gtk-tabs-location = top
+gtk-wide-tabs = false
+window-decoration = false
+window-padding-balance = true
+window-padding-y = 10,0
+window-padding-x = 10,0
+
+
+

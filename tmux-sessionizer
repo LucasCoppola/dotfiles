@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+
+# Function to create a new tmux session with Neovim and Zsh windows
+create_session() {
+    local session_path="$1"
+    local session_name=$(basename "$session_path" | tr . _)
+    
+    if tmux has-session -t "$session_name" 2>/dev/null; then
+        tmux switch-client -t "$session_name"
+    else
+        # Create a new session with the first window running Neovim, but keep shell open after exit
+        tmux new-session -d -s "$session_name" -c "$session_path" "nvim ."
+        
+        # Create a second window with Zsh
+        tmux new-window -t "$session_name" -c "$session_path"
+        
+        # Select the first window (Neovim)
+        tmux select-window -t "$session_name":1
+        
+        tmux switch-client -t "$session_name"
+    fi
+}
+
+selected_dir=$(find ~/code  ~/dotfiles -mindepth 1 -maxdepth 2 -type d | fzf)
+
+if [ -n "$selected_dir" ]; then
+    if [ -n "$TMUX" ]; then
+        # If we're already in a tmux session, create the new session and switch to it
+        create_session "$selected_dir"
+    else
+        # If we're not in a tmux session, create and attach to the new session
+        tmux new-session -d -s "$(basename "$selected_dir" | tr . _)" -c "$selected_dir" "nvim ."
+        tmux new-window -t "$(basename "$selected_dir" | tr . _)" -c "$selected_dir"
+        tmux select-window -t "$(basename "$selected_dir" | tr . _)":1
+        tmux attach-session -t "$(basename "$selected_dir" | tr . _)"
+    fi
+fi
