@@ -68,3 +68,14 @@ function batdiff() {
 function cursor() {
     /opt/cursor.appimage --no-sandbox "${@}" > /dev/null 2>&1 & disown
 }
+
+function my-parser-widget() {
+  local selected
+  selected=$(~/code/git-alias/gfind.sh) || return
+  if [[ -n "$selected" ]]; then
+    LBUFFER="$selected"
+    zle redisplay
+  fi
+}
+zle -N my-parser-widget
+bindkey '^g' my-parser-widget   # choose your binding

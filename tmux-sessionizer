@@ -12,13 +12,11 @@ create_session() {
         
         tmux new-window -t "$session_name" -c "$session_path"
         
-        # Select the first window (Neovim)
         tmux select-window -t "$session_name":1
         
         tmux switch-client -t "$session_name"
     fi
 }
-
 selected_dir=$({
     find ~/code -mindepth 1 -maxdepth 1 -type d -not -name "boot.dev"
     
@@ -27,14 +25,14 @@ selected_dir=$({
 } | sort | fzf)
 
 if [ -n "$selected_dir" ]; then
-    if [ -n "$TMUX" ]; then
-        # If we're already in a tmux session, create the new session and switch to it
-        create_session "$selected_dir"
-    else
-        # If we're not in a tmux session, create and attach to the new session
-        tmux new-session -d -s "$(basename "$selected_dir" | tr . _)" -c "$selected_dir" "nvim ."
-        tmux new-window -t "$(basename "$selected_dir" | tr . _)" -c "$selected_dir"
-        tmux select-window -t "$(basename "$selected_dir" | tr . _)":1
-        tmux attach-session -t "$(basename "$selected_dir" | tr . _)"
-    fi
+  if [ -n "$TMUX" ]; then
+    # If we're already in a tmux session, create the new session and switch to it
+    create_session "$selected_dir"
+  else
+    # If we're not in a tmux session, create and attach to the new session
+    tmux new-session -d -s "$(basename "$selected_dir" | tr . _)" -c "$selected_dir" "nvim ."
+    tmux new-window -t "$(basename "$selected_dir" | tr . _)" -c "$selected_dir"
+    tmux select-window -t "$(basename "$selected_dir" | tr . _)":1
+    tmux attach-session -t "$(basename "$selected_dir" | tr . _)"
+  fi
 fi
