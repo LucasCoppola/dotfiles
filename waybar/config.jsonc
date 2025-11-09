@@ -42,14 +42,14 @@
   "custom/omarchy": {
     "format": "<span font='omarchy'>󰣇</span>"
   },
-  "custom/update": {
-    "format": "",
-    "exec": "omarchy-update-available",
-    "on-click": "omarchy-launch-floating-terminal-with-presentation omarchy-update",
-    "tooltip-format": "Omarchy update available",
-    "signal": 7,
-    "interval": 3600
-  },
+  // "custom/update": {
+  //   "format": "",
+  //   "exec": "omarchy-update-available",
+  //   "on-click": "omarchy-launch-floating-terminal-with-presentation omarchy-update",
+  //   "tooltip-format": "Omarchy update available",
+  //   "signal": 7,
+  //   "interval": 3600
+  // },
   "cpu": {
     "interval": 5,
     "format": "󰍛",
@@ -61,7 +61,7 @@
     "tooltip-format": "Memory: {used:0.1f}G/{total:0.1f}G ({percentage}%)\nSwap: {swapUsed:0.1f}G/{swapTotal:0.1f}G"
   },
   "clock": {
-    "format": "{:%d %A %H:%M}",
+    "format": "{:%a %b %d  %H:%M}",
     "format-alt": "{:L%d %B W%V %Y}",
     "tooltip": false,
     "on-click-right": "omarchy-launch-floating-terminal-with-presentation omarchy-tz-select"
