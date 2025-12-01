@@ -1,5 +1,14 @@
 return {
 	{
+		"folke/lazydev.nvim",
+		ft = "lua",
+		opts = {
+			library = {
+				{ path = "${3rd}/luv/library", words = { "vim%.uv" } },
+			},
+		},
+	},
+	{
 		"neovim/nvim-lspconfig",
 		event = { "BufReadPost" },
 		cmd = { "LspInfo", "LspInstall", "LspUninstall", "Mason" },
@@ -13,27 +22,10 @@ return {
 		config = function()
 			local map_lsp_keybinds = require("user.keymaps").map_lsp_keybinds
 
-			local ts_ls_inlay_hints = {
-				includeInlayEnumMemberValueHints = true,
-				includeInlayFunctionLikeReturnTypeHints = true,
-				includeInlayFunctionParameterTypeHints = true,
-				includeInlayParameterNameHints = "all",
-				includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-				includeInlayPropertyDeclarationTypeHints = true,
-				includeInlayVariableTypeHints = true,
-				includeInlayVariableTypeHintsWhenTypeMatchesName = true,
-			}
-
-			local on_attach = function(_client, buffer_number)
-				map_lsp_keybinds(buffer_number)
-			end
-
-			local capabilities = vim.lsp.protocol.make_client_capabilities()
-			capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
-
 			-- LSP server configurations
 			local servers = {
 				bashls = {},
+				biome = {},
 				cssls = {},
 				gopls = {
 					root_markers = { "go.mod", ".git" },
@@ -75,20 +67,20 @@ return {
 				marksman = {},
 				sqlls = {},
 				tailwindcss = {},
-				ts_ls = {
-					root_markers = { "package.json", "tsconfig.json", "jsconfig.json", ".git" },
-					settings = {
-						typescript = {
-							inlayHints = ts_ls_inlay_hints,
-						},
-						javascript = {
-							inlayHints = ts_ls_inlay_hints,
-						},
-						completions = {
-							completeFunctionCalls = true,
-						},
-					},
-				},
+				-- ts_ls = {
+				-- 	root_markers = { "package.json", "tsconfig.json", "jsconfig.json", ".git" },
+				-- 	settings = {
+				-- 		typescript = {
+				-- 			inlayHints = ts_ls_inlay_hints,
+				-- 		},
+				-- 		javascript = {
+				-- 			inlayHints = ts_ls_inlay_hints,
+				-- 		},
+				-- 		completions = {
+				-- 			completeFunctionCalls = true,
+				-- 		},
+				-- 	},
+				-- },
 				yamlls = {},
 			}
 
@@ -107,49 +99,50 @@ return {
 				ensure_installed = mason_tools_to_install,
 			})
 
-			-- Configure each LSP server
+			-- LSP servers and clients are able to communicate to each other what features they support.
+			--  By default, Neovim doesn't support everything that is in the LSP specification.
+			--  When you add nvim-cmp, luasnip, etc. Neovim now has *more* capabilities.
+			--  So, we create new capabilities with nvim cmp, and then broadcast that to the servers.
+			local capabilities = vim.lsp.protocol.make_client_capabilities()
+			-- Use Blink.cmp capabilities if available, fallback to cmp_nvim_lsp
+			local has_blink, blink = pcall(require, "blink.cmp")
+			if has_blink then
+				capabilities = vim.tbl_deep_extend("force", capabilities, blink.get_lsp_capabilities())
+			else
+				local has_cmp, cmp_lsp = pcall(require, "cmp_nvim_lsp")
+				if has_cmp then
+					capabilities = vim.tbl_deep_extend("force", capabilities, cmp_lsp.default_capabilities())
+				end
+			end
+
+			-- Setup LspAttach autocmd for keybindings (replaces on_attach)
+			vim.api.nvim_create_autocmd("LspAttach", {
+				group = vim.api.nvim_create_augroup("lsp-attach", { clear = true }),
+				callback = function(event)
+					map_lsp_keybinds(event.buf)
+				end,
+			})
+
+			-- Setup each LSP server using the new vim.lsp.config API
 			for name, config in pairs(servers) do
+				-- Configure the server
 				vim.lsp.config(name, {
 					cmd = config.cmd,
 					capabilities = capabilities,
 					filetypes = config.filetypes,
-					handlers = config.handlers,
-					root_markers = config.root_markers, -- Use root_markers, not root_dir
 					settings = config.settings,
+					root_dir = config.root_dir,
+					root_markers = config.root_markers,
 				})
+
+				-- Enable the server (with autostart setting if specified)
+				if config.autostart == false then
+					-- Don't auto-enable servers with autostart = false
+					-- Users can manually enable with :lua vim.lsp.enable(name)
+				else
+					vim.lsp.enable(name)
+				end
 			end
-
-			-- Enable LSP servers on appropriate filetypes
-			vim.api.nvim_create_autocmd("FileType", {
-				group = vim.api.nvim_create_augroup("lsp-attach", { clear = true }),
-				callback = function(event)
-					-- Map of filetypes to LSP server names
-					local filetype_to_lsp = {
-						sh = "bashls",
-						css = "cssls",
-						go = "gopls",
-						c = "clangd",
-						h = "clangd",
-						html = "html",
-						json = "jsonls",
-						lua = "lua_ls",
-						markdown = "marksman",
-						sql = "sqlls",
-						typescript = "ts_ls",
-						typescriptreact = "ts_ls",
-						javascript = "ts_ls",
-						javascriptreact = "ts_ls",
-						yaml = "yamlls",
-					}
-
-					local lsp_name = filetype_to_lsp[event.match]
-					if lsp_name then
-						vim.lsp.enable(lsp_name)
-						-- Run on_attach callback
-						on_attach(nil, event.buf)
-					end
-				end,
-			})
 
 			-- Setup mason
 			require("mason").setup({
@@ -167,29 +160,5 @@ return {
 				},
 			})
 		end,
-	},
-	{
-		"stevearc/conform.nvim",
-		event = { "BufWritePre" },
-		cmd = { "ConformInfo" },
-		opts = {
-			notify_on_error = false,
-			default_format_opts = {
-				async = true,
-				timeout_ms = 500,
-				lsp_format = "fallback",
-			},
-			format_after_save = {
-				async = true,
-				timeout_ms = 500,
-				lsp_format = "fallback",
-			},
-			formatters_by_ft = {
-				javascript = { "prettierd" },
-				typescript = { "prettierd" },
-				typescriptreact = { "prettierd" },
-				lua = { "stylua" },
-			},
-		},
 	},
 }
