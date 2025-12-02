@@ -9,7 +9,7 @@ return {
 				right_pad = 1,
 			},
 			heading = {
-				sign = false,
+				position = "inline",
 				icons = {},
 			},
 		},
