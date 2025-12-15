@@ -16,6 +16,7 @@ return {
 				["<C-u>"] = { "scroll_documentation_up", "fallback" },
 				["<C-d>"] = { "scroll_documentation_down", "fallback" },
 				["<C-Space>"] = { "show", "fallback" },
+				["<C-y>"] = false,
 				-- Tab behavior: navigate forward through suggestions or snippet placeholders
 				["<Tab>"] = {
 					function(cmp)
@@ -114,7 +115,7 @@ return {
 					},
 				},
 				ghost_text = {
-					enabled = true,
+					enabled = false,
 				},
 				list = {
 					selection = {
