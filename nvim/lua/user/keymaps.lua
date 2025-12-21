@@ -246,72 +246,12 @@ end, { desc = "Harpoon 4" })
 -- Git keymaps --
 
 -- Open git fugitive
-vim.keymap.set("n", "<leader>g", "<cmd>Git<cr>", { silent = false, desc = "Open Git fugitive" })
-
--- Telescope keybinds --
-vim.keymap.set("n", "<leader>?", require("telescope.builtin").oldfiles, { desc = "[?] Find recently opened files" })
-vim.keymap.set("n", "<leader><leader>", require("telescope.builtin").buffers, { desc = "[S]earch Open Buffers" })
-vim.keymap.set("n", "<leader>sh", require("telescope.builtin").help_tags, { desc = "[S]earch [H]elp" })
-vim.keymap.set("n", "<leader>sg", require("telescope.builtin").live_grep, { desc = "[S]earch by [G]rep" })
-
-vim.keymap.set("n", "<leader>f", function()
-	require("telescope.builtin").find_files({ hidden = true, no_ignore = true })
-end, { desc = "[F]iles" })
-
-vim.keymap.set("n", "<leader>sf", function()
-	require("telescope.builtin").lsp_dynamic_workspace_symbols({
-		symbols = { "function", "method" },
-	})
-end, { desc = "[S]earch [F]unctions" })
-
-vim.keymap.set("n", "<leader>sc", require("telescope.builtin").colorscheme, { desc = "[S]earch [C]olorschemes" })
-
--- Shortcut for searching your Neovim configuration files
-vim.keymap.set("n", "<leader>sn", function()
-	require("telescope.builtin").find_files({ cwd = vim.fn.stdpath("config") })
-end, { desc = "[S]earch [N]eovim files" })
-
-vim.keymap.set("n", "<leader>/", function()
-	require("telescope.builtin").current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
-		previewer = false,
-	}))
-end, { desc = "[/] Fuzzily search in current buffer" })
-
-vim.keymap.set("n", "<leader>ss", function()
-	require("telescope.builtin").spell_suggest(require("telescope.themes").get_dropdown({
-		previewer = false,
-	}))
-end, { desc = "[S]earch [S]pelling suggestions" })
+vim.keymap.set("n", "<leader>gg", "<cmd>Git<cr>", { silent = false, desc = "Open Git fugitive" })
 
 -- LSP Keybinds (per-buffer)
 M.map_lsp_keybinds = function(buffer_number)
 	vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { desc = "LSP: Rename symbol", buffer = buffer_number })
 	vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "LSP: Code action", buffer = buffer_number })
-	vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "LSP: Go to definition", buffer = buffer_number })
-	vim.keymap.set(
-		"n",
-		"gr",
-		require("telescope.builtin").lsp_references,
-		{ desc = "LSP: Go to references", buffer = buffer_number }
-	)
-	vim.keymap.set(
-		"n",
-		"gi",
-		require("telescope.builtin").lsp_implementations,
-		{ desc = "LSP: Go to implementations", buffer = buffer_number }
-	)
-	vim.keymap.set(
-		"n",
-		"<leader>bs",
-		require("telescope.builtin").lsp_document_symbols,
-		{ desc = "LSP: Document symbols", buffer = buffer_number }
-	)
-	vim.keymap.set(
-		"n",
-		"<leader>ps",
-		require("telescope.builtin").lsp_workspace_symbols,
-		{ desc = "LSP: Workspace symbols", buffer = buffer_number }
-	)
 
 	local signature_help = function()
 		return vim.lsp.buf.signature_help({ border = "rounded" })
@@ -324,8 +264,6 @@ M.map_lsp_keybinds = function(buffer_number)
 	vim.keymap.set("n", "K", hover, { desc = "LSP: Signature help", buffer = buffer_number })
 
 	vim.keymap.set("i", "<C-k>", signature_help, { desc = "LSP: Signature help", buffer = buffer_number })
-	vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { desc = "LSP: Go to declaration", buffer = buffer_number })
-	vim.keymap.set("n", "td", vim.lsp.buf.type_definition, { desc = "LSP: Type definition", buffer = buffer_number })
 end
 
 -- Symbol Outline keybind
@@ -364,20 +302,5 @@ vim.keymap.set("x", ">>", function()
 	vim.cmd("normal! >>")
 	vim.cmd("normal! gv")
 end, { desc = "Indent right and reselect" })
-
--- Terminal Mode --
--- Enter normal mode while in a terminal
-vim.keymap.set("t", "<esc>", [[<C-\><C-n>]], { desc = "Exit terminal mode" })
-vim.keymap.set("t", "jk", [[<C-\><C-n>]], { desc = "Exit terminal mode (jk)" })
-vim.keymap.set("t", "kj", [[<C-\><C-n>]], { desc = "Exit terminal mode (kj)" })
-
--- Window navigation from terminal
-vim.keymap.set("t", "<C-h>", [[<Cmd>wincmd h<CR>]], { desc = "Navigate left from terminal" })
-vim.keymap.set("t", "<C-j>", [[<Cmd>wincmd j<CR>]], { desc = "Navigate down from terminal" })
-vim.keymap.set("t", "<C-k>", [[<Cmd>wincmd k<CR>]], { desc = "Navigate up from terminal" })
-vim.keymap.set("t", "<C-l>", [[<Cmd>wincmd l<CR>]], { desc = "Navigate right from terminal" })
-
--- Reenable default <space> functionality to prevent input delay
-vim.keymap.set("t", "<space>", "<space>", { desc = "Space in terminal mode" })
 
 return M
