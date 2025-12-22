@@ -73,6 +73,251 @@ return {
 				end,
 			})
 		end,
-		keys = {},
+
+		keys = {
+			-- Git
+			{
+				"<leader>og",
+				function()
+					Snacks.gitbrowse()
+				end,
+				desc = "[O]pen [G]it",
+				mode = { "n", "v" },
+			},
+			{
+				"<leader>gb",
+				function()
+					Snacks.picker.git_branches()
+				end,
+				desc = "Git Branches",
+			},
+			{
+				"<leader>gl",
+				function()
+					Snacks.picker.git_log()
+				end,
+				desc = "Git Log",
+			},
+			{
+				"<leader>gL",
+				function()
+					Snacks.picker.git_log_line()
+				end,
+				desc = "Git Log Line",
+			},
+
+			-- Toggles
+			{
+				"<leader>ln",
+				function()
+					Snacks.toggle.option("relativenumber", { name = "Relative Number" }):toggle()
+				end,
+				desc = "Toggle Relative [L]ine [N]umbers",
+			},
+			{
+				"<leader>td",
+				function()
+					Snacks.toggle.diagnostics():toggle()
+				end,
+				desc = "[T]oggle [D]iagnostics",
+			},
+			{
+				"<leader>zm",
+				function()
+					Snacks.toggle.dim():toggle()
+				end,
+				desc = "Toggle Dim Mode",
+			},
+			{
+				"<leader>tw",
+				function()
+					Snacks.toggle.option("wrap"):toggle()
+				end,
+				desc = "[T]oggle line [W]rap",
+			},
+			{
+				"<leader>ih",
+				function()
+					Snacks.toggle({
+						name = "Inlay Hints",
+						get = function()
+							return vim.lsp.inlay_hint.is_enabled()
+						end,
+						set = function(state)
+							if state then
+								vim.lsp.inlay_hint.enable(true)
+							else
+								vim.lsp.inlay_hint.enable(false)
+							end
+						end,
+					}):toggle()
+				end,
+				desc = "Toggle [I]nlay [H]ints",
+			},
+			{
+				"<leader>hl",
+				function()
+					local hc = require("nvim-highlight-colors")
+					Snacks.toggle({
+						name = "Highlight Colors",
+						get = function()
+							return hc.is_active()
+						end,
+						set = function(state)
+							if state then
+								hc.turnOn()
+							else
+								hc.turnOff()
+							end
+						end,
+					}):toggle()
+				end,
+				desc = "Toggle [H]igh[L]ight Colors",
+			},
+
+			-- Scratch
+			{
+				"<leader>.",
+				function()
+					Snacks.scratch()
+				end,
+				desc = "Toggle Scratch Buffer",
+			},
+			{
+				"<leader>s.",
+				function()
+					Snacks.scratch.select()
+				end,
+				desc = "Search Scratch Buffers",
+			},
+
+			-- Picker - General
+			{
+				"ff",
+				function()
+					Snacks.picker.smart()
+				end,
+				desc = "Smart Find Files",
+			},
+			{
+				"<leader><leader>",
+				function()
+					Snacks.picker.buffers()
+				end,
+				desc = "Buffers",
+			},
+			{
+				"<leader>sg",
+				function()
+					Snacks.picker.grep()
+				end,
+				desc = "Grep",
+			},
+			{
+				"<leader>:",
+				function()
+					Snacks.picker.command_history()
+				end,
+				desc = "Command History",
+			},
+			{
+				"<leader>ff",
+				function()
+					Snacks.picker.files()
+				end,
+				desc = "Find Files",
+			},
+			{
+				"<leader>fp",
+				function()
+					Snacks.picker.projects()
+				end,
+				desc = "Projects",
+			},
+			{
+				"<leader>sk",
+				function()
+					Snacks.picker.keymaps()
+				end,
+				desc = "Keymaps",
+			},
+			{
+				"<leader>su",
+				function()
+					Snacks.picker.undo()
+				end,
+				desc = "Undo History",
+			},
+			{
+				"<leader>sc",
+				function()
+					Snacks.picker.colorschemes()
+				end,
+				desc = "Colorschemes",
+			},
+			{
+				"<leader>ss",
+				function()
+					Snacks.picker.spelling({
+						layout = {
+							preset = "select",
+						},
+					})
+				end,
+				desc = "[S]earch [S]pelling suggestions",
+			},
+
+			-- Picker - LSP
+			{
+				"gd",
+				function()
+					Snacks.picker.lsp_definitions()
+				end,
+				desc = "Goto Definition",
+			},
+			{
+				"gD",
+				function()
+					Snacks.picker.lsp_declarations()
+				end,
+				desc = "Goto Declaration",
+			},
+			{
+				"gr",
+				function()
+					Snacks.picker.lsp_references()
+				end,
+				desc = "References",
+				nowait = true,
+			},
+			{
+				"gi",
+				function()
+					Snacks.picker.lsp_implementations()
+				end,
+				desc = "Goto Implementation",
+			},
+			{
+				"gt",
+				function()
+					Snacks.picker.lsp_type_definitions()
+				end,
+				desc = "Goto T[y]pe Definition",
+			},
+			{
+				"gai",
+				function()
+					Snacks.picker.lsp_incoming_calls()
+				end,
+				desc = "C[a]lls Incoming",
+			},
+			{
+				"gao",
+				function()
+					Snacks.picker.lsp_outgoing_calls()
+				end,
+				desc = "C[a]lls Outgoing",
+			},
+		},
 	},
 }

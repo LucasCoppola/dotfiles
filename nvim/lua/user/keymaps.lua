@@ -243,8 +243,6 @@ vim.keymap.set("n", "<leader>4", function()
 	harpoon_ui.nav_file(4)
 end, { desc = "Harpoon 4" })
 
--- Git keymaps --
-
 -- Open git fugitive
 vim.keymap.set("n", "<leader>gg", "<cmd>Git<cr>", { silent = false, desc = "Open Git fugitive" })
 
