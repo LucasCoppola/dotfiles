@@ -1,14 +1,8 @@
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
-
-# Path to your oh-my-zsh installation.
+# === Oh My Zsh Configuration ===
 export ZSH="$HOME/.oh-my-zsh"
 export EDITOR=nvim
 
 ZSH_THEME='robbyrussell'
-# ZSH_THEME='random'
-# ZSH_THEME="half-life"
-# ZSH_THEME="norm"
 
 # Uncomment the following line if pasting URLs and other text is messed up.
 DISABLE_MAGIC_FUNCTIONS="true"
@@ -19,63 +13,70 @@ plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
-bindkey -v  # Add this line to enable Vim-like key bindings
+# === Vim Mode ===
+bindkey -v
+export KEYTIMEOUT=1
 
 bindkey -s ^f "tmux-sessionizer\n"
 
+# === Aliases ===
 alias gs='git status'
 alias gl='git log --oneline'
 alias c='clear'
 alias zsh='n ~/.zshrc'
 alias szsh='source ~/.zshrc'
 
-alias zen="cd ~/.var/app/app.zen_browser.zen/.zen/'97oegn4r.Default (release)'/chrome"
-
 alias n='nvim'
-alias d='cd dotfiles/nvim && nvim .'
 
+# === Development Tools ===
+
+# NVM
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
-
-# Generated for envman. Do not edit.
+# Envman
 [ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
-
-# Turso
-export PATH="/home/lucas/.turso:$PATH"
-
-# Bat or batcat
-export BAT_THEME=TwoDark
-alias bat='batcat'
-
-export PATH="$HOME/.local/bin:$PATH"
-
-# Zoxide
-eval "$(zoxide init zsh)"
-alias cd='z'
 
 # Go
 export GOROOT=/usr/local/go-1.22.3
 export GOPATH=$HOME/go
 export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
 
-function batdiff() {
-    git diff --name-only --relative --diff-filter=d -z | xargs -0 bat --diff
+# === Tools & Utilities ===
+
+# Turso
+export PATH="$HOME/.turso:$PATH"
+
+# Bat
+export BAT_THEME=TwoDark
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    alias bat='bat'
+else
+    alias bat='batcat'
+fi
+
+# Zoxide
+eval "$(zoxide init zsh)"
+alias cd='z'
+
+# === PATH Configuration ===
+export PATH="$HOME/.local/bin:$PATH"
+typeset -U path
+
+# FZF - fuzzy finder
+if command -v fzf &> /dev/null; then
+    eval "$(fzf --zsh)"
+    export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
+    # Use bat for preview if available
+    export FZF_CTRL_T_OPTS="--preview 'bat --color=always --line-range :500 {}'"
+fi
+
+mkcd() {
+    mkdir -p "$1" && cd "$1"
 }
 
-# Cursor alias
-function cursor() {
-    /opt/cursor.appimage --no-sandbox "${@}" > /dev/null 2>&1 & disown
+# Find process by name
+psgrep() {
+    ps aux | grep -v grep | grep -i -e VSZ -e "$1"
 }
-
-function my-parser-widget() {
-  local selected
-  selected=$(~/code/git-alias/gfind.sh) || return
-  if [[ -n "$selected" ]]; then
-    LBUFFER="$selected"
-    zle redisplay
-  fi
-}
-zle -N my-parser-widget
-bindkey '^g' my-parser-widget   # choose your binding

@@ -18,10 +18,11 @@ create_session() {
     fi
 }
 selected_dir=$({
-    find ~/code -mindepth 1 -maxdepth 1 -type d -not -name "boot.dev"
+    find ~/code -mindepth 1 -maxdepth 1 -type d
+    # -not -name "boot.dev"
     
-    # find ~/code/boot.dev -mindepth 2 -maxdepth 3 -type d 2>/dev/null | \
-    # grep -E "(pokedex|web-server|go-basics|fundamentals|learn-|rss-|memory-)" || true
+    # find ~/code/boot.dev -mindepth 2 -maxdepth 2 -type d 2>/dev/null | \
+    # grep -E "(pokedex|web-server|go-basics|fundamentals|learn-|rss-|memory-)"
 } | sort | fzf)
 
 if [ -n "$selected_dir" ]; then
