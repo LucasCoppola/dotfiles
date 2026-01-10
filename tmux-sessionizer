@@ -23,7 +23,7 @@ selected_dir=$({
     
     # find ~/code/boot.dev -mindepth 2 -maxdepth 2 -type d 2>/dev/null | \
     # grep -E "(pokedex|web-server|go-basics|fundamentals|learn-|rss-|memory-)"
-} | sort | fzf)
+} | sort | fzf-tmux -p)
 
 if [ -n "$selected_dir" ]; then
   if [ -n "$TMUX" ]; then
