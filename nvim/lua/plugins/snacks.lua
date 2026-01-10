@@ -21,6 +21,7 @@ return {
 			rename = { enabled = true },
 			toggle = { enabled = true },
 			scratch = { enabled = true },
+			input = { enabled = true },
 			statuscolumn = { enabled = true },
 			words = { enabled = true },
 			picker = {
