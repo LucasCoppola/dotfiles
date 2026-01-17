@@ -66,6 +66,14 @@ return {
 				},
 				marksman = {},
 				sqlls = {},
+				oxc_language_server = {
+					root_markers = { "package.json", "tsconfig.json", ".git" },
+					settings = {
+						oxc = {
+							typeAware = true, -- This enables type-aware linting
+						},
+					},
+				},
 				tailwindcss = {},
 				-- ts_ls = {
 				-- 	root_markers = { "package.json", "tsconfig.json", "jsconfig.json", ".git" },
