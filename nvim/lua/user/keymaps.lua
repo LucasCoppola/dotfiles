@@ -1,5 +1,3 @@
-local harpoon_ui = require("harpoon.ui")
-local harpoon_mark = require("harpoon.mark")
 local supermaven = require("supermaven-nvim.api")
 local prelude = require("user.prelude")
 local copy_line_diagnostics_to_clipboard = prelude.copy_line_diagnostics_to_clipboard
@@ -204,44 +202,6 @@ vim.keymap.set("n", "gx", ":sil !open <cWORD><cr>", { silent = true, desc = "Ope
 
 -- TSC autocommand keybind to run TypeScripts tsc
 vim.keymap.set("n", "<leader>tc", ":TSC<cr>", { desc = "[T]ypeScript [C]ompile" })
-
--- Harpoon keybinds --
--- Open harpoon ui
-vim.keymap.set("n", "<leader>ho", function()
-	harpoon_ui.toggle_quick_menu()
-end, { desc = "[H]arpoon [O]pen" })
-
--- Add current file to harpoon
-vim.keymap.set("n", "<leader>ha", function()
-	harpoon_mark.add_file()
-end, { desc = "[H]arpoon [A]dd File" })
-
--- Remove current file from harpoon
-vim.keymap.set("n", "<leader>hr", function()
-	harpoon_mark.rm_file()
-end, { desc = "[H]arpoon [R]emove File" })
-
--- Remove all files from harpoon
-vim.keymap.set("n", "<leader>hc", function()
-	harpoon_mark.clear_all()
-end, { desc = "[H]arpoon [C]lear" })
-
--- Quickly jump to harpooned files
-vim.keymap.set("n", "<leader>1", function()
-	harpoon_ui.nav_file(1)
-end, { desc = "Harpoon 1" })
-
-vim.keymap.set("n", "<leader>2", function()
-	harpoon_ui.nav_file(2)
-end, { desc = "Harpoon 2" })
-
-vim.keymap.set("n", "<leader>3", function()
-	harpoon_ui.nav_file(3)
-end, { desc = "Harpoon 3" })
-
-vim.keymap.set("n", "<leader>4", function()
-	harpoon_ui.nav_file(4)
-end, { desc = "Harpoon 4" })
 
 -- Open git fugitive
 vim.keymap.set("n", "<leader>gg", "<cmd>Git<cr>", { silent = false, desc = "Open Git fugitive" })

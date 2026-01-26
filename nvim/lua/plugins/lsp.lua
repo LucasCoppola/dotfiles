@@ -10,7 +10,7 @@ return {
 	},
 	{
 		"neovim/nvim-lspconfig",
-		event = { "BufReadPost" },
+		event = "VeryLazy",
 		cmd = { "LspInfo", "LspInstall", "LspUninstall", "Mason" },
 		dependencies = {
 			"williamboman/mason.nvim",
@@ -25,7 +25,6 @@ return {
 			-- LSP server configurations
 			local servers = {
 				bashls = {},
-				biome = {},
 				cssls = {},
 				gopls = {
 					root_markers = { "go.mod", ".git" },
@@ -75,20 +74,6 @@ return {
 					},
 				},
 				tailwindcss = {},
-				-- ts_ls = {
-				-- 	root_markers = { "package.json", "tsconfig.json", "jsconfig.json", ".git" },
-				-- 	settings = {
-				-- 		typescript = {
-				-- 			inlayHints = ts_ls_inlay_hints,
-				-- 		},
-				-- 		javascript = {
-				-- 			inlayHints = ts_ls_inlay_hints,
-				-- 		},
-				-- 		completions = {
-				-- 			completeFunctionCalls = true,
-				-- 		},
-				-- 	},
-				-- },
 				yamlls = {},
 			}
 

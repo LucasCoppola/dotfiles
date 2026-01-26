@@ -30,10 +30,17 @@ alias n='nvim'
 
 # === Development Tools ===
 
-# NVM
+# NVM - lazy loaded
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+nvm() {
+  echo "NVM LOADED BY: $funcstack" >&2
+  unfunction nvm node npm npx
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+  nvm "$@"
+}
+node() { nvm && node "$@"; }
+npm() { nvm && npm "$@"; }
+npx() { nvm && npx "$@"; }
 
 # Envman
 [ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
@@ -68,15 +75,8 @@ typeset -U path
 if command -v fzf &> /dev/null; then
     eval "$(fzf --zsh)"
     export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
-    # Use bat for preview if available
     export FZF_CTRL_T_OPTS="--preview 'bat --color=always --line-range :500 {}'"
 fi
 
-mkcd() {
-    mkdir -p "$1" && cd "$1"
-}
-
-# Find process by name
-psgrep() {
-    ps aux | grep -v grep | grep -i -e VSZ -e "$1"
-}
+# Machine-specific config (not version controlled)
+[ -f ~/.zshrc.local ] && source ~/.zshrc.local

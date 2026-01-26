@@ -23,27 +23,25 @@ return {
 		event = { "BufWritePre" },
 		cmd = { "ConformInfo" },
 		opts = {
-			notify_on_error = false,
+			notify_on_error = true,
 			default_format_opts = {
-				async = true,
-				timeout_ms = 500,
-				lsp_format = "fallback",
+				timeout_ms = 3000,
+				lsp_format = "never",
 			},
-			format_after_save = function(buffer_number)
+			format_on_save = function(buffer_number)
 				if vim.g.disable_autoformat or vim.b[buffer_number].disable_autoformat then
 					return
 				end
 				return {
-					async = true,
-					timeout_ms = 500,
-					lsp_format = "fallback",
+					timeout_ms = 3000,
+					lsp_format = "never",
 				}
 			end,
 			formatters_by_ft = {
-				astro = { "oxfmt", "biome", "prettierd", stop_after_first = true },
-				javascript = { "oxfmt", "biome", "prettierd", stop_after_first = true },
-				typescript = { "oxfmt", "biome", "prettierd", stop_after_first = true },
-				typescriptreact = { "oxfmt", "biome", "prettierd", stop_after_first = true },
+				astro = { "oxfmt", "prettierd", stop_after_first = true },
+				javascript = { "oxfmt", "prettierd", stop_after_first = true },
+				typescript = { "oxfmt", "prettierd", stop_after_first = true },
+				typescriptreact = { "oxfmt", "prettierd", stop_after_first = true },
 				svelte = { "oxfmt", "prettierd", stop_after_first = true },
 				lua = { "stylua" },
 			},
@@ -51,15 +49,6 @@ return {
 				oxfmt = {
 					condition = function(_, ctx)
 						return vim.fs.find({ ".oxfmtrc.json", ".oxfmtrc.jsonc" }, {
-							path = ctx.filename,
-							upward = true,
-							stop = vim.uv.os_homedir(),
-						})[1] ~= nil
-					end,
-				},
-				biome = {
-					condition = function(_, ctx)
-						return vim.fs.find({ "biome.json", "biome.jsonc" }, {
 							path = ctx.filename,
 							upward = true,
 							stop = vim.uv.os_homedir(),
