@@ -26,6 +26,8 @@ return {
           "go",
           "sql",
           "astro",
+          "rust",
+          "toml",
           "yaml",
         },
         sync_install = false,

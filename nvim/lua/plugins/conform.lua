@@ -44,6 +44,7 @@ return {
 				typescriptreact = { "oxfmt", "prettierd", stop_after_first = true },
 				svelte = { "oxfmt", "prettierd", stop_after_first = true },
 				lua = { "stylua" },
+				rust = { "rustfmt" },
 			},
 			formatters = {
 				oxfmt = {
