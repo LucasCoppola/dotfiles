@@ -22,6 +22,14 @@ return {
 		config = function()
 			local map_lsp_keybinds = require("user.keymaps").map_lsp_keybinds
 
+			-- Custom LspRestart that actually works
+			vim.api.nvim_create_user_command("LspRestart", function()
+				vim.lsp.stop_client(vim.lsp.get_clients())
+				vim.defer_fn(function()
+					vim.cmd("edit")
+				end, 100)
+			end, { desc = "Restart all LSP clients" })
+
 			-- LSP server configurations
 			local servers = {
 				bashls = {},
@@ -66,10 +74,11 @@ return {
 				marksman = {},
 				sqlls = {},
 				oxc_language_server = {
+					cmd = { "oxc_language_server" },
 					root_markers = { "package.json", "tsconfig.json", ".git" },
 					settings = {
 						oxc = {
-							typeAware = true, -- This enables type-aware linting
+							typeAware = true,
 						},
 					},
 				},
@@ -121,21 +130,42 @@ return {
 			vim.api.nvim_create_autocmd("LspAttach", {
 				group = vim.api.nvim_create_augroup("lsp-attach", { clear = true }),
 				callback = function(event)
-					map_lsp_keybinds(event.buf)
+					local bufnr = event.buf
+					local bufname = vim.api.nvim_buf_get_name(bufnr)
+
+					-- Detach from non-file buffers (diffview, fugitive, etc.)
+					if bufname == "" or bufname:match("^diffview://") or bufname:match("^fugitive://") then
+						vim.schedule(function()
+							vim.lsp.buf_detach_client(bufnr, event.data.client_id)
+						end)
+						return
+					end
+
+					map_lsp_keybinds(bufnr)
 				end,
 			})
 
 			-- Setup each LSP server using the new vim.lsp.config API
 			for name, config in pairs(servers) do
-				-- Configure the server
-				vim.lsp.config(name, {
-					cmd = config.cmd,
-					capabilities = capabilities,
-					filetypes = config.filetypes,
-					settings = config.settings,
-					root_dir = config.root_dir,
-					root_markers = config.root_markers,
-				})
+				-- Configure the server (only pass non-nil values)
+				local lsp_config = { capabilities = capabilities }
+				if config.cmd then
+					lsp_config.cmd = config.cmd
+				end
+				if config.filetypes then
+					lsp_config.filetypes = config.filetypes
+				end
+				if config.settings then
+					lsp_config.settings = config.settings
+				end
+				if config.root_dir then
+					lsp_config.root_dir = config.root_dir
+				end
+				if config.root_markers then
+					lsp_config.root_markers = config.root_markers
+				end
+
+				vim.lsp.config(name, lsp_config)
 
 				-- Enable the server (with autostart setting if specified)
 				if config.autostart == false then
