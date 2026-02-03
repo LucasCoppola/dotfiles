@@ -1,22 +1,15 @@
 # === Oh My Zsh Configuration ===
 export ZSH="$HOME/.oh-my-zsh"
 export EDITOR=nvim
-
 ZSH_THEME='robbyrussell'
-
-# Uncomment the following line if pasting URLs and other text is messed up.
 DISABLE_MAGIC_FUNCTIONS="true"
-
 HIST_STAMPS="mm/dd/yyyy"
-
-plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
-
+plugins=(git zsh-autosuggestions zsh-syntax-highlighting zsh-completions)
 source $ZSH/oh-my-zsh.sh
 
 # === Vim Mode ===
 bindkey -v
 export KEYTIMEOUT=1
-
 bindkey -s ^f "tmux-sessionizer\n"
 
 # === Aliases ===
@@ -25,10 +18,16 @@ alias gl='git log --oneline'
 alias c='clear'
 alias zsh='n ~/.zshrc'
 alias szsh='source ~/.zshrc'
-
 alias n='nvim'
+alias oc='opencode'
 
 # === Development Tools ===
+
+# OpenCode
+export OPENCODE_CONFIG_DIR=$HOME/.config/opencode/
+export OPENCODE_EXPERIMENTAL_LSP_TOOL=1
+export OPENCODE_EXPERIMENTAL_PLAN_MODE=1
+export OPENCODE_ENABLE_EXA=1
 
 # NVM - lazy loaded
 export NVM_DIR="$HOME/.nvm"
@@ -41,6 +40,10 @@ nvm() {
 node() { nvm && node "$@"; }
 npm() { nvm && npm "$@"; }
 npx() { nvm && npx "$@"; }
+
+# Bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
 
 # Envman
 [ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
@@ -67,16 +70,16 @@ fi
 eval "$(zoxide init zsh)"
 alias cd='z'
 
-# === PATH Configuration ===
-export PATH="$HOME/.local/bin:$PATH"
-typeset -U path
-
-# FZF - fuzzy finder
+# FZF
 if command -v fzf &> /dev/null; then
     eval "$(fzf --zsh)"
     export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
     export FZF_CTRL_T_OPTS="--preview 'bat --color=always --line-range :500 {}'"
 fi
 
-# Machine-specific config (not version controlled)
+# === PATH Configuration ===
+export PATH="$HOME/.local/bin:$PATH"
+typeset -U path
+
+# === Machine-Specific Configuration ===
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
