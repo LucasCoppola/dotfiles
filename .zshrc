@@ -29,18 +29,6 @@ export OPENCODE_EXPERIMENTAL_LSP_TOOL=1
 export OPENCODE_EXPERIMENTAL_PLAN_MODE=1
 export OPENCODE_ENABLE_EXA=1
 
-# NVM - lazy loaded
-export NVM_DIR="$HOME/.nvm"
-nvm() {
-  echo "NVM LOADED BY: $funcstack" >&2
-  unfunction nvm node npm npx
-  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-  nvm "$@"
-}
-node() { nvm && node "$@"; }
-npm() { nvm && npm "$@"; }
-npx() { nvm && npx "$@"; }
-
 # Bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
