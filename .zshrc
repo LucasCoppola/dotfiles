@@ -4,7 +4,7 @@ export EDITOR=nvim
 ZSH_THEME='robbyrussell'
 DISABLE_MAGIC_FUNCTIONS="true"
 HIST_STAMPS="mm/dd/yyyy"
-plugins=(git zsh-autosuggestions zsh-syntax-highlighting zsh-completions)
+plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
 source $ZSH/oh-my-zsh.sh
 
 # === Vim Mode ===
@@ -14,12 +14,14 @@ bindkey -s ^f "tmux-sessionizer\n"
 
 # === Aliases ===
 alias gs='git status'
-alias gl='git log --oneline'
+alias gl='git --no-pager log --oneline --decorate -n 10'
 alias c='clear'
 alias zsh='n ~/.zshrc'
 alias szsh='source ~/.zshrc'
 alias n='nvim'
 alias oc='opencode'
+alias p='pnpm'
+alias lsa="ls -alh"
 
 # === Development Tools ===
 
