@@ -50,11 +50,6 @@ export PATH="$HOME/.turso:$PATH"
 
 # Bat
 export BAT_THEME=TwoDark
-if [[ "$OSTYPE" == "darwin"* ]]; then
-    alias bat='bat'
-else
-    alias bat='batcat'
-fi
 
 # Zoxide
 eval "$(zoxide init zsh)"
