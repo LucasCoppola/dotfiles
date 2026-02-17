@@ -1,0 +1,28 @@
+[dotfiles]
+ignore = ["install.sh", ".git", ".gitignore", "dot.toml"]
+
+[git]
+name = "LucasCoppola"
+email = "lucascoppola21@gmail.com"
+
+[packages]
+shared = [
+  "neovim",
+  "tmux",
+  "ripgrep",
+  "fzf",
+  "jq",
+  "bat",
+  "zoxide",
+  "docker"
+]
+
+[packages.linux]
+extra = [
+  "docker",
+]
+
+[packages.macos]
+casks = [
+  "docker",
+]

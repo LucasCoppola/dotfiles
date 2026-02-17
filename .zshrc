@@ -66,5 +66,7 @@ fi
 export PATH="$HOME/.local/bin:$PATH"
 typeset -U path
 
+export DOT_REPO="$HOME/code/dotfiles"
+
 # === Machine-Specific Configuration ===
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
