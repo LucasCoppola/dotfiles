@@ -1,8 +1,9 @@
-import { homedir } from "os";
+import { homedir, platform } from "os";
 import { join } from "path";
 
 export const NotificationPlugin = async ({ $, client }) => {
   const soundPath = join(homedir(), ".config/opencode/sounds/dragon-studio-new-notification-3-398649.mp3");
+  const playCmd = platform() === "darwin" ? "afplay" : "paplay";
 
   // Check if a session is a main (non-subagent) session
   const isMainSession = async (sessionID) => {
@@ -22,13 +23,13 @@ export const NotificationPlugin = async ({ $, client }) => {
       if (event.type === "session.idle") {
         const sessionID = event.properties.sessionID;
         if (await isMainSession(sessionID)) {
-          await $`paplay ${soundPath}`;
+          await $`${playCmd} ${soundPath}`;
         }
       }
 
       // Permission prompt created
       if (event.type === "permission.asked") {
-        await $`paplay ${soundPath}`;
+        await $`${playCmd} ${soundPath}`;
       }
     },
   };
