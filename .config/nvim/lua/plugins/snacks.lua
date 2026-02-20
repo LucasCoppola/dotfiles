@@ -26,6 +26,7 @@ return {
 			words = { enabled = true },
 			picker = {
 				formatters = { file = { filename_first = true } },
+				hidden = true,
 				win = { input = { keys = { ["<Esc>"] = { "close", mode = { "n", "i" } } } } },
 				sources = {
 					smart = {
