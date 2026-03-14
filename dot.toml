@@ -1,6 +1,12 @@
 [dotfiles]
 ignore = ["install.sh", ".git", ".gitignore", "dot.toml"]
 
+[dotfiles.macos]
+ignore = [".config/hypr", ".config/kanshi", ".config/waybar"]
+
+[dotfiles.linux]
+ignore = [".config/aerospace"]
+
 [git]
 name = "LucasCoppola"
 email = "lucascoppola21@gmail.com"
