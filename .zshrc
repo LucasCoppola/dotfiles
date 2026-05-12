@@ -54,6 +54,7 @@ export BAT_THEME=TwoDark
 # Zoxide
 eval "$(zoxide init zsh)"
 alias cd='z'
+chpwd() { ls }
 
 # FZF
 if command -v fzf &> /dev/null; then
