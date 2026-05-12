@@ -110,7 +110,8 @@
     "webfetch": "ask"
   },
   "plugin": [
-    "opencode-anthropic-auth"
+    "opencode-anthropic-auth",
+    "@plannotator/opencode@latest"
   ],
   "provider": {
     "openai": {
