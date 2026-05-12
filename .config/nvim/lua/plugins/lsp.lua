@@ -73,15 +73,13 @@ return {
 				},
 				marksman = {},
 				sqlls = {},
-				oxc_language_server = {
-					cmd = { "oxc_language_server" },
-					root_markers = { "package.json", "tsconfig.json", ".git" },
-					settings = {
-						oxc = {
-							typeAware = true,
-						},
+			oxlint = {
+				settings = {
+					oxc = {
+						typeAware = true,
 					},
 				},
+			},
 				rust_analyzer = {
 					settings = {
 						["rust-analyzer"] = {

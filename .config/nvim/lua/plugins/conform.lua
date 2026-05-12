@@ -38,11 +38,11 @@ return {
 				}
 			end,
 			formatters_by_ft = {
-				astro = { "oxfmt", "prettierd", stop_after_first = true },
-				javascript = { "oxfmt", "prettierd", stop_after_first = true },
-				typescript = { "oxfmt", "prettierd", stop_after_first = true },
-				typescriptreact = { "oxfmt", "prettierd", stop_after_first = true },
-				svelte = { "oxfmt", "prettierd", stop_after_first = true },
+				astro = { "prettierd", "oxfmt", stop_after_first = true },
+				javascript = { "prettierd", "oxfmt", stop_after_first = true },
+				typescript = { "prettierd", "oxfmt", stop_after_first = true },
+				typescriptreact = { "prettierd", "oxfmt", stop_after_first = true },
+				svelte = { "prettierd", "oxfmt", stop_after_first = true },
 				lua = { "stylua" },
 				rust = { "rustfmt" },
 			},
