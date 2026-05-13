@@ -110,53 +110,9 @@
     "webfetch": "ask"
   },
   "plugin": [
-    "opencode-anthropic-auth",
     "@plannotator/opencode@latest"
   ],
-  "provider": {
-    "openai": {
-      "models": {
-        "gpt-5.3-codex": {
-          "name": "GPT-5.3 Codex",
-          "tool_call": true,
-          "reasoning": true,
-          "temperature": true,
-          "attachment": false,
-          "interleaved": {
-            "field": "reasoning_content"
-          },
-          "limit": {
-            "context": 1047576,
-            "output": 65536
-          },
-          "options": {
-            "store": false
-          }
-        }
-      }
-    }
-  },
   "mcp": {
-    "backstage": {
-      "type": "remote",
-      "url": "https://backstage.mcp.cfdata.org/mcp",
-      "enabled": false
-    },
-    "elasticsearch": {
-      "type": "remote",
-      "url": "https://elasticsearch.mcp.cfdata.org/mcp",
-      "enabled": false
-    },
-    "townlake": {
-      "type": "remote",
-      "url": "https://mcp.townlake.cfdata.org/mcp",
-      "enabled": false
-    },
-    "wiki": {
-      "type": "remote",
-      "url": "https://wiki.mcp.cfdata.org/mcp",
-      "enabled": false
-    },
     "context7": {
       "type": "remote",
       "url": "https://mcp.context7.com/mcp",
@@ -175,6 +131,6 @@
         "opensrc-mcp"
       ],
       "enabled": true
-    },
+    }
   }
 }
