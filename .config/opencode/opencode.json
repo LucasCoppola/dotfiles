@@ -1,6 +1,20 @@
 {
   "$schema": "https://opencode.ai/config.json",
   "autoupdate": true,
+  "agent": {
+    "librarian": {
+      "model": "github-copilot/claude-opus-4.6"
+    },
+    "oracle": {
+      "model": "github-copilot/claude-opus-4.6"
+    },
+    "code-reviewer": {
+      "model": "github-copilot/claude-opus-4.6"
+    },
+    "opencode-expert": {
+      "model": "github-copilot/claude-opus-4.6"
+    }
+  },
   "permission": {
     "external_directory": {
       "*": "ask",
