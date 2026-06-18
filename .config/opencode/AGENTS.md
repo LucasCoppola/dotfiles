@@ -31,15 +31,6 @@ polishing a flawed approach.
 - **Never** add Claude to attribution or as a contributor PRs, commits, messages, or PR descriptions
 - **gh CLI available** for GitHub operations (PRs, issues, etc.)
 
-## Workflow
-
-- **Before implementing: reference or produce a spec.** No code without a written target. If a spec exists, read it first. If not, ask whether to spec or proceed ad hoc.
-- **Before speccing: research.** Read framework source (`repos/`, `node_modules`, Librarian) before inventing patterns. Prefer discovered idioms over guessed ones.
-- **Implement in slices.** One todo per slice. Run check/lint/test after each slice before presenting.
-- **Never polish a flawed approach.** If the direction is wrong, revert and redo. Do not layer fixes on broken foundations.
-- **Codify decisions.** When a convention is established or corrected, encode it in AGENTS.md or project docs so it isn't re-learned next session.
-- **Commit only when explicitly asked.**
-
 ## Plans
 
 - At the end of each plan, give me a list of unresolved questions to answer, if any. Make the questions extremely concise. Sacrifice grammar for the sake of concision.
@@ -51,5 +42,19 @@ Invoke for: code review, architecture decisions, debugging analysis, refactor pl
 
 ### Librarian
 Invoke for: understanding 3rd party libraries/packages, exploring remote repositories, discovering open source patterns.
+
+## Agent skills
+
+### Issue tracker
+
+Issues live as local markdown files under `.scratch/`. See `~/.config/opencode/agents/issue-tracker.md`.
+
+### Triage labels
+
+Default label vocabulary (needs-triage, needs-info, ready-for-agent, ready-for-human, wontfix). See `~/.config/opencode/agents/triage-labels.md`.
+
+### Domain docs
+
+Single-context layout (one `CONTEXT.md` + `docs/adr/` at the repo root). See `~/.config/opencode/agents/domain.md`.
 
 
