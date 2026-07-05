@@ -38,6 +38,9 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 # Envman
 [ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
 
+# Mise
+eval "$(mise activate zsh)"
+
 # Go
 export GOROOT=/usr/local/go-1.22.3
 export GOPATH=$HOME/go
