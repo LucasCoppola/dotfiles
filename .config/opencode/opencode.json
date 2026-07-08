@@ -18,6 +18,7 @@
   "permission": {
     "external_directory": {
       "*": "ask",
+      "~/.agents/**": "allow",
       "~/.config/opencode/**": "allow",
       "~/.local/share/opencode/mcp-auth.json": "deny"
     },
