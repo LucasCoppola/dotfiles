@@ -1,0 +1,25 @@
+node_modules/
+agent/npm/
+agent/git/
+agent/sessions/
+agent/auth.json
+agent/history.jsonl
+agent/models.json
+agent/models-store.json
+agent/trust.json
+agent/mcp-*.json
+agent/mcp-oauth/
+agent/opencode-cloudflare.local.jsonc
+
+# Omarchy package-managed resources
+agent/skills/omarchy
+agent/skills/diagnose-crash
+agent/themes/omarchy-system.json
+
+agent/extensions/**/node_modules/
+todos/
+.pi/
+*.log
+coverage/
+dist/
+*.tsbuildinfo
