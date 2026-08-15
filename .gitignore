@@ -1,2 +1,9 @@
 .config/nvim/lazy-lock.json
 .agents/.skill-lock.json
+
+# Omarchy package-managed skill symlinks
+.agents/skills/omarchy
+.agents/skills/diagnose-crash
+
+# Machine-local values referenced by tracked Hyprland bindings
+.config/hypr/private/

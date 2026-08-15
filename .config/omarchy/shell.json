@@ -1,0 +1,83 @@
+{
+  "version": 1,
+  "idle": {
+    "screensaver": 150,
+    "lock": 300
+  },
+  "bar": {
+    "position": "top",
+    "transparent": false,
+    "centerAnchor": "lucas.clock",
+    "layout": {
+      "left": [
+        {
+          "id": "arch-menu",
+          "type": "qml"
+        },
+        {
+          "id": "lucas.workspaces"
+        }
+      ],
+      "center": [
+        {
+          "id": "lucas.indicators",
+          "items": [
+            "Dictation",
+            "ScreenRecording",
+            "Reminder",
+            "NightLight",
+            "Dnd"
+          ]
+        },
+        {
+          "id": "lucas.clock",
+          "format": "ddd d MMM HH:mm",
+          "formatAlt": "d MMMM 'W'ww yyyy",
+          "verticalFormat": "HH\n—\nmm"
+        },
+        {
+          "id": "omarchy.keyboard-layout"
+        },
+        {
+          "id": "omarchy.weather"
+        },
+        {
+          "id": "omarchy.system-update"
+        }
+      ],
+      "right": [
+        {
+          "id": "omarchy.tray"
+        },
+        {
+          "id": "omarchy.bluetooth"
+        },
+        {
+          "id": "omarchy.network"
+        },
+        {
+          "id": "omarchy.audio"
+        },
+        {
+          "id": "memory",
+          "type": "qml"
+        },
+        {
+          "id": "cpu",
+          "type": "qml"
+        },
+        {
+          "id": "omarchy.monitor"
+        },
+        {
+          "id": "omarchy.power"
+        }
+      ]
+    }
+  },
+  "plugins": [],
+  "disabledPlugins": [
+    "omarchy.idle",
+    "omarchy.lock"
+  ]
+}

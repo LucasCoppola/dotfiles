@@ -1,0 +1,39 @@
+#!/bin/bash
+
+while read -r key value _; do
+  case $key in
+    MemTotal:) mem_total=$value ;;
+    MemAvailable:) mem_available=$value ;;
+    SwapTotal:) swap_total=$value ;;
+    SwapFree:) swap_free=$value ;;
+  esac
+done < /proc/meminfo
+
+mem_used=$((mem_total - mem_available))
+swap_used=$((swap_total - swap_free))
+mem_percent=$(((100 * mem_used + mem_total / 2) / mem_total))
+if ((swap_total > 0)); then
+  swap_percent=$(((100 * swap_used + swap_total / 2) / swap_total))
+else
+  swap_percent=0
+fi
+
+gib() {
+  awk -v kib="$1" 'BEGIN { printf "%.1f", kib / 1048576 }'
+}
+
+mem_used_gib=$(gib "$mem_used")
+mem_total_gib=$(gib "$mem_total")
+swap_used_gib=$(gib "$swap_used")
+swap_total_gib=$(gib "$swap_total")
+tooltip=$(printf 'Memory: %s/%s GiB (%d%%)\nSwap: %s/%s GiB (%d%%)' \
+  "$mem_used_gib" "$mem_total_gib" "$mem_percent" \
+  "$swap_used_gib" "$swap_total_gib" "$swap_percent")
+
+class=""
+if ((mem_percent >= 90)); then
+  class="active"
+fi
+
+jq -cn --arg text '󰘚' --arg tooltip "$tooltip" --arg class "$class" \
+  '{text: $text, tooltip: $tooltip, class: $class}'

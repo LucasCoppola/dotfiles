@@ -1,0 +1,51 @@
+#!/bin/bash
+
+read_cpu() {
+  local label user nice system idle iowait irq softirq steal guest guest_nice
+  read -r label user nice system idle iowait irq softirq steal guest guest_nice < /proc/stat
+  CPU_IDLE=$((idle + iowait))
+  CPU_TOTAL=$((user + nice + system + idle + iowait + irq + softirq + steal))
+}
+
+read_cpu
+idle_before=$CPU_IDLE
+total_before=$CPU_TOTAL
+sleep 0.15
+read_cpu
+
+idle_delta=$((CPU_IDLE - idle_before))
+total_delta=$((CPU_TOTAL - total_before))
+if ((total_delta > 0)); then
+  usage=$(((100 * (total_delta - idle_delta) + total_delta / 2) / total_delta))
+else
+  usage=0
+fi
+
+load=$(cut -d' ' -f1-3 /proc/loadavg)
+cores=$(nproc)
+temp=""
+for zone in /sys/class/thermal/thermal_zone*; do
+  [[ -r "$zone/type" && -r "$zone/temp" ]] || continue
+  type=$(<"$zone/type")
+  if [[ $type == x86_pkg_temp || $type == TCPU ]]; then
+    raw=$(<"$zone/temp")
+    if [[ $raw =~ ^[0-9]+$ ]]; then
+      ((raw >= 1000)) && temp=$((raw / 1000)) || temp=$raw
+      break
+    fi
+  fi
+done
+
+if [[ -n $temp ]]; then
+  tooltip=$(printf 'CPU: %d%%\nTemperature: %d°C\nLoad: %s\nCores: %d' "$usage" "$temp" "$load" "$cores")
+else
+  tooltip=$(printf 'CPU: %d%%\nLoad: %s\nCores: %d' "$usage" "$load" "$cores")
+fi
+
+class=""
+if ((usage >= 90)) || [[ -n $temp && $temp -ge 90 ]]; then
+  class="active"
+fi
+
+jq -cn --arg text '󰍛' --arg tooltip "$tooltip" --arg class "$class" \
+  '{text: $text, tooltip: $tooltip, class: $class}'
