@@ -3,6 +3,22 @@ local prelude = require("user.prelude")
 local copy_line_diagnostics_to_clipboard = prelude.copy_line_diagnostics_to_clipboard
 
 local M = {}
+
+local function navigate_window(direction, herdr_direction, tmux_command)
+	local previous_window = vim.api.nvim_get_current_win()
+	vim.cmd.wincmd(direction)
+	if vim.api.nvim_get_current_win() ~= previous_window then
+		return
+	end
+
+	if vim.env.HERDR_PANE_ID and vim.env.HERDR_PANE_ID ~= "" then
+		local herdr = vim.env.HERDR_BIN_PATH or "herdr"
+		vim.fn.system({ herdr, "pane", "focus", "--direction", herdr_direction, "--current" })
+	elseif vim.fn.exists(":" .. tmux_command) ~= 0 then
+		vim.cmd[tmux_command]()
+	end
+end
+
 -- Add this after your colorscheme is loaded
 vim.api.nvim_set_hl(0, "RenderMarkdownH1Bg", { fg = "#82b1ff", bg = "NONE", bold = false })
 vim.api.nvim_set_hl(0, "RenderMarkdownH2Bg", { fg = "#c792ea", bg = "NONE", bold = false })
@@ -17,35 +33,19 @@ vim.keymap.set("n", "<space>", "<nop>")
 
 -- Window navigation
 vim.keymap.set("n", "<C-j>", function()
-	if vim.fn.exists(":NvimTmuxNavigateDown") ~= 0 then
-		vim.cmd.NvimTmuxNavigateDown()
-	else
-		vim.cmd.wincmd("j")
-	end
+	navigate_window("j", "down", "NvimTmuxNavigateDown")
 end, { desc = "Navigate down" })
 
 vim.keymap.set("n", "<C-k>", function()
-	if vim.fn.exists(":NvimTmuxNavigateUp") ~= 0 then
-		vim.cmd.NvimTmuxNavigateUp()
-	else
-		vim.cmd.wincmd("k")
-	end
+	navigate_window("k", "up", "NvimTmuxNavigateUp")
 end, { desc = "Navigate up" })
 
 vim.keymap.set("n", "<C-l>", function()
-	if vim.fn.exists(":NvimTmuxNavigateRight") ~= 0 then
-		vim.cmd.NvimTmuxNavigateRight()
-	else
-		vim.cmd.wincmd("l")
-	end
+	navigate_window("l", "right", "NvimTmuxNavigateRight")
 end, { desc = "Navigate right" })
 
 vim.keymap.set("n", "<C-h>", function()
-	if vim.fn.exists(":NvimTmuxNavigateLeft") ~= 0 then
-		vim.cmd.NvimTmuxNavigateLeft()
-	else
-		vim.cmd.wincmd("h")
-	end
+	navigate_window("h", "left", "NvimTmuxNavigateLeft")
 end, { desc = "Navigate left" })
 
 -- Resize with arrows
