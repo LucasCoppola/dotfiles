@@ -23,7 +23,11 @@ for workspace = 1, 10 do
 end
 
 -- Applications.
-o.bind("ALT + RETURN", "Ghostty", "uwsm-app -- ghostty --working-directory=\"$(omarchy-cmd-terminal-cwd)\"")
+o.bind(
+  "ALT + RETURN",
+  "Ghostty · home tmux",
+  "uwsm-app -- ghostty --working-directory=\"$(omarchy-cmd-terminal-cwd)\" -e tmux new-session -A -s home"
+)
 o.bind("SUPER + F", "File manager", { launch = "nautilus --new-window" })
 o.bind("SUPER + B", "Browser", { omarchy = "browser" })
 o.bind("SUPER + SHIFT + B", "Browser (private)", { omarchy = "browser --private" })
