@@ -7,7 +7,7 @@
     "git:github.com/dmmulroy/pi-web-tools"
   ],
   "theme": "omarchy-system",
-  "lastChangelogVersion": "0.84.2",
+  "lastChangelogVersion": "0.84.4",
   "defaultProjectTrust": "always",
-  "tuiMode": "regular"
+  "tuiMode": "fullscreen"
 }
