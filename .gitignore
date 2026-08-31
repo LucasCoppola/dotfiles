@@ -7,3 +7,6 @@
 
 # Machine-local values referenced by tracked Hyprland bindings
 .config/hypr/private/
+
+# TPM-managed plugin clones
+.config/tmux/plugins/
