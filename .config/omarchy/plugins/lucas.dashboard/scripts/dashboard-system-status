@@ -1,0 +1,56 @@
+#!/bin/bash
+
+read_cpu() {
+  local label user nice system idle iowait irq softirq steal guest guest_nice
+  read -r label user nice system idle iowait irq softirq steal guest guest_nice < /proc/stat
+  CPU_IDLE=$((idle + iowait))
+  CPU_TOTAL=$((user + nice + system + idle + iowait + irq + softirq + steal))
+}
+
+read_cpu
+idle_before=$CPU_IDLE
+total_before=$CPU_TOTAL
+sleep 0.15
+read_cpu
+idle_delta=$((CPU_IDLE - idle_before))
+total_delta=$((CPU_TOTAL - total_before))
+if ((total_delta > 0)); then
+  cpu_percent=$(((100 * (total_delta - idle_delta) + total_delta / 2) / total_delta))
+else
+  cpu_percent=0
+fi
+
+cpu_temp=""
+for zone in /sys/class/thermal/thermal_zone*; do
+  [[ -r "$zone/type" && -r "$zone/temp" ]] || continue
+  type=$(<"$zone/type")
+  if [[ $type == x86_pkg_temp || $type == TCPU ]]; then
+    raw=$(<"$zone/temp")
+    [[ $raw =~ ^[0-9]+$ ]] || continue
+    ((raw >= 1000)) && cpu_temp=$((raw / 1000)) || cpu_temp=$raw
+    break
+  fi
+done
+
+while read -r key value _; do
+  case $key in
+    MemTotal:) mem_total=$value ;;
+    MemAvailable:) mem_available=$value ;;
+  esac
+done < /proc/meminfo
+mem_used=$((mem_total - mem_available))
+mem_percent=$(((100 * mem_used + mem_total / 2) / mem_total))
+mem_used_gib=$(awk -v kib="$mem_used" 'BEGIN { printf "%.1f", kib / 1048576 }')
+mem_total_gib=$(awk -v kib="$mem_total" 'BEGIN { printf "%.1f", kib / 1048576 }')
+load=$(cut -d' ' -f1 /proc/loadavg)
+
+jq -cn \
+  --argjson cpuPercent "$cpu_percent" \
+  --argjson memoryPercent "$mem_percent" \
+  --arg cpuTemperature "$cpu_temp" \
+  --arg load "$load" \
+  --arg memoryUsedGiB "$mem_used_gib" \
+  --arg memoryTotalGiB "$mem_total_gib" \
+  '{cpuPercent: $cpuPercent, cpuTemperature: $cpuTemperature, load: $load,
+    memoryPercent: $memoryPercent, memoryUsedGiB: $memoryUsedGiB,
+    memoryTotalGiB: $memoryTotalGiB}'

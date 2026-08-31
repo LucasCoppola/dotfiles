@@ -1,0 +1,26 @@
+#!/bin/bash
+
+place=$(omarchy-weather-location 2>/dev/null)
+if [[ -z $place ]]; then
+  jq -cn '{ready: false}'
+  exit
+fi
+
+query=$(jq -rn --arg place "$place" '$place | @uri')
+report=$(curl -fsS --max-time 8 "https://wttr.in/${query}?format=j1" 2>/dev/null) || {
+  jq -cn --arg place "$place" '{ready: false, location: $place}'
+  exit
+}
+
+jq -c --arg place "$place" '
+  .current_condition[0] as $current |
+  {
+    ready: true,
+    location: $place,
+    temperature: ($current.temp_C | tonumber),
+    feelsLike: ($current.FeelsLikeC | tonumber),
+    weatherCode: ($current.weatherCode | tonumber),
+    windSpeed: ($current.windspeedKmph | tonumber),
+    humidity: ($current.humidity | tonumber)
+  }
+' <<< "$report"

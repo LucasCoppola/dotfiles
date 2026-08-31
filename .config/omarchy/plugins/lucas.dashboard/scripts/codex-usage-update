@@ -1,0 +1,66 @@
+#!/usr/bin/python3
+"""Update Omarchy's Codex usage record with Codex 0.149-compatible options.
+
+Omarchy 4.0.1 passes the removed approval policy `untrusted`. This user-owned
+adapter changes only that argument to `never`, runs the packaged collector,
+and atomically writes the JSON record consumed by lucas.dashboard.
+"""
+
+import argparse
+import json
+import os
+from pathlib import Path
+import subprocess
+import sys
+import tempfile
+
+PACKAGED_COLLECTOR = Path("/usr/share/omarchy/bin/omarchy-agent-usage-codex")
+REMOVED_CODEX_ARGUMENTS = '[codex, "-s", "read-only", "-a", "untrusted", "app-server"],'
+COMPATIBLE_CODEX_ARGUMENTS = '[codex, "-s", "read-only", "-a", "never", "app-server"],'
+USAGE_RECORD = Path.home() / ".local/state/omarchy/agents/usage/codex.json"
+
+
+def patched_collector_source() -> str:
+    source = PACKAGED_COLLECTOR.read_text()
+    # Once Omarchy ships the corrected argument, run its collector unchanged.
+    if REMOVED_CODEX_ARGUMENTS not in source:
+        return source
+    return source.replace(REMOVED_CODEX_ARGUMENTS, COMPATIBLE_CODEX_ARGUMENTS, 1)
+
+
+def collect_codex_usage(collector_arguments: list[str]) -> dict:
+    with tempfile.NamedTemporaryFile(mode="w", suffix=".py") as collector:
+        collector.write(patched_collector_source())
+        collector.flush()
+        completed = subprocess.run(
+            [sys.executable, collector.name, *collector_arguments],
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+    return json.loads(completed.stdout)
+
+
+def write_usage_record(record: dict) -> None:
+    USAGE_RECORD.parent.mkdir(parents=True, exist_ok=True)
+    temporary_record = USAGE_RECORD.with_suffix(".json.tmp")
+    temporary_record.write_text(json.dumps(record, indent=2) + "\n")
+    os.replace(temporary_record, USAGE_RECORD)
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--force", action="store_true")
+    parser.add_argument("--limits-only", action="store_true")
+    arguments = parser.parse_args()
+
+    collector_arguments = []
+    if arguments.force:
+        collector_arguments.append("--force")
+    if arguments.limits_only:
+        collector_arguments.append("--limits-only")
+    write_usage_record(collect_codex_usage(collector_arguments))
+
+
+if __name__ == "__main__":
+    main()

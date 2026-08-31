@@ -6,13 +6,12 @@
   },
   "bar": {
     "position": "top",
-    "transparent": false,
+    "transparent": true,
     "centerAnchor": "lucas.clock",
     "layout": {
       "left": [
         {
-          "id": "arch-menu",
-          "type": "qml"
+          "id": "lucas.dashboard"
         },
         {
           "id": "lucas.workspaces"
@@ -39,9 +38,6 @@
           "id": "omarchy.keyboard-layout"
         },
         {
-          "id": "omarchy.weather"
-        },
-        {
           "id": "omarchy.system-update"
         }
       ],
@@ -57,14 +53,6 @@
         },
         {
           "id": "omarchy.audio"
-        },
-        {
-          "id": "memory",
-          "type": "qml"
-        },
-        {
-          "id": "cpu",
-          "type": "qml"
         },
         {
           "id": "omarchy.monitor"

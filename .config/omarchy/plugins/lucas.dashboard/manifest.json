@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "id": "lucas.dashboard",
+  "name": "Dashboard",
+  "version": "1.0.0",
+  "author": "Lucas",
+  "license": "MIT",
+  "description": "Personal weather, system, and Codex overview opened from the Arch bar icon.",
+  "kinds": ["bar-widget"],
+  "activation": "on-demand",
+  "entryPoints": {
+    "barWidget": "Panel.qml"
+  },
+  "barWidget": {
+    "displayName": "Dashboard",
+    "description": "Personal weather, system, and Codex overview.",
+    "category": "System",
+    "aliases": ["overview", "status"],
+    "allowMultiple": false,
+    "defaults": {},
+    "schema": []
+  }
+}
