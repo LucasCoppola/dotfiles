@@ -1,0 +1,56 @@
+#!/bin/bash
+
+# Automatically use only external displays while docked, then restore the
+# laptop display when the final external monitor is physically disconnected.
+
+LOCK_FILE="${XDG_RUNTIME_DIR:-/tmp}/omarchy-auto-dock-monitor.lock"
+HYPRLAND_EVENT_SOCKET="$XDG_RUNTIME_DIR/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock"
+
+disable_internal_after_external_added() {
+  for delay in 0 1 3; do
+    sleep "$delay"
+    if omarchy hyprland monitor external active; then
+      omarchy hyprland monitor internal off >/dev/null 2>&1 || true
+      return
+    fi
+  done
+}
+
+enable_internal_after_external_removed() {
+  # Do not consult DRM connector status here. Intel i915 can leave a disconnected
+  # USB-C DisplayPort connector marked connected after an AUX timeout.
+  omarchy hyprland monitor internal on >/dev/null 2>&1 || true
+}
+
+synchronize_initial_monitor_state() {
+  if omarchy hyprland monitor external active; then
+    omarchy hyprland monitor internal off >/dev/null 2>&1 || true
+  else
+    enable_internal_after_external_removed
+  fi
+}
+
+exec 9>"$LOCK_FILE"
+flock -n 9 || exit 0
+trap 'pkill -P $$ 2>/dev/null || true' EXIT
+trap 'exit 0' INT TERM
+
+INTERNAL_MONITOR=$(omarchy hyprland monitor laptop)
+synchronize_initial_monitor_state
+
+while read -r event; do
+  case "$event" in
+    monitoradded\>\>*|monitoraddedv2\>\>*)
+      # Toggling the laptop panel emits another monitor event. Ignore it so only
+      # physical external-display changes can trigger this policy.
+      [[ -n "$INTERNAL_MONITOR" && "$event" == *"$INTERNAL_MONITOR"* ]] && continue
+      printf 'External monitor added: %s\n' "$event"
+      disable_internal_after_external_added
+      ;;
+    monitorremoved\>\>*|monitorremovedv2\>\>*)
+      [[ -n "$INTERNAL_MONITOR" && "$event" == *"$INTERNAL_MONITOR"* ]] && continue
+      printf 'External monitor removed: %s\n' "$event"
+      enable_internal_after_external_removed
+      ;;
+  esac
+done < <(socat -U - "UNIX-CONNECT:$HYPRLAND_EVENT_SOCKET")

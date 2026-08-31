@@ -4,7 +4,6 @@ ignore = [".git", ".gitignore", "dot.toml"]
 [dotfiles.macos]
 ignore = [
   ".config/hypr",
-  ".config/kanshi",
   ".config/omarchy",
   ".config/fontconfig",
 ]
@@ -32,7 +31,6 @@ shared = [
 extra = [
   "docker",
   "hypridle",
-  "kanshi",
   "ghostty",
   "btop",
   "otf-geist-mono-nerd",
