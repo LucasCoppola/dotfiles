@@ -1,0 +1,18 @@
+#!/bin/bash
+
+response=$(curl -fsS --max-time 6 \
+  'https://api.exchange.coinbase.com/products/BTC-USD/stats' \
+  2>/dev/null) || {
+  jq -cn '{ready: false}'
+  exit
+}
+
+jq -c '
+  (.last | tonumber) as $current |
+  (.open | tonumber) as $open |
+  {
+    ready: true,
+    currentPrice: $current,
+    changePercent: ((($current - $open) / $open) * 100)
+  }
+' <<< "$response" 2>/dev/null || jq -cn '{ready: false}'

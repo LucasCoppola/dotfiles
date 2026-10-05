@@ -6,7 +6,19 @@ if [[ -z $place ]]; then
   exit
 fi
 
-query=$(jq -rn --arg place "$place" '$place | @uri')
+location_file="$HOME/.local/state/omarchy/settings/weather.json"
+target="$place"
+if [[ -f $location_file ]]; then
+  coordinates=$(jq -r '
+    if (.latitude | type) == "number" and (.longitude | type) == "number"
+    then "\(.latitude),\(.longitude)"
+    else empty
+    end
+  ' "$location_file" 2>/dev/null)
+  [[ -n $coordinates ]] && target="$coordinates"
+fi
+
+query=$(jq -rn --arg target "$target" '$target | @uri')
 report=$(curl -fsS --max-time 8 "https://wttr.in/${query}?format=j1" 2>/dev/null) || {
   jq -cn --arg place "$place" '{ready: false, location: $place}'
   exit

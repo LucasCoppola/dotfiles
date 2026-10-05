@@ -20,6 +20,7 @@ Panel {
 
   property var weather: ({ ready: false })
   property var systemStatus: ({ cpuPercent: 0, memoryPercent: 0 })
+  property var bitcoin: ({ ready: false })
   property var codex: null
   property double nowMs: Date.now()
 
@@ -38,6 +39,7 @@ Panel {
   function refreshDashboard() {
     refreshSystem()
     refreshWeather()
+    refreshBitcoin()
     refreshCodex()
   }
   function refreshSystem() {
@@ -45,6 +47,9 @@ Panel {
   }
   function refreshWeather() {
     if (!weatherProcess.running) weatherProcess.running = true
+  }
+  function refreshBitcoin() {
+    if (!bitcoinProcess.running) bitcoinProcess.running = true
   }
   function refreshCodex() {
     if (!codexProcess.running) codexProcess.running = true
@@ -80,6 +85,21 @@ Panel {
   function resetText(limit) {
     var duration = formatDuration(resetRemainingMs(limit))
     return duration === "" ? "" : "Resets in " + duration
+  }
+  function formatBitcoinPrice(value) {
+    var price = Number(value)
+    if (!isFinite(price)) return "—"
+    return "$" + Math.round(price).toLocaleString(Qt.locale("en_US"), "f", 0)
+  }
+  function formatBitcoinChange(value) {
+    var change = Number(value)
+    if (!isFinite(change)) return "—"
+    return (change > 0 ? "+" : "") + change.toFixed(1) + "%"
+  }
+  function bitcoinChangeColor(value) {
+    var change = Number(value)
+    if (!isFinite(change) || change === 0) return root.dim
+    return change > 0 ? Color.accent : root.urgent
   }
   function weatherIcon(code) {
     var value = parseInt(String(code || "0"), 10)
@@ -147,6 +167,15 @@ Panel {
   }
 
   Process {
+    id: bitcoinProcess
+    command: [root.pluginDir + "/scripts/dashboard-bitcoin-status"]
+    stdout: StdioCollector {
+      waitForEnd: true
+      onStreamFinished: root.bitcoin = root.parseRecord(text, root.bitcoin, "Bitcoin")
+    }
+  }
+
+  Process {
     id: codexProcess
     command: [root.pluginDir + "/scripts/codex-usage-update", "--limits-only"]
     onExited: codexRecord.reload()
@@ -163,6 +192,7 @@ Panel {
     // Prime slow network-backed data once per shell session. After that it
     // refreshes only when the dashboard opens or the user requests it.
     root.refreshWeather()
+    root.refreshBitcoin()
     root.refreshCodex()
   }
   Timer {
@@ -385,6 +415,58 @@ Panel {
               width: parent.width - Style.space(20)
               title: "Weekly"
               limit: codexSection.weeklyLimit
+            }
+          }
+        }
+
+        Item {
+          width: parent.width
+          height: Style.space(12)
+          Rectangle {
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.verticalCenter: parent.verticalCenter
+            height: 1
+            color: root.trackColor
+          }
+        }
+
+        Item {
+          width: parent.width
+          height: Style.space(40)
+
+          Row {
+            anchors.left: parent.left
+            anchors.verticalCenter: parent.verticalCenter
+            spacing: Style.space(11)
+
+            Text {
+              text: ""
+              color: root.foreground
+              font.family: root.fontFamily
+              font.pixelSize: Style.font.display
+              anchors.verticalCenter: parent.verticalCenter
+            }
+
+            Row {
+              anchors.verticalCenter: parent.verticalCenter
+              spacing: Style.space(8)
+
+              Text {
+                text: root.bitcoin.ready ? root.formatBitcoinPrice(root.bitcoin.currentPrice) : "—"
+                color: root.foreground
+                font.family: root.fontFamily
+                font.pixelSize: Style.font.heading
+                font.bold: true
+                anchors.verticalCenter: parent.verticalCenter
+              }
+              Text {
+                text: root.bitcoin.ready ? root.formatBitcoinChange(root.bitcoin.changePercent) : ""
+                color: root.bitcoinChangeColor(root.bitcoin.changePercent)
+                font.family: root.fontFamily
+                font.pixelSize: Style.font.bodySmall
+                anchors.verticalCenter: parent.verticalCenter
+              }
             }
           }
         }
