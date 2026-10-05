@@ -20,8 +20,15 @@ BarWidget {
   // Use the bar's shared suppression flag so inactive indicators reveal only
   // while the pointer is over this date field, not anywhere on the bar.
   function syncIndicatorReveal() {
-    if (root.bar && "centerHoverRevealSuppressed" in root.bar)
-      root.bar.centerHoverRevealSuppressed = !root.clockHovered || root.opened
+    var suppressed = !root.clockHovered || root.opened
+    try {
+      if (root.bar && typeof root.bar.setCenterHoverRevealSuppressed === "function")
+        root.bar.setCenterHoverRevealSuppressed(suppressed)
+      else if (root.bar && "centerHoverRevealSuppressed" in root.bar)
+        root.bar.centerHoverRevealSuppressed = suppressed
+    } catch (error) {
+      console.warn("Clock indicator reveal update failed:", error)
+    }
   }
 
   function setClockHovered(hovered) {
@@ -127,8 +134,14 @@ BarWidget {
   onOpenedChanged: syncIndicatorReveal()
   Component.onCompleted: Qt.callLater(syncIndicatorReveal)
   Component.onDestruction: {
-    if (root.bar && "centerHoverRevealSuppressed" in root.bar)
-      root.bar.centerHoverRevealSuppressed = false
+    try {
+      if (root.bar && typeof root.bar.setCenterHoverRevealSuppressed === "function")
+        root.bar.setCenterHoverRevealSuppressed(false)
+      else if (root.bar && "centerHoverRevealSuppressed" in root.bar)
+        root.bar.centerHoverRevealSuppressed = false
+    } catch (error) {
+      console.warn("Clock indicator reveal reset failed:", error)
+    }
   }
 
   SystemClock {
