@@ -7,6 +7,31 @@ HIST_STAMPS="mm/dd/yyyy"
 plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
 source $ZSH/oh-my-zsh.sh
 
+# Keep Herdr's tab label aligned with the foreground shell command.
+autoload -Uz add-zsh-hook
+
+herdr_set_tab_title() {
+    local tab_title="$1"
+    [[ -n "${HERDR_TAB_ID:-}" && -n "$tab_title" ]] || return
+
+    command herdr tab rename "$HERDR_TAB_ID" "$tab_title" >/dev/null 2>&1 &!
+}
+
+herdr_set_tab_title_from_command() {
+    local expanded_command="$2"
+    local -a command_words
+    command_words=("${(z)expanded_command}")
+
+    herdr_set_tab_title "${command_words[1]:t}"
+}
+
+herdr_set_tab_title_for_shell() {
+    herdr_set_tab_title "zsh"
+}
+
+add-zsh-hook preexec herdr_set_tab_title_from_command
+add-zsh-hook precmd herdr_set_tab_title_for_shell
+
 # === Vim Mode ===
 bindkey -v
 export KEYTIMEOUT=1
@@ -47,6 +72,9 @@ export GOPATH=$HOME/go
 export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
 
 # === Tools & Utilities ===
+
+# Pi
+export PI_SKIP_VERSION_CHECK=1
 
 # Turso
 export PATH="$HOME/.turso:$PATH"

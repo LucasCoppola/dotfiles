@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+# Switch to a tab by its visible position in the current Herdr workspace.
+set -euo pipefail
+
+tab_position="${1:-}"
+if [[ ! "$tab_position" =~ ^[1-9]$ ]]; then
+  printf 'herdr-tab-switch: expected a tab position from 1 to 9, got %q\n' "$tab_position" >&2
+  exit 2
+fi
+
+herdr_binary="${HERDR_BIN_PATH:-herdr}"
+workspace_id="${HERDR_WORKSPACE_ID:-}"
+
+if [[ -z "$workspace_id" ]]; then
+  workspace_id="$("$herdr_binary" pane current --current | jq -er '.result.pane.workspace_id')"
+fi
+
+tab_index=$((tab_position - 1))
+tab_id="$("$herdr_binary" tab list --workspace "$workspace_id" \
+  | jq -r --argjson tab_index "$tab_index" '.result.tabs[$tab_index].tab_id // empty')"
+
+if [[ -z "$tab_id" ]]; then
+  printf 'herdr-tab-switch: no tab exists at position %s in workspace %s\n' "$tab_position" "$workspace_id" >&2
+  exit 1
+fi
+
+exec "$herdr_binary" tab focus "$tab_id"
