@@ -17,31 +17,26 @@ hl.unbind("switch:on:Lid Switch") -- was: Lock on lid close
 
 -- Keep the old choice to disable Omarchy's numbered workspace bindings.
 for workspace = 1, 10 do
-  local key = "code:" .. tostring(workspace + 9)
-  hl.unbind("SUPER + " .. key)
-  hl.unbind("SUPER + SHIFT + " .. key)
+	local key = "code:" .. tostring(workspace + 9)
+	hl.unbind("SUPER + " .. key)
+	hl.unbind("SUPER + SHIFT + " .. key)
 end
 
 -- Applications.
-o.bind(
-  "ALT + RETURN",
-  "Ghostty · home tmux",
-  "uwsm-app -- ghostty --working-directory=\"$(omarchy-cmd-terminal-cwd)\" -e tmux new-session -A -s home"
-)
+o.bind("ALT + RETURN", "Ghostty", 'uwsm-app -- ghostty --working-directory="$(omarchy-cmd-terminal-cwd)" -e herdr')
 o.bind("SUPER + F", "File manager", { launch = "nautilus --new-window" })
 o.bind("SUPER + B", "Browser", { omarchy = "browser" })
 o.bind("SUPER + SHIFT + B", "Browser (private)", { omarchy = "browser --private" })
 o.bind("SUPER + M", "Music", "omarchy-launch-or-focus spotify")
 o.bind(
-  "SUPER + SHIFT + E",
-  "English class",
-  "url_file=\"$HOME/.config/hypr/private/english-class-url\"; "
-    .. "if [ -s \"$url_file\" ]; then xdg-open \"$(cat \"$url_file\")\"; "
-    .. "else notify-send -u critical 'English class' 'Missing private URL file'; fi"
+	"SUPER + SHIFT + E",
+	"English class",
+	'url_file="$HOME/.config/hypr/private/english-class-url"; '
+		.. 'if [ -s "$url_file" ]; then xdg-open "$(cat "$url_file")"; '
+		.. "else notify-send -u critical 'English class' 'Missing private URL file'; fi"
 )
 o.bind("SUPER + SHIFT + C", "Claude", { webapp = "https://claude.com/" })
 o.bind("SUPER + W", "WhatsApp", { webapp = "https://web.whatsapp.com/", focus = true })
-o.bind("SUPER + L", "Local", { webapp = "http://localhost:3000/" })
 
 -- Window and system controls.
 o.bind("ALT + SHIFT + F", "Force full screen", hl.dsp.window.fullscreen({ mode = "fullscreen" }))
@@ -57,21 +52,25 @@ o.bind("SUPER + A", "Omarchy menu", "omarchy-menu toggle")
 
 -- Vim-style focus and window movement.
 local directions = {
-  H = "l",
-  J = "d",
-  K = "u",
-  L = "r",
+	H = "l",
+	J = "d",
+	K = "u",
+	L = "r",
 }
 for key, direction in pairs(directions) do
-  o.bind("ALT + " .. key, "Focus " .. direction, hl.dsp.focus({ direction = direction }))
-  o.bind("ALT + SHIFT + " .. key, "Move window " .. direction, hl.dsp.window.swap({ direction = direction }))
+	o.bind("ALT + " .. key, "Focus " .. direction, hl.dsp.focus({ direction = direction }))
+	o.bind("ALT + SHIFT + " .. key, "Move window " .. direction, hl.dsp.window.swap({ direction = direction }))
 end
 
 -- QWERT workspaces 1-5.
 local workspace_keys = { "Q", "W", "E", "R", "T" }
 for workspace, key in ipairs(workspace_keys) do
-  o.bind("ALT + " .. key, "Switch to workspace " .. workspace, hl.dsp.focus({ workspace = tostring(workspace) }))
-  o.bind("ALT + SHIFT + " .. key, "Move window to workspace " .. workspace, hl.dsp.window.move({ workspace = tostring(workspace) }))
+	o.bind("ALT + " .. key, "Switch to workspace " .. workspace, hl.dsp.focus({ workspace = tostring(workspace) }))
+	o.bind(
+		"ALT + SHIFT + " .. key,
+		"Move window to workspace " .. workspace,
+		hl.dsp.window.move({ workspace = tostring(workspace) })
+	)
 end
 
 -- Horizontal resizing.
