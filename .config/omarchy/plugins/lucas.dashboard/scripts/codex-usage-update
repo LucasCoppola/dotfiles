@@ -1,9 +1,8 @@
 #!/usr/bin/python3
-"""Update Omarchy's Codex usage record with Codex 0.149-compatible options.
+"""Update Omarchy's Codex usage record across Codex protocol versions.
 
-Omarchy 4.0.1 passes the removed approval policy `untrusted`. This user-owned
-adapter changes only that argument to `never`, runs the packaged collector,
-and atomically writes the JSON record consumed by lucas.dashboard.
+This user-owned adapter applies compatibility fixes to Omarchy's packaged
+collector, runs it, and atomically writes the record consumed by lucas.dashboard.
 """
 
 import argparse
@@ -17,14 +16,38 @@ import tempfile
 PACKAGED_COLLECTOR = Path("/usr/share/omarchy/bin/omarchy-agent-usage-codex")
 REMOVED_CODEX_ARGUMENTS = '[codex, "-s", "read-only", "-a", "untrusted", "app-server"],'
 COMPATIBLE_CODEX_ARGUMENTS = '[codex, "-s", "read-only", "-a", "never", "app-server"],'
+BUFFERED_CODEX_RPC = "      text=True,\n      env=ENV,\n    )"
+UNBUFFERED_CODEX_RPC = "      text=True,\n      bufsize=0,\n      env=ENV,\n    )"
+SELECT_BASED_RPC_READ = """  deadline = time.time() + timeout
+  while time.time() < deadline:
+    ready, _, _ = select.select([proc.stdout], [], [], 0.25)
+    if not ready:
+      continue
+    line = proc.stdout.readline()
+    if not line:
+      break
+"""
+NONBLOCKING_RPC_READ = """  os.set_blocking(proc.stdout.fileno(), False)
+  deadline = time.time() + timeout
+  while time.time() < deadline:
+    try:
+      line = proc.stdout.readline()
+    except (BlockingIOError, TypeError):
+      line = ""
+    if not line:
+      time.sleep(0.025)
+      continue
+"""
 USAGE_RECORD = Path.home() / ".local/state/omarchy/agents/usage/codex.json"
 
 
 def patched_collector_source() -> str:
     source = PACKAGED_COLLECTOR.read_text()
-    # Once Omarchy ships the corrected argument, run its collector unchanged.
-    if REMOVED_CODEX_ARGUMENTS not in source:
-        return source
+    # Codex 0.163 can emit several RPC messages in one write. Poll the
+    # TextIOWrapper itself because select() cannot see lines it already read ahead.
+    source = source.replace(BUFFERED_CODEX_RPC, UNBUFFERED_CODEX_RPC, 1)
+    source = source.replace(SELECT_BASED_RPC_READ, NONBLOCKING_RPC_READ, 1)
+    # Omarchy 4.0.1 used an approval policy removed by Codex 0.149.
     return source.replace(REMOVED_CODEX_ARGUMENTS, COMPATIBLE_CODEX_ARGUMENTS, 1)
 
 
