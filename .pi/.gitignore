@@ -9,7 +9,6 @@ agent/models-store.json
 agent/trust.json
 agent/mcp-*.json
 agent/mcp-oauth/
-agent/opencode-cloudflare.local.jsonc
 
 # Omarchy package-managed resources
 agent/skills/omarchy

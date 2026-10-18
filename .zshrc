@@ -19,17 +19,10 @@ alias c='clear'
 alias zsh='n ~/.zshrc'
 alias szsh='source ~/.zshrc'
 alias n='nvim'
-alias oc='opencode'
 alias p='pnpm'
 alias lsa="ls -alh"
 
 # === Development Tools ===
-
-# OpenCode
-export OPENCODE_CONFIG_DIR=$HOME/.config/opencode/
-export OPENCODE_EXPERIMENTAL_LSP_TOOL=1
-export OPENCODE_EXPERIMENTAL_PLAN_MODE=1
-export OPENCODE_ENABLE_EXA=1
 
 # Bun
 export BUN_INSTALL="$HOME/.bun"
