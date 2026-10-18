@@ -1,7 +1,7 @@
 onboarding = false
 
 [theme]
-name = "terminal"
+name = "catppuccin"
 
 [terminal]
 default_shell = "zsh"
@@ -14,6 +14,10 @@ settings = "prefix+shift+s"
 workspace_picker = "prefix+s"
 previous_workspace = "prefix+p"
 next_workspace = "prefix+n"
+
+# Use Vim movement inside the workspace picker instead of reaching for arrows.
+navigate_workspace_up = "k"
+navigate_workspace_down = "j"
 detach = "prefix+d"
 close_workspace = "prefix+shift+x"
 close_tab = "prefix+shift+c"
@@ -120,8 +124,64 @@ type = "plugin_action"
 command = "vim-herdr-navigation.right"
 description = "Navigate right (Vim/Herdr)"
 
+# Annotate selected terminal text and collect comments for Pi.
+[[keys.command]]
+key = "prefix+a"
+type = "plugin_action"
+command = "annotate.capture"
+description = "Annotate selected text"
+
+[[keys.command]]
+key = "prefix+shift+a"
+type = "plugin_action"
+command = "annotate.copy-context"
+description = "Copy annotations as context"
+
+[[keys.command]]
+key = "prefix+ctrl+a"
+type = "plugin_action"
+command = "annotate.copy-archive"
+description = "Copy and archive annotations"
+
+[[keys.command]]
+key = "prefix+ctrl+v"
+type = "plugin_action"
+command = "annotate.paste-archive"
+description = "Paste annotations into Pi"
+
+[[keys.command]]
+key = "prefix+ctrl+s"
+type = "plugin_action"
+command = "annotate.send-archive"
+description = "Send annotations to Pi"
+
+[[keys.command]]
+key = "prefix+alt+a"
+type = "plugin_action"
+command = "annotate.manage"
+description = "Manage annotations"
+
+# Review complete documents and Pi replies in the Full Annotate TUI.
+[[keys.command]]
+key = "prefix+alt+o"
+type = "plugin_action"
+command = "annotate.open"
+description = "Review project documents"
+
+[[keys.command]]
+key = "prefix+shift+o"
+type = "plugin_action"
+command = "annotate.last"
+description = "Review Pi's recent replies"
+
+[[keys.command]]
+key = "prefix+ctrl+o"
+type = "plugin_action"
+command = "annotate.last-newest"
+description = "Review Pi's newest reply"
+
 [ui]
-accent = "#84ffff"
+accent = "#cba6f7"
 copy_on_select = true
 mouse_capture = true
 confirm_close = false
