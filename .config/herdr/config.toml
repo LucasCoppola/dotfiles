@@ -187,11 +187,12 @@ mouse_capture = true
 confirm_close = false
 prompt_new_tab_name = false
 
+status_indicators = "symbols"
 [ui.toast]
 delivery = "herdr"
 
 [ui.sound]
-enabled = false
+enabled = true
 
 [experimental]
 kitty_graphics = true
