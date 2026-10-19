@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+plugin_manifest="${HERDR_PLUGIN_MANIFEST:-$HOME/.config/herdr/plugins.txt}"
+
+if ! command -v herdr >/dev/null 2>&1; then
+  printf 'herdr-plugin-sync: herdr is not installed or not on PATH\n' >&2
+  exit 1
+fi
+
+if [[ ! -f "$plugin_manifest" ]]; then
+  printf 'herdr-plugin-sync: plugin manifest not found: %s\n' "$plugin_manifest" >&2
+  exit 1
+fi
+
+while read -r plugin_source plugin_ref extra; do
+  [[ -z "${plugin_source:-}" || "$plugin_source" == \#* ]] && continue
+
+  if [[ -z "${plugin_ref:-}" || -n "${extra:-}" ]]; then
+    printf 'herdr-plugin-sync: invalid manifest entry for %s\n' "$plugin_source" >&2
+    exit 1
+  fi
+
+  printf 'Syncing Herdr plugin %s at %s\n' "$plugin_source" "$plugin_ref"
+  herdr plugin install "$plugin_source" --ref "$plugin_ref" --yes
+done < "$plugin_manifest"

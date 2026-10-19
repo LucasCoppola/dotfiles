@@ -1,0 +1,11 @@
+# Herdr plugins shared across machines.
+# Format: owner/repository ref
+#
+# Install or refresh these plugins after syncing dotfiles by running:
+#   herdr-plugin-sync
+#
+# Add a plugin here when you want it installed on every machine. Use a release
+# tag or commit as the ref so Linux and macOS run the same version.
+plannotator/herdr-annotate c5e565e9bdbb52d152ad15169f38ed8bae31b610
+kryptamine/herdr-auto-title v0.13.2
+paulbkim-dev/vim-herdr-navigation 53e318c772c4d3b7fbd904ac43bcf3e5b5d8b244
