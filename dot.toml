@@ -39,4 +39,5 @@ extra = [
 [packages.macos]
 casks = [
   "docker",
+  "font-geist-mono-nerd-font",
 ]

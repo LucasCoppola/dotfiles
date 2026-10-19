@@ -1,3 +1,6 @@
+# === Homebrew (must come first: everything below needs its PATH) ===
+[ -x /opt/homebrew/bin/brew ] && eval "$(/opt/homebrew/bin/brew shellenv)"
+
 # === Oh My Zsh Configuration ===
 export ZSH="$HOME/.oh-my-zsh"
 export EDITOR=nvim
@@ -32,10 +35,10 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 [ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
 
 # Mise
-eval "$(mise activate zsh)"
+command -v mise >/dev/null && eval "$(mise activate zsh)"
 
 # Go
-export GOROOT=/usr/local/go-1.22.3
+[ -d /usr/local/go-1.22.3 ] && export GOROOT=/usr/local/go-1.22.3
 export GOPATH=$HOME/go
 export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
 

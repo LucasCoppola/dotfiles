@@ -10,3 +10,8 @@
 
 # TPM-managed plugin clones
 .config/tmux/plugins/
+
+# Installer/sync-managed skills
+.agents/skills/plannotator*/
+.agents/skills/synced/
+.agents/skills/.trash/

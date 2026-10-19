@@ -1,4 +1,3 @@
-require("config.remote_clipboard").setup()
 require("user.options")
 require("user.lazy")
 require("user.keymaps")

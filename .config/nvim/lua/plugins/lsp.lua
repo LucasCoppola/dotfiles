@@ -99,6 +99,8 @@ return {
 			}
 
 			local mason_tools_to_install = vim.tbl_keys(vim.tbl_deep_extend("force", {}, servers, formatters))
+			-- typescript-tools.nvim ships no tsserver; it resolves the one bundled here.
+			table.insert(mason_tools_to_install, "typescript-language-server")
 
 			require("mason-tool-installer").setup({
 				auto_update = true,
@@ -181,7 +183,9 @@ return {
 				},
 			})
 
-			require("mason-lspconfig").setup()
+			-- Servers are enabled explicitly in the loop above; auto-enable would also start
+			-- ts_ls alongside typescript-tools.
+			require("mason-lspconfig").setup({ automatic_enable = false })
 
 			-- Configure diagnostics border
 			vim.diagnostic.config({
