@@ -1,0 +1,25 @@
+{
+  "diffOptions": {
+    "defaultDiffType": "unstaged",
+    "lineDiffType": "word-alt",
+    "lineBgIntensity": "subtle",
+    "hideWhitespace": false,
+    "tabSize": 2,
+    "diffStyle": "unified",
+    "overflow": "wrap",
+    "fontFamily": "Roboto Mono",
+    "fontSize": "",
+    "showDiffBackground": true
+  },
+  "displayName": "LucasCoppola",
+  "conventionalComments": true,
+  "prompts": {
+    "review": {
+      "denied": "\n\nThe feedback above comes from me, a human reviewer. Handle each comment by its intent (use its conventional-comment label when present):\n- question / \"why\" / \"explain\": answer it with code evidence. Don't change code unless I asked for it.\n- suggestion / nitpick / style / convention: apply the change. Don't argue it's not a bug; I know it's not.\n- issue / bug: verify against the actual code first. If it's real, fix it. If you disagree, say why with evidence and don't change it.\n\nOnly address the comments above. No separate review, no unrelated changes. If a comment is unclear or conflicts with the codebase, ask before touching that item. Run relevant checks after edits, then give a short per-comment summary: answered / changed / pushed back."
+    }
+  },
+  "reviewAnalysis": {
+    "semanticDiff": true,
+    "callFlow": false
+  }
+}

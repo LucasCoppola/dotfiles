@@ -1,0 +1,4 @@
+# Runtime state (drafts, sessions, history, vendor...) stays local
+*
+!.gitignore
+!config.json
