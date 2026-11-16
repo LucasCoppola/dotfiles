@@ -62,14 +62,14 @@ for key, direction in pairs(directions) do
 	o.bind("ALT + SHIFT + " .. key, "Move window " .. direction, hl.dsp.window.swap({ direction = direction }))
 end
 
--- QWERT workspaces 1-5.
+-- QWERT workspaces 1-5 share the same IDs on laptop and external displays.
 local workspace_keys = { "Q", "W", "E", "R", "T" }
 for workspace, key in ipairs(workspace_keys) do
-	o.bind("ALT + " .. key, "Switch to workspace " .. workspace, hl.dsp.focus({ workspace = tostring(workspace) }))
+	o.bind("ALT + " .. key, "Switch to workspace " .. workspace, o.workspaces.focus(workspace))
 	o.bind(
 		"ALT + SHIFT + " .. key,
 		"Move window to workspace " .. workspace,
-		hl.dsp.window.move({ workspace = tostring(workspace) })
+		o.workspaces.move_window(workspace)
 	)
 end
 

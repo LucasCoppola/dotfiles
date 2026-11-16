@@ -10,7 +10,14 @@ dofile((os.getenv("OMARCHY_PATH") or "/usr/share/omarchy") .. "/default/hypr/boo
 -- keeping core window-manager bindings:
 -- omarchy_preinstalled_bindings = false
 
--- Load Omarchy defaults.
+-- Use one shared workspace set when switching between laptop and external-only.
+-- Replace the per-monitor module BEFORE defaults load, so it never registers
+-- the hooks that rename workspaces 1/2 to 22/23 on unplug. Package files stay intact.
+package.preload["default.hypr.monitor-workspaces"] = function()
+  return require("hypr.shared-workspaces")
+end
+
+-- Load the rest of Omarchy's defaults unchanged.
 require("default.hypr.omarchy")
 
 -- Put your personal overrides in these files. They're loaded after Omarchy's

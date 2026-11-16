@@ -15,27 +15,6 @@ BarWidget {
   moduleName: "omarchy.clock"
 
   property date displayDate: clock.date
-  property bool clockHovered: false
-
-  // Use the bar's shared suppression flag so inactive indicators reveal only
-  // while the pointer is over this date field, not anywhere on the bar.
-  function syncIndicatorReveal() {
-    var suppressed = !root.clockHovered || root.opened
-    try {
-      if (root.bar && typeof root.bar.setCenterHoverRevealSuppressed === "function")
-        root.bar.setCenterHoverRevealSuppressed(suppressed)
-      else if (root.bar && "centerHoverRevealSuppressed" in root.bar)
-        root.bar.centerHoverRevealSuppressed = suppressed
-    } catch (error) {
-      console.warn("Clock indicator reveal update failed:", error)
-    }
-  }
-
-  function setClockHovered(hovered) {
-    root.clockHovered = hovered
-    root.syncIndicatorReveal()
-  }
-
   readonly property string configuredFormat: vertical
     ? setting("verticalFormat", "HH\n—\nmm")
     : setting("format", "dddd HH:mm")
@@ -126,23 +105,8 @@ BarWidget {
   implicitWidth: button.implicitWidth
   implicitHeight: button.implicitHeight
 
-  onBarChanged: {
-    injectPanel()
-    syncIndicatorReveal()
-  }
+  onBarChanged: injectPanel()
   onSettingsChanged: injectPanel()
-  onOpenedChanged: syncIndicatorReveal()
-  Component.onCompleted: Qt.callLater(syncIndicatorReveal)
-  Component.onDestruction: {
-    try {
-      if (root.bar && typeof root.bar.setCenterHoverRevealSuppressed === "function")
-        root.bar.setCenterHoverRevealSuppressed(false)
-      else if (root.bar && "centerHoverRevealSuppressed" in root.bar)
-        root.bar.centerHoverRevealSuppressed = false
-    } catch (error) {
-      console.warn("Clock indicator reveal reset failed:", error)
-    }
-  }
 
   SystemClock {
     id: clock
@@ -184,10 +148,6 @@ BarWidget {
     fixedHeight: root.vertical ? root.verticalLines.length * Style.bar.iconSlot : -1
     horizontalMargin: 8.75
     verticalPadding: 8.75
-
-    HoverHandler {
-      onHoveredChanged: root.setClockHovered(hovered)
-    }
 
     onPressed: function(b) {
       if (b === Qt.RightButton) root.cycleFormat()

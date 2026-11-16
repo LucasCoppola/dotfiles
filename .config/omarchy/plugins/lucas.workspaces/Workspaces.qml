@@ -52,6 +52,7 @@ BarWidget {
       model: root.workspaceIds()
 
       WidgetButton {
+        id: workspaceButton
         required property int modelData
 
         readonly property var workspace: root.workspaceById(modelData)
@@ -59,14 +60,24 @@ BarWidget {
         readonly property bool focused: Hyprland.focusedWorkspace !== null && Hyprland.focusedWorkspace.id === modelData
 
         bar: root.bar
-        text: "●"
-        fontSize: 14
+        // Draw workspace dots directly: WidgetButton now enlarges icon glyphs.
+        hasVisualContent: true
+        labelVisible: false
         opacity: focused ? 1 : 0.5
         horizontalMargin: 6
         verticalPadding: 6
         fixedWidth: root.vertical ? root.barSize : Style.space(20)
         fixedHeight: root.barSize
         onPressed: function() { root.focusWorkspace(modelData) }
+
+        Rectangle {
+          anchors.centerIn: parent
+          width: 8
+          height: width
+          radius: width / 2
+          color: workspaceButton.foreground
+          scale: workspaceButton.pressScale
+        }
       }
     }
   }

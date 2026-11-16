@@ -1,14 +1,40 @@
 {
-  "version": 1,
-  "idle": {
-    "screensaver": 150,
-    "lock": 300
-  },
   "bar": {
-    "position": "top",
-    "transparent": true,
-    "centerAnchor": "lucas.clock",
+    "background": "none",
     "layout": {
+      "center": [
+        {
+          "format": "ddd d MMM HH:mm",
+          "formatAlt": "d MMMM 'W'ww yyyy",
+          "id": "lucas.clock",
+          "verticalFormat": "HH\n—\nmm"
+        }
+      ],
+      "centerBegin": [
+        {
+          "id": "omarchy.indicators",
+          "items": [
+            "ScreenRecording",
+            "Reminder",
+            "NightLight",
+            "Dnd"
+          ]
+        }
+      ],
+      "centerEnd": [
+        {
+          "cities": [
+            {
+              "name": "Buenos Aires",
+              "zone": "America/Argentina/Buenos_Aires"
+            }
+          ],
+          "id": "omarchy.elsewhen"
+        },
+        {
+          "id": "omarchy.system-update"
+        }
+      ],
       "left": [
         {
           "id": "lucas.dashboard"
@@ -17,33 +43,12 @@
           "id": "lucas.workspaces"
         }
       ],
-      "center": [
-        {
-          "id": "lucas.indicators",
-          "items": [
-            "Dictation",
-            "ScreenRecording",
-            "Reminder",
-            "NightLight",
-            "Dnd"
-          ]
-        },
-        {
-          "id": "lucas.clock",
-          "format": "ddd d MMM HH:mm",
-          "formatAlt": "d MMMM 'W'ww yyyy",
-          "verticalFormat": "HH\n—\nmm"
-        },
-        {
-          "id": "omarchy.keyboard-layout"
-        },
-        {
-          "id": "omarchy.system-update"
-        }
-      ],
       "right": [
         {
           "id": "omarchy.tray"
+        },
+        {
+          "id": "omarchy.keyboard-layout"
         },
         {
           "id": "omarchy.bluetooth"
@@ -60,12 +65,19 @@
         {
           "id": "omarchy.power"
         }
-      ]
-    }
+      ],
+      "tray": []
+    },
+    "position": "top"
   },
-  "plugins": [],
   "disabledPlugins": [
     "omarchy.idle",
     "omarchy.lock"
-  ]
+  ],
+  "idle": {
+    "lock": 300,
+    "screensaver": 150
+  },
+  "plugins": [],
+  "version": 1
 }
