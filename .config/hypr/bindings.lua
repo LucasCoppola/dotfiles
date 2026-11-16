@@ -28,6 +28,7 @@ o.bind("SUPER + F", "File manager", { launch = "nautilus --new-window" })
 o.bind("SUPER + B", "Browser", { omarchy = "browser" })
 o.bind("SUPER + SHIFT + B", "Browser (private)", { omarchy = "browser --private" })
 o.bind("SUPER + M", "Music", "omarchy-launch-or-focus spotify")
+o.bind("SUPER + ALT + P", "Toggle Portwatch", "omarchy-shell portwatch.panel toggle")
 o.bind(
 	"SUPER + SHIFT + E",
 	"English class",

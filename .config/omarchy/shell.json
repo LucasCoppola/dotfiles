@@ -48,6 +48,10 @@
           "id": "omarchy.tray"
         },
         {
+          "backendPath": "/home/lucas/code/portwatch/backend/target/release/portwatch",
+          "id": "portwatch.panel"
+        },
+        {
           "id": "omarchy.keyboard-layout"
         },
         {
