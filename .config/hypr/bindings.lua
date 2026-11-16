@@ -46,9 +46,13 @@ o.bind("ALT + X", "Close window", hl.dsp.window.close())
 o.bind("SUPER + CTRL + L", "Passwordless screen", "omarchy-launch-screensaver force")
 o.bind("switch:on:Lid Switch", nil, "omarchy-hyprland-monitor-clamshell", { locked = true })
 o.bind("SUPER + S", "Screenshot region", "omarchy capture screenshot region slurp copy")
-o.bind("ALT + SPACE", "Apps", "omarchy-menu toggle apps")
+-- Keep dictation off the app launcher and AltGr; use one dedicated toggle.
+hl.unbind("ALT + Alt_R")
+o.rebind("ALT + SPACE", "Apps", "omarchy-menu toggle apps")
+o.rebind("SUPER + CTRL + X", "Toggle dictation", "omarchy-dictation toggle")
 o.bind("ALT + P", "System menu", "omarchy-menu toggle system")
-o.bind("SUPER + A", "Omarchy menu", "omarchy-menu toggle")
+-- Select all stays on the application's Ctrl+A, not the menu shortcut.
+o.rebind("SUPER + A", "Omarchy menu", "omarchy-menu toggle")
 
 -- Vim-style focus and window movement.
 local directions = {
