@@ -187,7 +187,7 @@ mouse_capture = true
 confirm_close = false
 prompt_new_tab_name = false
 
-status_indicators = "symbols"
+status_indicators = "dots"
 [ui.toast]
 delivery = "herdr"
 

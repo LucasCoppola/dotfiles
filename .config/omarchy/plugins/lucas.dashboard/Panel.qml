@@ -39,7 +39,7 @@ Panel {
   function refreshDashboard() {
     refreshSystem()
     refreshWeather()
-    refreshBitcoin()
+    // refreshBitcoin()
     refreshCodex()
   }
   function refreshSystem() {
@@ -192,7 +192,7 @@ Panel {
     // Prime slow network-backed data once per shell session. After that it
     // refreshes only when the dashboard opens or the user requests it.
     root.refreshWeather()
-    root.refreshBitcoin()
+    // root.refreshBitcoin()
     root.refreshCodex()
   }
   Timer {
@@ -419,6 +419,7 @@ Panel {
           }
         }
 
+        /* BTC section disabled.
         Item {
           width: parent.width
           height: Style.space(12)
@@ -470,6 +471,7 @@ Panel {
             }
           }
         }
+        */
       }
     }
   }
