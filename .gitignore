@@ -1,9 +1,10 @@
 .config/nvim/lazy-lock.json
-.agents/.skill-lock.json
 
 # Omarchy package-managed skill symlinks
 .agents/skills/omarchy
 .agents/skills/diagnose-crash
+.agents/skills/omarchy-app
+.agents/skills/superwhisper
 
 # Machine-local values referenced by tracked Hyprland bindings
 .config/hypr/private/
@@ -15,3 +16,15 @@
 .agents/skills/plannotator*/
 .agents/skills/synced/
 .agents/skills/.trash/
+
+# Herdr auto-title runtime state and machine-local overrides
+.config/herdr-auto-title/instances/
+.config/herdr-auto-title/manual-names.json
+
+# Omarchy backups and transient selector locks
+.config/omarchy/shell.json.bak.*
+.config/omarchy/defaults/*.lock
+
+# Deployed plugins: owned by Portwatch's installer or the Superwhisper package
+.config/omarchy/plugins/portwatch.panel/
+.config/omarchy/plugins/superwhisper-panel

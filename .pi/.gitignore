@@ -13,6 +13,8 @@ agent/mcp-oauth/
 # Omarchy package-managed resources
 agent/skills/omarchy
 agent/skills/diagnose-crash
+agent/skills/omarchy-app
+agent/skills/superwhisper
 agent/themes/omarchy-system.json
 
 agent/extensions/**/node_modules/

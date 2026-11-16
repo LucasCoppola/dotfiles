@@ -46,6 +46,17 @@ export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
 
 # Pi
 export PI_SKIP_VERSION_CHECK=1
+# Public, keyless search (rate-limited); machine-local config can override it.
+export PI_WEB_TOOLS_EXA_ENDPOINT="${PI_WEB_TOOLS_EXA_ENDPOINT:-https://mcp.exa.ai/mcp}"
+# Disable Context7 CLI usage telemetry.
+export CTX7_TELEMETRY_DISABLED=1
+# Keep Impeccable live edits in this chat; opt out of CLI usage telemetry.
+export IMPECCABLE_LIVE_COPY_AGENT="${IMPECCABLE_LIVE_COPY_AGENT:-chat}"
+export DO_NOT_TRACK="${DO_NOT_TRACK:-1}"
+# Playwright defaults to Google Chrome; use installed Chromium when available.
+if command -v chromium >/dev/null 2>&1; then
+    export PLAYWRIGHT_MCP_EXECUTABLE_PATH="${PLAYWRIGHT_MCP_EXECUTABLE_PATH:-$(command -v chromium)}"
+fi
 
 # Turso
 export PATH="$HOME/.turso:$PATH"
