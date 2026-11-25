@@ -17,7 +17,8 @@
       "skillPath": "tech-spec/SKILL.md",
       "skillFolderHash": "83764b4b41ec03cae1860a3dae247b85eba42e46",
       "installedAt": "2026-07-24T23:09:22.954Z",
-      "updatedAt": "2026-07-24T23:09:22.954Z"
+      "updatedAt": "2026-11-18T17:52:55.672Z",
+      "commit": "8603380821fee6a77c82639f364ce8fe4f5a92be"
     },
     "code-review": {
       "source": "mattpocock/skills",
@@ -127,7 +128,7 @@
       "skillFolderHash": "2f8f36af48796faed5c687c75bb650071631a984",
       "pluginName": "mattpocock-skills",
       "installedAt": "2026-09-02T15:03:02.986Z",
-      "updatedAt": "2026-11-16T15:48:25.609Z"
+      "updatedAt": "2026-11-18T17:52:55.818Z"
     },
     "setup-matt-pocock-skills": {
       "source": "mattpocock/skills",
@@ -177,9 +178,10 @@
       "sourceType": "github",
       "sourceUrl": "https://github.com/emilkowalski/skills.git",
       "skillPath": "skills/ask-sonner/SKILL.md",
-      "skillFolderHash": "aeca3dba0eb0415fa5a310cd6823b824fe60323d",
+      "skillFolderHash": "4c2100bb05d30b4e3a889edf25bfbeb27c3f1447",
       "installedAt": "2026-10-09T16:52:00.318Z",
-      "updatedAt": "2026-10-09T16:52:00.318Z"
+      "updatedAt": "2026-11-18T17:52:55.931Z",
+      "commit": "64eb3deb9a5fbfa041faf783e0bc3fd635872e9c"
     },
     "break-ui": {
       "source": "emilkowalski/skills",
@@ -211,6 +213,17 @@
       "skillFolderHash": "6574a7573c129d9e08ad605795b746dadc2278e0",
       "installedAt": "2026-11-16T15:51:54.810Z",
       "updatedAt": "2026-11-16T15:51:54.810Z"
+    },
+    "prototype": {
+      "source": "mattpocock/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/mattpocock/skills.git",
+      "commit": "5863806dd4e15c63174bee4e7515a4256792ecfa",
+      "skillPath": "skills/engineering/prototype/SKILL.md",
+      "skillFolderHash": "e41d92e171f074a2b6887d8f6faca4a15c83d1ca",
+      "pluginName": "mattpocock-skills",
+      "installedAt": "2026-11-18T17:52:17.081Z",
+      "updatedAt": "2026-11-18T17:52:17.081Z"
     }
   },
   "dismissed": {
@@ -222,6 +235,7 @@
     "codex",
     "cursor",
     "droid",
+    "fx",
     "gemini-cli",
     "github-copilot",
     "kilo",

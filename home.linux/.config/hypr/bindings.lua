@@ -50,7 +50,7 @@ o.bind("SUPER + S", "Screenshot region", "omarchy capture screenshot region slur
 -- Keep dictation off the app launcher and AltGr; use one dedicated toggle.
 hl.unbind("ALT + Alt_R")
 o.rebind("ALT + SPACE", "Apps", "omarchy-menu toggle apps")
-o.rebind("SUPER + CTRL + X", "Toggle dictation", "omarchy-dictation toggle")
+o.bind("SUPER + D", "Toggle dictation", "omarchy-dictation toggle")
 o.bind("ALT + P", "System menu", "omarchy-menu toggle system")
 -- Select all stays on the application's Ctrl+A, not the menu shortcut.
 o.rebind("SUPER + A", "Omarchy menu", "omarchy-menu toggle")

@@ -9,3 +9,4 @@ o.exec_on_start("systemctl --user disable --now omarchy-sleep-lock.service")
 o.exec_on_start("systemctl --user start hypridle.service")
 
 o.launch_on_start("zen-browser")
+o.launch_on_start("ghostty -e herdr")

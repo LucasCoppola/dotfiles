@@ -1,13 +1,26 @@
 {
-  "defaultProvider": "openai-codex",
-  "defaultModel": "gpt-6.1-sol",
+  "defaultProvider": "pi-claude-cli",
+  "defaultModel": "claude-sonnet-5-5",
   "defaultThinkingLevel": "medium",
+  "cacheWarming": "streaming",
+  "compaction": {
+    "enabled": true,
+    "modelOverrides": {
+      "pi-claude-cli/claude-opus-5-5": {
+        "keepRecentTokens": 15000
+      },
+      "pi-claude-cli/claude-sonnet-5-5": {
+        "keepRecentTokens": 15000
+      }
+    }
+  },
   "packages": [
     "npm:@plannotator/pi-extension",
-    "git:github.com/dmmulroy/pi-web-tools"
+    "git:github.com/dmmulroy/pi-web-tools",
+    "git:github.com/dmmulroy/pi-claude-cli"
   ],
   "theme": "omarchy-system",
-  "lastChangelogVersion": "1.5.2",
+  "lastChangelogVersion": "1.6.1",
   "defaultProjectTrust": "always",
   "tuiMode": "fullscreen",
   "doubleEscapeAction": "tree",

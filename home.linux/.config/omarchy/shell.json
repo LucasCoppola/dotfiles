@@ -23,13 +23,13 @@
       ],
       "centerEnd": [
         {
+          "id": "omarchy.elsewhen",
           "cities": [
             {
               "name": "Buenos Aires",
               "zone": "America/Argentina/Buenos_Aires"
             }
-          ],
-          "id": "omarchy.elsewhen"
+          ]
         },
         {
           "id": "omarchy.system-update"
@@ -48,8 +48,83 @@
           "id": "omarchy.tray"
         },
         {
+          "id": "lucas.agents",
+          "providers": {
+            "claude": {
+              "enabled": true
+            },
+            "codex": {
+              "enabled": true
+            },
+            "grok": {
+              "enabled": false
+            },
+            "kimi": {
+              "enabled": false
+            },
+            "cursor": {
+              "enabled": false
+            },
+            "grokbot": {
+              "enabled": false
+            },
+            "copilot": {
+              "enabled": false
+            },
+            "muse": {
+              "enabled": false
+            },
+            "agy": {
+              "enabled": false
+            },
+            "kimchi": {
+              "enabled": false
+            },
+            "hermes": {
+              "enabled": false
+            },
+            "devin": {
+              "enabled": false
+            },
+            "vibe": {
+              "enabled": false
+            },
+            "qwen": {
+              "enabled": false
+            },
+            "opencode": {
+              "enabled": false
+            },
+            "zai": {
+              "enabled": false
+            },
+            "ollama": {
+              "enabled": false
+            },
+            "minimax": {
+              "enabled": false
+            },
+            "openrouter": {
+              "enabled": false
+            },
+            "deepseek": {
+              "enabled": false
+            },
+            "fireworks": {
+              "enabled": false
+            },
+            "synthetic": {
+              "enabled": false
+            },
+            "local": {
+              "enabled": false
+            }
+          }
+        },
+        {
           "backendPath": "/home/lucas/code/portwatch/backend/target/release/portwatch",
-          "id": "portwatch.panel"
+          "id": "portwatch.panel",
+          "serverMonitoring": "On"
         },
         {
           "id": "omarchy.keyboard-layout"
