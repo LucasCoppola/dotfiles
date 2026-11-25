@@ -1,0 +1,25 @@
+# Packages dot installs on Omarchy, on top of Omarchy's own list.
+# One per line; `#` starts a comment. Languages and agent CLIs live in
+# home/.config/mise/config.toml, not here.
+
+# dot itself
+stow
+
+# Shell and editor
+zsh
+neovim
+
+# Apps
+ghostty
+zen-browser-bin
+vial-appimage      # Corne keyboard config
+android-tools      # adb
+android-udev       # adb device permissions
+
+# Desktop
+hypridle           # home.linux/.config/hypr/hypridle.conf
+otf-geist-mono-nerd
+
+# agents
+tree
+wget

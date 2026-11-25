@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+# dot: set up, update and check this machine from the dotfiles repo.
+# Bash 3.2 compatible (stock macOS): no associative arrays, mapfile or ${var,,}.
+set -uo pipefail
+
+# Resolve the real script path through symlinks (~/.local/bin/dot → repo).
+dot_source="${BASH_SOURCE[0]}"
+while [ -L "$dot_source" ]; do
+    dot_source_dir="$(cd -P "$(dirname "$dot_source")" && pwd -P)"
+    dot_source="$(readlink "$dot_source")"
+    case "$dot_source" in /*) ;; *) dot_source="$dot_source_dir/$dot_source" ;; esac
+done
+DOT_REPO="$(cd -P "$(dirname "$dot_source")/../.." && pwd -P)"
+export DOT_REPO
+
+# shellcheck source=../lib/dot-lib.sh
+. "$DOT_REPO/dot/lib/dot-lib.sh"
+
+# Sourcing this file (tests) only loads functions.
+if [ "${BASH_SOURCE[0]}" = "$0" ]; then
+    dot_main "$@"
+fi

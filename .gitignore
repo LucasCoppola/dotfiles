@@ -1,30 +1,27 @@
-.config/nvim/lazy-lock.json
+home/.config/nvim/lazy-lock.json
 
 # Omarchy package-managed skill symlinks
-.agents/skills/omarchy
-.agents/skills/diagnose-crash
-.agents/skills/omarchy-app
-.agents/skills/superwhisper
+home/.agents/skills/omarchy
+home/.agents/skills/diagnose-crash
+home/.agents/skills/omarchy-app
+home/.agents/skills/superwhisper
 
 # Machine-local values referenced by tracked Hyprland bindings
-.config/hypr/private/
-
-# TPM-managed plugin clones
-.config/tmux/plugins/
+home.linux/.config/hypr/private/
 
 # Installer/sync-managed skills
-.agents/skills/plannotator*/
-.agents/skills/synced/
-.agents/skills/.trash/
+home/.agents/skills/plannotator*/
+home/.agents/skills/synced/
+home/.agents/skills/.trash/
 
 # Herdr auto-title runtime state and machine-local overrides
-.config/herdr-auto-title/instances/
-.config/herdr-auto-title/manual-names.json
+home/.config/herdr-auto-title/instances/
+home/.config/herdr-auto-title/manual-names.json
 
 # Omarchy backups and transient selector locks
-.config/omarchy/shell.json.bak.*
-.config/omarchy/defaults/*.lock
+home.linux/.config/omarchy/shell.json.bak.*
+home.linux/.config/omarchy/defaults/*.lock
 
 # Deployed plugins: owned by Portwatch's installer or the Superwhisper package
-.config/omarchy/plugins/portwatch.panel/
-.config/omarchy/plugins/superwhisper-panel
+home.linux/.config/omarchy/plugins/portwatch.panel/
+home.linux/.config/omarchy/plugins/superwhisper-panel

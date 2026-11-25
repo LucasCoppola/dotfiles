@@ -1,0 +1,23 @@
+[alias]
+	co = checkout
+	br = branch
+	ci = commit
+	st = status
+[pull]
+	rebase = true
+[init]
+	defaultBranch = main
+[user]
+	email = lucascoppola21@gmail.com
+	name = LucasCoppola
+; [core]
+; 	pager = delta
+; [interactive]
+; 	diffFilter = delta --color-only
+; [delta]
+;   side-by-side = true
+;   line-numbers = true
+; [merge]
+; 	conflictStyle = zdiff3
+[push]
+	autoSetupRemote = true

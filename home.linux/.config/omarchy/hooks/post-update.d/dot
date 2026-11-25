@@ -1,0 +1,4 @@
+# Runs at the end of `omarchy update`, which already upgraded system packages
+# and mise tools. dot adds the rest: repo pull, links, missing packages,
+# skills, Pi extensions, zsh plugins and neovim plugins.
+"$HOME/.local/bin/dot" update

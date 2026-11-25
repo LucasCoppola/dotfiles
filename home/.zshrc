@@ -8,12 +8,12 @@ ZSH_THEME='robbyrussell'
 DISABLE_MAGIC_FUNCTIONS="true"
 HIST_STAMPS="mm/dd/yyyy"
 plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
+zstyle ':omz:update' mode auto
 source $ZSH/oh-my-zsh.sh
 
 # === Vim Mode ===
 bindkey -v
 export KEYTIMEOUT=1
-bindkey -s ^f "tmux-sessionizer\n"
 
 # === Aliases ===
 alias gs='git status'
@@ -79,8 +79,6 @@ fi
 # === PATH Configuration ===
 export PATH="$HOME/.local/bin:$PATH"
 typeset -U path
-
-export DOT_REPO="$HOME/code/dotfiles"
 
 # === Machine-Specific Configuration ===
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local

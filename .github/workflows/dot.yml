@@ -1,0 +1,43 @@
+# Keeps `dot init` working between the rare times it runs for real.
+# Monthly, and on changes to dot or the package lists. Free on public repos.
+# Logs are public: never print secrets.
+name: dot
+
+on:
+  schedule:
+    - cron: "0 6 1 * *"
+  workflow_dispatch:
+  push:
+    paths:
+      - "dot/**"
+      - "packages/**"
+      - "home/.config/mise/**"
+      - ".github/workflows/dot.yml"
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: sudo apt-get update && sudo apt-get install -y stow
+      - run: curl -fsSL https://mise.run | sh && echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+      - run: dot/tests/run-tests
+
+  arch-package-names:
+    runs-on: ubuntu-latest
+    container: archlinux:latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: pacman -Sy --noconfirm curl
+      - run: dot/tests/check-package-names
+
+  # A real `dot init` on a clean Mac, with the stock bash 3.2.
+  macos-init:
+    runs-on: macos-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # mise's GitHub API rate limit
+    steps:
+      - uses: actions/checkout@v4
+      - run: /bin/bash dot/bin/dot init
+      - name: doctor (report only; logins are expected to be missing)
+        run: /bin/bash dot/bin/dot doctor || true

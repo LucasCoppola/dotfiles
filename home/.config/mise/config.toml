@@ -1,0 +1,30 @@
+# Owns languages and agent CLIs on every machine (Omarchy's /etc/mise list
+# only exists on Linux). Brew/yay own everything else; see packages/.
+#
+# lazy = true: listed everywhere, downloaded the first time the command runs.
+
+[settings]
+idiomatic_version_file_enable_tools = ["ruby"]
+# Every tool here checks for updates once a day, in the background at the prompt.
+tool_update.global_auto = "1d"
+# Skip releases younger than 3 days: most broken or hijacked releases are pulled by then.
+minimum_release_age = "3d"
+
+[tools]
+# Languages: pinned to a major so automatic updates never cross one.
+node = "26"
+bun = "1"
+pnpm = "11"
+go = "1"
+rust = { version = "stable", lazy = true }
+
+# Agent CLIs
+pi = { version = "latest", os = ["linux"] }  # used at home only
+claude = "latest"
+gh = "latest"
+codex = { version = "latest", lazy = true }
+"github:backnotprop/plannotator" = "latest"
+playwright = { version = "latest", lazy = true }
+
+# Utilities
+age = "1"

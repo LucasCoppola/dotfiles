@@ -1,0 +1,7 @@
+# macOS packages, read by `brew bundle`. Languages and agent CLIs live in
+# home/.config/mise/config.toml, not here.
+# TODO: fill from the Mac (`brew leaves`, `brew list --cask`).
+
+# dot itself
+brew "stow"
+brew "mise"

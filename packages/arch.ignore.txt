@@ -1,0 +1,36 @@
+# Installed on purpose but not tracked: `dot doctor` won't report these.
+# Omarchy's own packages are skipped automatically.
+
+# System and hardware
+linux
+linux-lts
+intel-ucode
+efibootmgr
+dmidecode
+fprintd
+powertop
+tlp
+earlyoom
+usbutils
+qt5-wayland
+webkit2gtk-4.1
+wl-clip-persist
+walker
+hyprshot
+noto-fonts-extra
+ttf-cascadia-mono-nerd
+libqalculate
+xmlstarlet
+omarchy
+omarchy-keyring
+omarchy-settings
+owe-lockfeed
+
+# Picked per machine
+spotify
+fastpotify-bin
+spotifast-bin
+
+# Project dependencies (database.c)
+clang
+llvm

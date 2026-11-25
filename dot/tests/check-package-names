@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+# Fail when a name in packages/arch.txt no longer exists in the Arch repos or
+# the AUR (packages get renamed, e.g. fastpotify-bin became spotifast-bin).
+# Runs in an Arch container in CI; needs pacman and curl.
+set -euo pipefail
+cd "$(dirname "$0")/../.."
+DOT_REPO="$PWD"
+# shellcheck source=../lib/package-lists.sh
+. dot/lib/package-lists.sh
+
+status=0
+while read -r name; do
+    pacman -Si "$name" >/dev/null 2>&1 && continue
+    count="$(curl -fsS "https://aur.archlinux.org/rpc/v5/info?arg%5B%5D=$name" | grep -o '"resultcount":[0-9]*' | cut -d: -f2)"
+    if [ "${count:-0}" = 0 ]; then
+        echo "not in the Arch repos or the AUR: $name" >&2
+        status=1
+    fi
+done < <(package_list_read "$DOT_REPO/packages/arch.txt")
+[ "$status" = 0 ] && echo "every name in arch.txt exists" >&2
+exit "$status"
