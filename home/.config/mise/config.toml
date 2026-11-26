@@ -29,3 +29,5 @@ playwright = { version = "latest", lazy = true }
 # Utilities
 age = "1"
 "npm:typescript" = "latest"  # global tsc for tsc.nvim outside projects
+"npm:@yaakapp/cli" = "latest"
+"npm:portless" = "latest"
