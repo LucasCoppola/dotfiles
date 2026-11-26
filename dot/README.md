@@ -21,7 +21,7 @@ three functions: `component_<name>_install`, `_update` and `_check`.
 | Component | Does |
 | --- | --- |
 | `package_manager` | Homebrew on macOS (installs it); checks for yay on Omarchy |
-| `repo` | Pulls on update (skipped when there are uncommitted changes) |
+| `repo` | Pulls on update, keeping uncommitted changes; skips when they overlap with incoming ones |
 | `links` | Links `home/` and `home.<os>/` into `~` with stow |
 | `packages` | Installs what is missing from `packages/`; reports what is untracked. Never uninstalls |
 | `mise` | `mise install`; doctor runs `mise doctor` and finds commands installed twice |
@@ -38,9 +38,14 @@ A failure in `package_manager` or `links` stops the run; the rest warn and conti
   (`home/.config/mise/config.toml`); brew/yay own everything else. Try
   `mise use -g <tool>`, then `mise use -g github:owner/repo`; curl installers are
   a last resort and become a component.
-- **Updates on Linux** come from `omarchy update` (system packages, mise), which
-  runs `dot update` through `home.linux/.config/omarchy/hooks/post-update.d/dot`.
-  mise tools also update themselves daily, skipping releases younger than 3 days.
+- **Updates:** run `dot update` yourself, on both OSes. It never runs on its own,
+  and `omarchy update` doesn't call it. On Linux, system package upgrades stay
+  with `omarchy update` (Omarchy blocks partial upgrades); on macOS, `dot update`
+  upgrades the Brewfile. mise tools update themselves daily, skipping releases
+  younger than 3 days.
+- **Pulling** keeps your uncommitted changes (`git pull --rebase --autostash`),
+  unless the incoming commits touch a file you changed. Then it doesn't pull,
+  and names the files, so git never writes conflict markers into a live config.
 
 ## Linking
 

@@ -16,7 +16,7 @@ left for you (logins). Run it again any time; it only does what is missing.
 
 | | |
 | --- | --- |
-| Update | Linux: `omarchy update` (runs `dot update` at the end). macOS: `dot update` |
+| Update | `dot update` (dotfiles, skills, plugins). Linux system packages: `omarchy update` |
 | Check | `dot doctor`: links, missing or untracked packages, duplicates, logins |
 | Install a tool | `mise use -g <tool>` first; otherwise add it to `packages/` |
 

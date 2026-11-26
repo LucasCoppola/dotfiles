@@ -12,7 +12,7 @@ fi
 on_os() { [ "$DOT_OS" = "$1" ]; }
 
 # Tools installed by mise or brew are not on PATH in a non-interactive run
-# (Omarchy's post-update hook, a fresh shell). Add their usual locations.
+# (cron, a fresh shell, CI). Add their usual locations.
 for dot_path_dir in "$HOME/.local/share/mise/shims" "$HOME/.local/bin" /opt/homebrew/bin; do
     case ":$PATH:" in
         *":$dot_path_dir:"*) ;;
