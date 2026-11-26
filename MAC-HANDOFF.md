@@ -15,6 +15,21 @@ side (Omarchy laptop) is done and running from this branch. Read `README.md` and
   `declare -A`, `mapfile`, `${var,,}`, or `&>>`.
 - Lint and test after changes: `dot/tests/run-tests` (needs stow; bats and shellcheck come from mise).
 
+## What you may change
+
+- **Freely:** `packages/Brewfile`, `home.macos/`, and macOS-only branches in
+  `dot` (`on_os macos`, `DOT_OS=macos`). Fixing bugs found by running them is
+  the point of this session.
+- **Carefully:** shared code (`dot/lib/links.sh`, `main.sh`, `output.sh`, the
+  doctor checks, `home/`, the mise config). The Linux laptop runs it too. Keep
+  changes minimal, run `dot/tests/run-tests`, and put them in their own commits
+  whose message says what changed for Linux.
+- **Not at all:** `home.linux/`, `packages/arch*.txt`, merging into `main`, or
+  pushing anywhere except `dot-rewrite`.
+- When done, push `dot-rewrite` and summarise for the user: what changed, and which
+  commits touch shared code. The Linux machine reviews those, re-runs the tests
+  and `dot doctor`, then merges.
+
 ## Decisions already made
 
 - **One owner per tool.** mise owns languages and agent CLIs
