@@ -57,12 +57,12 @@
       "source": "mattpocock/skills",
       "sourceType": "github",
       "sourceUrl": "https://github.com/mattpocock/skills.git",
-      "commit": "5863806dd4e15c63174bee4e7515a4256792ecfa",
+      "commit": "6f7f7831a625f040a8e06a0e7954826b87ce775a",
       "skillPath": "skills/engineering/domain-modeling/SKILL.md",
-      "skillFolderHash": "ea30ee454ba264543dbe40737973b1a5afb9f0e6",
+      "skillFolderHash": "db8ef024fb9a7b2022d57289359ae96cff0d8483",
       "pluginName": "mattpocock-skills",
       "installedAt": "2026-09-02T15:03:02.973Z",
-      "updatedAt": "2026-11-16T15:48:25.608Z"
+      "updatedAt": "2026-11-26T14:43:43.058Z"
     },
     "grill-with-docs": {
       "source": "mattpocock/skills",
@@ -197,22 +197,22 @@
       "source": "upstash/context7",
       "sourceType": "github",
       "sourceUrl": "https://github.com/upstash/context7.git",
-      "commit": "72844e51c4f039b9ef14e980da3f0f84ab89331e",
+      "commit": "4c98769fea0403bf5f22865320b0783e8cae1fd5",
       "skillPath": "skills/find-docs/SKILL.md",
-      "skillFolderHash": "909aeb8682313970ebfe48b63b149400c8bd65b5",
+      "skillFolderHash": "146b79feebcd237647c93f0241e7ba9bee7813c9",
       "installedAt": "2026-11-16T15:48:53.041Z",
-      "updatedAt": "2026-11-16T15:48:53.041Z"
+      "updatedAt": "2026-11-26T14:43:43.100Z"
     },
     "impeccable": {
       "source": "pbakaus/impeccable",
       "sourceType": "github",
       "sourceUrl": "https://github.com/pbakaus/impeccable.git",
       "ref": "main",
-      "commit": "d41d9860b0094dcb68030657da63461212835aaa",
+      "commit": "2fc5e1459efbbf06d92c7306517c286bf12490cf",
       "skillPath": ".pi/skills/impeccable/SKILL.md",
-      "skillFolderHash": "6574a7573c129d9e08ad605795b746dadc2278e0",
+      "skillFolderHash": "3936d8c7fab681cdc1a731047a7c3762d313f33b",
       "installedAt": "2026-11-16T15:51:54.810Z",
-      "updatedAt": "2026-11-16T15:51:54.810Z"
+      "updatedAt": "2026-11-26T14:43:43.537Z"
     },
     "prototype": {
       "source": "mattpocock/skills",
