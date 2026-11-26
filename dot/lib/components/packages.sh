@@ -39,7 +39,7 @@ component_packages_check() {
         [ -n "$untracked" ] && print_warn "installed but not in arch.txt or arch.ignore.txt:$untracked"
     else
         brew bundle check --file="$DOT_REPO/packages/Brewfile" >/dev/null 2>&1 || missing_names=" (see \`brew bundle check --verbose --file=$DOT_REPO/packages/Brewfile\`)"
-        untracked="$(brew bundle cleanup --file="$DOT_REPO/packages/Brewfile" 2>/dev/null | grep -v '^Would' | tr '\n' ' ')"
+        untracked="$(brew_untracked | tr '\n' ' ')"
         [ -n "$untracked" ] && print_warn "installed but not in the Brewfile: $untracked"
     fi
     if [ -n "$missing_names" ]; then
@@ -49,4 +49,16 @@ component_packages_check() {
         print_ok "every listed package is installed"
     fi
     return "$problems"
+}
+
+# Casks, taps and formulae installed on request that the Brewfile doesn't list.
+# `brew bundle cleanup` also lists their dependencies and cache files; skip those.
+brew_untracked() {
+    brew bundle cleanup --file="$DOT_REPO/packages/Brewfile" 2>/dev/null |
+        awk -v leaves=" $(brew leaves --installed-on-request | tr '\n' ' ') " '
+            /^Would uninstall casks:/ { s = "keep"; next }
+            /^Would untap:/ { s = "keep"; next }
+            /^Would uninstall formulae:/ { s = "formula"; next }
+            /^(Would|Run)/ { s = ""; next }
+            s == "keep" || (s == "formula" && index(leaves, " " $1 " ")) { print $1 }'
 }

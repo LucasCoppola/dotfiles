@@ -24,6 +24,12 @@ component_package_manager_install() {
         print_fail "could not download the Homebrew installer"
         return 1
     }
+    # NONINTERACTIVE makes the installer use `sudo -n`, which fails unless sudo
+    # is already cached, so ask for the password here when there is a terminal.
+    if [ "$DOT_DRY_RUN" = 0 ] && [ -t 0 ]; then
+        print_info "Homebrew needs your password to install"
+        sudo -v || return 1
+    fi
     run_or_print env NONINTERACTIVE=1 /bin/bash -c "$installer" || return 1
     [ "$DOT_DRY_RUN" = 1 ] && return 0
     eval "$(/opt/homebrew/bin/brew shellenv)"
