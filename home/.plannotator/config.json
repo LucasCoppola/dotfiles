@@ -5,7 +5,7 @@
     "lineBgIntensity": "subtle",
     "hideWhitespace": false,
     "tabSize": 2,
-    "diffStyle": "unified",
+    "diffStyle": "split",
     "overflow": "wrap",
     "fontFamily": "Roboto Mono",
     "fontSize": "",
