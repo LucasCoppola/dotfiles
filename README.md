@@ -24,7 +24,7 @@ left for you (logins). Run it again any time; it only does what is missing.
 
 | Path | What |
 | --- | --- |
-| `home/` | Linked into `~` on every machine |
-| `home.linux/`, `home.macos/` | Linked into `~` on that OS only |
+| `home/` | Mirrors `~`: `home/.config/nvim` is `~/.config/nvim`. Linked on every machine |
+| `home/linux/`, `home/macos/` | Also mirror `~`, linked on that OS only: `home/linux/.config/hypr` is `~/.config/hypr` |
 | `packages/` | `Brewfile` (macOS), `arch.txt` and `arch.ignore.txt` (Linux) |
 | `dot/` | The tool |

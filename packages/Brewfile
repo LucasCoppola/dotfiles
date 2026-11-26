@@ -5,7 +5,6 @@ tap "anomalyco/tap"
 tap "nikitabobko/tap"
 
 # dot itself
-brew "stow"
 brew "mise"
 
 # CLI

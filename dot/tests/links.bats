@@ -9,8 +9,8 @@ setup() {
     repo_file home/.agents/skills/a/SKILL.md
     repo_file home/.config/nvim/init.lua
     repo_file home/.local/bin/tool
-    repo_file home.linux/.config/hypr/hyprland.lua
-    repo_file home.macos/.config/aerospace/aerospace.toml
+    repo_file home/linux/.config/hypr/hyprland.lua
+    repo_file home/macos/.config/aerospace/aerospace.toml
 }
 
 teardown() { dot_test_teardown; }
@@ -28,8 +28,26 @@ teardown() { dot_test_teardown; }
 
 @test "only this OS's package is linked" {
     run dot init --only links
-    assert_linked .config/hypr home.linux/.config/hypr
+    assert_linked .config/hypr home/linux/.config/hypr
     [ ! -e "$HOME/.config/aerospace" ]
+}
+
+@test "the OS folders are never linked as ~/linux or ~/macos" {
+    run dot init --only links
+    [ "$status" -eq 0 ]
+    [ ! -e "$HOME/linux" ] && [ ! -L "$HOME/linux" ]
+    [ ! -e "$HOME/macos" ] && [ ! -L "$HOME/macos" ]
+    run dot doctor --only links
+    [ "$status" -eq 0 ]
+}
+
+@test "a folder left in place in the OS package doesn't block the rest" {
+    mkdir -p "$HOME/.config/hypr"
+    echo mine >"$HOME/.config/hypr/notes.txt"
+    run dot init --only links
+    [ "$status" -eq 0 ]
+    [ -f "$HOME/.config/hypr/notes.txt" ] && [ ! -L "$HOME/.config/hypr" ]
+    assert_linked .config/nvim home/.config/nvim
 }
 
 @test "a file created inside a linked folder lands in the repo" {
@@ -63,7 +81,7 @@ teardown() { dot_test_teardown; }
     cp "$TEST_ROOT/defaults/hypr/hyprland.conf" "$HOME/.config/hypr/"
     run dot init --only links
     [ "$status" -eq 0 ]
-    assert_linked .config/hypr home.linux/.config/hypr
+    assert_linked .config/hypr home/linux/.config/hypr
 }
 
 @test "init keeps a default folder that was changed" {
@@ -83,7 +101,7 @@ teardown() { dot_test_teardown; }
     [[ "$output" == *"run \`dot init\` to replace it"* ]]
 }
 
-@test "old absolute links are replaced with stow's relative ones" {
+@test "old absolute links are replaced with relative ones" {
     ln -s "$DOT_REPO/home/.zshrc" "$HOME/.zshrc"
     ln -s /somewhere/old/.agents "$HOME/.agents"
     run dot init --only links
@@ -102,7 +120,7 @@ teardown() { dot_test_teardown; }
 }
 
 @test "the same path in two packages is an error" {
-    repo_file home.linux/.zshrc
+    repo_file home/linux/.zshrc
     run dot init --only links
     [ "$status" -eq 1 ]
     [[ "$output" == *"more than one package: .zshrc"* ]]

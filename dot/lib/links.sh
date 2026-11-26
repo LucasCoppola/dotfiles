@@ -1,9 +1,10 @@
-# Linking: home/ and home.<os>/ mirror $HOME and are linked with GNU stow.
+# Linking: home/ mirrors $HOME, except home/linux/ and home/macos/, which mirror
+# $HOME too but are linked only on that OS. Links are relative symlinks.
 #
 # A "unit" is what gets one symlink: a top-level entry of a package, or an
 # entry inside a container directory. Containers (~/.config, ~/.local/bin, ...)
 # are always real directories that many apps write into, so they are created
-# before stow runs and never become symlinks themselves. Every other directory
+# before linking and never become symlinks themselves. Every other directory
 # is linked whole, so files that apps or agents create inside it land in the repo.
 # shellcheck shell=bash
 
@@ -14,12 +15,20 @@ DOT_CONTAINER_DIRS=".config .local .local/bin .local/share .local/state"
 # defaults are replaced without asking during `dot init`.
 DOT_DEFAULT_CONFIG_DIRS="${DOT_DEFAULT_CONFIG_DIRS:-/etc/skel /usr/share/omarchy/config:.config /usr/share/omarchy/default:.config}"
 
+# Folders inside home/ that hold one OS's files instead of mirroring $HOME.
+DOT_OS_DIRS="linux macos"
+
 # Package directories for this OS, relative to the repo.
 link_packages() {
     local pkg
-    for pkg in home "home.$DOT_OS"; do
+    for pkg in home "home/$DOT_OS"; do
         [ -d "$DOT_REPO/$pkg" ] && printf '%s\n' "$pkg"
     done
+}
+
+is_os_dir() {
+    case " $DOT_OS_DIRS " in *" $1 "*) return 0 ;; esac
+    return 1
 }
 
 is_container_dir() {
@@ -30,8 +39,8 @@ is_container_dir() {
     return 1
 }
 
-# Names stow ignores by default; they never become units.
-is_stow_ignored() {
+# Repo bookkeeping inside a package; never linked.
+is_link_skipped_name() {
     case "$1" in .git | .gitignore | .gitmodules) return 0 ;; esac
     return 1
 }
@@ -48,7 +57,8 @@ link_units_in() {
     local pkg="$1" rel="$2" entry name unit
     while IFS= read -r entry; do
         name="${entry##*/}"
-        is_stow_ignored "$name" && continue
+        is_link_skipped_name "$name" && continue
+        [ "$pkg" = home ] && [ -z "$rel" ] && is_os_dir "$name" && continue
         unit="${rel:+$rel/}$name"
         if [ -d "$entry" ] && [ ! -L "$entry" ] && is_container_dir "$unit"; then
             link_units_in "$pkg" "$unit"
@@ -58,7 +68,7 @@ link_units_in() {
     done < <(find "$DOT_REPO/$pkg${rel:+/$rel}" -mindepth 1 -maxdepth 1 | LC_ALL=C sort)
 }
 
-# Two packages providing the same unit is a layout error: stow would refuse.
+# Two packages providing the same unit is a layout error: only one can be linked.
 link_duplicate_units() {
     link_units | cut -d' ' -f2- | LC_ALL=C sort | uniq -d
 }
@@ -73,7 +83,7 @@ link_target_of() {
 }
 
 # True when every non-directory below $1 is a symlink into the repo.
-# This is a unit stow linked file by file because its directory already existed.
+# This is a unit linked file by file (an older tool, or a folder that already existed).
 link_dir_holds_only_repo_links() {
     local entry target
     while IFS= read -r entry; do
@@ -144,7 +154,7 @@ link_state() {
     fi
 }
 
-# Make $HOME/<unit> free for stow. Mode is "init" or "update":
+# Make $HOME/<unit> free for its link. Mode is "init" or "update":
 # update never removes a directory that holds data or defaults.
 # Returns 1 when the unit is left in place (reported, and added to the checklist).
 link_clear_target() {
@@ -180,9 +190,9 @@ link_clear_target() {
     return 0
 }
 
-# Clear every unit, create containers, then let stow link everything.
+# Create containers, then clear and link every unit.
 link_apply() {
-    local mode="$1" pkg unit state dir dupes failed=0 skipped=""
+    local mode="$1" pkg unit source state dir dupes failed=0
     dupes="$(link_duplicate_units)"
     if [ -n "$dupes" ]; then
         print_fail "the same path is in more than one package: $dupes"
@@ -198,32 +208,39 @@ link_apply() {
     done
 
     while read -r pkg unit; do
-        state="$(link_state "$unit" "$DOT_REPO/$pkg/$unit")"
+        source="$DOT_REPO/$pkg/$unit"
+        state="$(link_state "$unit" "$source")"
+        [ "$state" = linked ] && continue
         # A unit left in place is on the checklist; the rest still gets linked.
-        link_clear_target "$mode" "$unit" "$state" || skipped="$skipped $pkg/$unit"
+        link_clear_target "$mode" "$unit" "$state" || continue
+        link_create "$unit" "$source" || failed=1
     done < <(link_units)
-
-    if [ -n "$skipped" ]; then
-        # stow refuses the whole run_or_print on a conflict, so ignore what was left in place.
-        local ignore_args=() item
-        for item in $skipped; do
-            # stow matches this against the path inside the package and anchors the end.
-            ignore_args+=("--ignore=^$(link_regex_escape "${item#*/}")(/.*)?")
-        done
-        link_run_stow "${ignore_args[@]}" || failed=1
-    else
-        link_run_stow || failed=1
-    fi
     [ "$failed" = 0 ] && [ "$DOT_DRY_RUN" = 0 ] && print_ok "dotfiles linked"
     return "$failed"
 }
 
-link_regex_escape() { printf '%s' "$1" | sed 's/[][\.*^$+?(){}|]/\\&/g'; }
+# Link $HOME/<unit> to <source> with a relative path, so the link survives
+# $HOME being mounted or synced elsewhere.
+link_create() {
+    local unit="$1" source="$2" from
+    if [ "$DOT_DRY_RUN" = 1 ]; then
+        print_info "would link $(display_path "$HOME/$unit")"
+        return 0
+    fi
+    from="$(cd -P "$(dirname "$HOME/$unit")" && pwd -P)" || return 1
+    ln -s "$(link_relative_path "$from" "$source")" "$HOME/$unit" ||
+        { print_fail "could not link $(display_path "$HOME/$unit")"; return 1; }
+}
 
-link_run_stow() {
-    local pkgs=() pkg
-    while read -r pkg; do pkgs+=("$pkg"); done < <(link_packages)
-    run_or_print stow --dir="$DOT_REPO" --target="$HOME" --restow "$@" "${pkgs[@]}"
+# The path to $2 relative to directory $1. Both absolute, with symlinks resolved.
+link_relative_path() {
+    local from="$1" to="$2" up=""
+    while [ -n "$from" ]; do
+        case "$to/" in "$from"/*) break ;; esac
+        from="${from%/*}"
+        up="../$up"
+    done
+    printf '%s%s' "$up" "${to#"$from"/}"
 }
 
 # Doctor: report every unit that is not a correct link.

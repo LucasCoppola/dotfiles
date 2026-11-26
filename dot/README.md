@@ -1,8 +1,7 @@
 # dot
 
 Sets up, updates and checks a machine (macOS, Omarchy) from this repo. Bash 3.2
-compatible, so it runs on a fresh Mac; its only dependency is GNU stow, which it
-installs itself.
+compatible, so it runs on a fresh Mac, and needs nothing but git.
 
 ```sh
 dot init               # set up this machine (safe to run again)
@@ -22,7 +21,7 @@ three functions: `component_<name>_install`, `_update` and `_check`.
 | --- | --- |
 | `package_manager` | Homebrew on macOS (installs it); checks for yay on Omarchy |
 | `repo` | Pulls on update, keeping uncommitted changes; skips when they overlap with incoming ones |
-| `links` | Links `home/` and `home.<os>/` into `~` with stow |
+| `links` | Links `home/` into `~`, and `home/linux/` or `home/macos/` on that OS |
 | `packages` | Installs what is missing from `packages/`; reports what is untracked. Never uninstalls |
 | `mise` | `mise install`; doctor runs `mise doctor` and finds commands installed twice |
 | `zsh` | oh-my-zsh, its two extra plugins, zsh as login shell |
@@ -67,7 +66,7 @@ When something is already at a link's place:
 ## Tests
 
 ```sh
-dot/tests/run-tests             # shellcheck + bats (needs stow; the rest comes from mise)
+dot/tests/run-tests             # shellcheck + bats (both from mise)
 dot/tests/check-package-names   # every arch.txt name still exists (needs pacman)
 ```
 

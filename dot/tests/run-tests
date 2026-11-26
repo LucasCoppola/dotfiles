@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Lint with shellcheck, then run every bats file. Needs stow on PATH; bats and shellcheck come from mise.
+# Lint with shellcheck, then run every bats file. bats and shellcheck come from mise.
 set -euo pipefail
 cd "$(dirname "$0")/.."
 mise x shellcheck@latest -- shellcheck -x -P lib bin/dot lib/*.sh lib/components/*.sh tests/run-tests tests/check-package-names tests/*.bash

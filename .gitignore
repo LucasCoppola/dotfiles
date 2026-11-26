@@ -7,7 +7,7 @@ home/.agents/skills/omarchy-app
 home/.agents/skills/superwhisper
 
 # Machine-local values referenced by tracked Hyprland bindings
-home.linux/.config/hypr/private/
+home/linux/.config/hypr/private/
 
 # Installer/sync-managed skills
 home/.agents/skills/plannotator*/
@@ -19,9 +19,9 @@ home/.config/herdr-auto-title/instances/
 home/.config/herdr-auto-title/manual-names.json
 
 # Omarchy backups and transient selector locks
-home.linux/.config/omarchy/shell.json.bak.*
-home.linux/.config/omarchy/defaults/*.lock
+home/linux/.config/omarchy/shell.json.bak.*
+home/linux/.config/omarchy/defaults/*.lock
 
 # Deployed plugins: owned by Portwatch's installer or the Superwhisper package
-home.linux/.config/omarchy/plugins/portwatch.panel/
-home.linux/.config/omarchy/plugins/superwhisper-panel
+home/linux/.config/omarchy/plugins/portwatch.panel/
+home/linux/.config/omarchy/plugins/superwhisper-panel

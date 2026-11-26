@@ -5,7 +5,7 @@
 
 # Commands that should have exactly one install. More than one on PATH means
 # two owners, and which one runs depends on PATH order.
-DOT_SINGLE_OWNER_COMMANDS="node npm pnpm bun go cargo rustc gh pi claude codex plannotator kiro-cli nvim stow"
+DOT_SINGLE_OWNER_COMMANDS="node npm pnpm bun go cargo rustc gh pi claude codex plannotator kiro-cli nvim"
 
 component_mise_install() {
     if ! command_exists mise; then

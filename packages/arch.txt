@@ -2,9 +2,6 @@
 # One per line; `#` starts a comment. Languages and agent CLIs live in
 # home/.config/mise/config.toml, not here.
 
-# dot itself
-stow
-
 # Shell and editor
 zsh
 neovim
@@ -17,7 +14,7 @@ android-tools      # adb
 android-udev       # adb device permissions
 
 # Desktop
-hypridle           # home.linux/.config/hypr/hypridle.conf
+hypridle           # home/linux/.config/hypr/hypridle.conf
 otf-geist-mono-nerd
 
 # agents
