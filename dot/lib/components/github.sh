@@ -41,7 +41,12 @@ component_github_install() {
     fi
     if ! github_accepts_ssh_key; then
         if command_exists gh && gh auth status >/dev/null 2>&1; then
-            gh ssh-key add "$DOT_SSH_KEY.pub" --title "$(hostname)" || return 1
+            # Logins never fail init: a refused upload (missing admin:public_key
+            # scope, a CI token) goes on the checklist.
+            if ! gh ssh-key add "$DOT_SSH_KEY.pub" --title "$(hostname)"; then
+                add_todo "add your SSH key to GitHub: gh auth refresh -s admin:public_key, then dot init --only github"
+                return 0
+            fi
         else
             add_todo "add your SSH key to GitHub: gh auth login -s admin:public_key, then dot init --only github"
             return 0
