@@ -39,15 +39,15 @@ component_mise_check() {
     return "$problems"
 }
 
-# Fail when distinct installs of a command are on PATH (mise shims and
-# symlinks to the same file count once).
+# Fail when distinct installs of a command are on PATH (everything under mise
+# counts once, as do symlinks to the same file).
 mise_check_single_owner() {
     local cmd="$1" path real seen=""
     while IFS= read -r path; do
         real="$(cd -P "$(dirname "$path")" && pwd -P)/$(basename "$path")"
         while [ -L "$real" ]; do real="$(link_target_of "$real")" || break; done
-        # mise shims and command wrappers are the mise binary standing in for a tool.
-        case "$real" in */mise/shims/* | */bin/mise) continue ;; esac
+        # Shims, wrappers and activated install dirs are all one owner: mise.
+        case "$real" in */mise/shims/* | */bin/mise | */mise/installs/*) real=mise ;; esac
         case " $seen " in *" $real "*) ;; *) seen="$seen $real" ;; esac
     done < <(type -aP "$cmd" 2>/dev/null)
     # shellcheck disable=SC2086 # split the list into arguments to count them
